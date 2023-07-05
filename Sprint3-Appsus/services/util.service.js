@@ -1,3 +1,4 @@
+
 export const utilService = {
     makeId,
     makeLorem,
@@ -6,7 +7,9 @@ export const utilService = {
     saveToStorage,
     padNum,
     getDayName,
-    getMonthName
+    getMonthName,
+    getMonthName,
+    animateCSS,
 }
 
 function makeId(length = 6) {
@@ -59,4 +62,19 @@ function getMonthName(date) {
         'July', 'August', 'September', 'October', 'November', 'December'
     ]
     return monthNames[date.getMonth()]
+}
+function animateCSS(el, animation) {
+    return new Promise(resolve => {
+        
+        const animationName = `animate__${animation}`
+        el.classList.add(`animate__animated`, animationName)
+        el.addEventListener('animationend', handleAnimationEnd, { once: true })
+        
+        // When the animation ends, we clean the classes and resolve the Promise
+        function handleAnimationEnd(event) {
+            event.stopPropagation()
+            el.classList.remove(`${prefix}animated`, animationName)
+            resolve('Animation ended')
+        }
+    })
 }
