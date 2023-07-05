@@ -18,7 +18,7 @@ export default {
                     <!-- <section class="actions">
                         <button @click="onRemoveNote(note.id)" class="remove-btn clean-btn">x</button>
                     </section> -->
-                    <NotePreview :note="note" />
+                    <NotePreview :note="note" @remove="onRemoveNote" />
                 </li>
             </ul>
         </section>

@@ -160,7 +160,9 @@ function _createnote(title) {
 }
 
 function _createNotes() {
-    const notes = [
+  let notes = utilService.loadFromStorage(NOTE_KEY)
+  if (!notes || !notes.length) {
+      notes = [
       {
         id: 'n101',
         createdAt: 1112222,
@@ -213,6 +215,7 @@ function _createNotes() {
     ];
   
     utilService.saveToStorage(NOTE_KEY, notes);
+  }
   }
   
 
