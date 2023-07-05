@@ -9,6 +9,11 @@ html {
 body {
   margin: 0;
   color: var(--clr4);
+  background-color: #fff;
+  color: #202124;
+  direction: ltr;
+  font-family: "Roboto",arial,sans-serif;
+  font-size: 15px;
 }
 
 h1,

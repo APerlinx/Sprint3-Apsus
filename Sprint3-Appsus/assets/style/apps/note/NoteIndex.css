@@ -1,0 +1,82 @@
+.keep-app {
+    margin-top: 4em;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: 
+    "nav-bar add-note"
+    "nav-bar notes";
+}
+.notes {
+    width: 100%;
+    grid-area: notes;
+    justify-self: center;
+    align-self: center;
+    column-count: 4; 
+    column-gap: 1rem;
+}
+
+.menu {
+    grid-area: nav-bar;
+}
+
+.add-note {
+    grid-area: add-note;
+    box-sizing: border-box;
+    width: 600px;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 2em;
+    padding: 12px 16px;;
+    letter-spacing: .01428571em;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: #202124;
+    border-radius: 8px;
+}
+
+.add-note::before {
+    content: "Take a note...";
+}
+
+.add-note {
+    position: relative;
+    padding-right: 30px; 
+  }
+  
+  .add-note button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .add-note .add-icon {
+    right: 50px; 
+  }
+  
+  .add-note .delete-icon {
+    right: 5px; 
+  }
+
+  .add-note button:hover {
+    background-color: #e2e2e2;
+    border-radius: 50%;
+  }
+  
+  
+
+.note {
+    background-color: #fff;
+    width: 238px;
+    height: max-content;
+    padding: 12px 16px;
+    border-color: #e0e0e0;
+    border: 1px solid;
+    text-align: center;
+    break-inside: avoid-column; /* Prevent notes from breaking across columns */
+    margin-bottom: 1em;
+    border-radius: 8px;
+}
