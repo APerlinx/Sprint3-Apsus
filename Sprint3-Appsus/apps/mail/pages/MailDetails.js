@@ -1,5 +1,5 @@
 
-// import { mailService } from '../services/mail.service.js'
+import { mailService } from '../services/mail.service.js'
 
 export default {
     template: `
@@ -13,8 +13,8 @@ export default {
             <h6>to:{{ mail.to }}</h6>
             
 
-            <!-- <RouterLink :to="'/mail/' + mail.nextMailId">Next Mail</RouterLink> |
-            <RouterLink :to="'/mail/' + mail.prevMailId">Prev Mail</RouterLink> | -->
+            <RouterLink :to="'/mail/' + mail.nextMailId">Next Mail</RouterLink> |
+            <RouterLink :to="'/mail/' + mail.prevMailId">Prev Mail</RouterLink> |
             
             <RouterLink to="/mail">Back to Mails</RouterLink>
         </section>
@@ -25,44 +25,31 @@ export default {
         }
     },
     created() {
-        // this.loadMail()
-        this.getMail()
+        this.loadMail()
     },
     methods: {
-        // loadMail() {
-        //     const { mailId } = this.$route.params
-        //     mailService
-        //         .get(mailId)
-        //         .then(mail => {
-        //                 this.mail = mail
-        //         })
-        //         .catch(err => {
-        //                 alert('Cannot load mail')
-        //                 this.$router.push('/mail')
-        //             })
-        //     },
-            getMail() {
-                this.mail = [{
-                id: this.$route.params,
-                subject: 'Miss you!',
-                body: 'Would love to catch up sometimes',
-                isRead: false,
-                sentAt: 1551133930594,
-                removedAt: null,
-                from: 'momo@momo.com',
-                to: 'user@appsus.com'
-            }]
-        }
-
+        loadMail() {
+            const { mailId } = this.$route.params
+            mailService
+                .get(mailId)
+                .then(mail => {
+                        this.mail = mail
+                })
+                .catch(err => {
+                        alert('Cannot load mail')
+                        this.$router.push('/mail')
+                    })
+            },
+            
     },
     watch: {
-        // mailId() {
-        //     this.loadMail()
-        // },
+        mailId() {
+            this.loadMail()
+        },
     },
     computed: {
-        // mailId() {
-        //     return this.$route.params.mailId
-        // },
+        mailId() {
+            return this.$route.params.mailId
+        },
     },
 }

@@ -20,40 +20,13 @@ export default {
     `,
     data() {
         return {
-            mails: [{
-                id: 'e101',
-                subject: 'Miss you!',
-                body: 'Would love to catch up sometimes',
-                isRead: false,
-                sentAt : 1551133930594,
-                removedAt : null,
-                from: 'momo@momo.com',
-                to: 'user@appsus.com'
-                },{
-                    id: 'e101',
-                    subject: 'Miss you!',
-                    body: 'Would love to catch up sometimes',
-                    isRead: false,
-                    sentAt : 1551133930594,
-                    removedAt : null,
-                    from: 'momo@momo.com',
-                    to: 'user@appsus.com'
-                    },{
-                        id: 'e101',
-                        subject: 'Miss you!',
-                        body: 'Would love to catch up sometimes',
-                        isRead: false,
-                        sentAt : 1551133930594,
-                        removedAt : null,
-                        from: 'momo@momo.com',
-                        to: 'user@appsus.com'
-                        }],
+            mails: [],
             filterBy: null,
         }
     },
     created() {
-        // mailService.query()
-        //     .then(mails => this.mails = mails)
+        mailService.query()
+            .then(mails => this.mails = mails)
     },
     components: {
         MailFilter,

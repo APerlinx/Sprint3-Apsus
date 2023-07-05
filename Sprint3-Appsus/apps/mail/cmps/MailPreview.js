@@ -2,7 +2,7 @@ export default {
     props: ['mail'],
     template: `
         <article class="mail-preview">
-            <h1>id:{{ mail.id }}</h1>
+            <!-- <h1>id:{{ mail.id }}</h1> -->
             <h2>subject:{{ mail.subject }}</h2>
             <h3>from:{{ mail.from }}</h3>
             <h4>to:{{ mail.to }}</h4>
