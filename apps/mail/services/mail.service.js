@@ -10,16 +10,6 @@ var gPageIdx
 
 _createMails()
 
-const email = {
-    id: 'e101',
-    subject: 'Miss you!',
-    body: 'Would love to catch up sometimes',
-    isRead: false,
-    sentAt: 1551133930594,
-    removedAt: null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com'
-}
 
 const loggedinUser = {
     email: 'user@appsus.com',
@@ -115,21 +105,21 @@ function getNextMailId(mailId) {
 // }
 
 function getEmptyMail(subject = 'No subject', body = 'Empty Message', from = 'momo@momo.com', to = 'user@appsus.com') {
-    return { id: '', subject, body, isRead:false, sentAt:Date.now(), removedAt:'', from, to }
+    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to }
 }
 
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
-        mails.push(_createMail('Miss you!', 'Would love to catch up sometimes', 'momo@momo.com', 'user@appsus.com' ))
-        mails.push(_createMail('hi!', 'what are you doing', 'bla@bla.com', 'user@appsus.com' ))
-        mails.push(_createMail('dear john', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'hwu@add.com', 'user@appsus.com' ))
-        mails.push(_createMail('hello', 'whats the weather?', 'asd@ttg.com', 'user@appsus.com' ))
-        mails.push(_createMail('Dear Mrs. Smith', 'whats the time?', 'momo@momo.com', 'sas@fd.com' ))
+        mails.push(_createMail('Miss you!', 'Would love to catch up sometimes', 'momo@momo.com', 'user@appsus.com'))
+        mails.push(_createMail('hi!', 'what are you doing', 'bla@bla.com', 'user@appsus.com'))
+        mails.push(_createMail('dear john', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'hwu@add.com', 'user@appsus.com'))
+        mails.push(_createMail('hello', 'whats the weather?', 'asd@ttg.com', 'user@appsus.com'))
+        mails.push(_createMail('Dear Mrs. Smith', 'whats the time?', 'momo@momo.com', 'sas@fd.com'))
         utilService.saveToStorage(MAIL_KEY, mails)
     }
-    
+
 }
 
 function _createMail(subject, body, from, to) {
@@ -137,3 +127,22 @@ function _createMail(subject, body, from, to) {
     mail.id = utilService.makeId()
     return mail
 }
+
+function _formatDate() {
+    const date = new Date(Date.now())
+  
+    // Get hours and pad with leading zero if necessary
+    const hours = String(date.getHours()).padStart(2, '0')
+  
+    // Get minutes and pad with leading zero if necessary
+    const minutes = String(date.getMinutes()).padStart(2, '0')
+  
+    // Get day of the month
+    const day = date.getDate()
+  
+    // Get month in word format
+    const month = date.toLocaleString('default', { month: 'long' })
+  
+    // Return the formatted date string
+    return `${hours}:${minutes} ${day} ${month}`
+  }
