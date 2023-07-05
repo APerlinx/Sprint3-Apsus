@@ -13,6 +13,10 @@
 @import 'cmps/HomePage.css';
 @import 'cmps/AppHeader.css';
 
+
 /* Apps */
 @import 'apps/mail/EmailIndex.css';
 @import 'apps/note/NoteIndex.css';
+
+/* Note cmps */
+@import './apps/note/cmps/NotePreview.css';
