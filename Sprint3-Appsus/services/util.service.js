@@ -8,7 +8,6 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
-    getMonthName,
     animateCSS,
 }
 
