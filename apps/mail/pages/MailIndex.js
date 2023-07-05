@@ -15,7 +15,7 @@ export default {
                 v-if="mails"
                 
                 :mails="mails"
-                @remove="removeMail" /> 
+                @mark="markAsRead" /> 
         </section>
     `,
     data() {
@@ -23,6 +23,19 @@ export default {
             mails: [],
             filterBy: null,
         }
+    },
+    methods: {
+        markAsRead(mailId) {
+            // mailService.save(mailId)    
+            //     .then(() => {
+            //         const idx = this.cars.findIndex(car => car.id === carId)
+            //         this.cars.splice(idx, 1)
+            //         showSuccessMsg('Car removed')
+            //     })
+            //     .catch(err => {
+            //         showErrorMsg('Cannot remove car')
+            //     })
+        },
     },
     created() {
         mailService.query()
