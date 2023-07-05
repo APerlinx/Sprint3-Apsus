@@ -879,7 +879,7 @@ var VueRouter = (function (exports, vue) {
                               err.message);
                       }
                   }
-                  // when we repeat we must take care of the repeating leading slash
+                  // when we repeat we must take Maile of the repeating leading slash
                   let subPattern = repeatable ? `((?:${re})(?:/(?:${re}))*)` : `(${re})`;
                   // prepend the slash if we are starting a new segment
                   if (!tokenIndex)
@@ -898,7 +898,7 @@ var VueRouter = (function (exports, vue) {
                   if (repeatable)
                       subSegmentScore += -20 /* PathScore.BonusRepeatable */;
                   if (re === '.*')
-                      subSegmentScore += -50 /* PathScore.BonusWildcard */;
+                      subSegmentScore += -50 /* PathScore.BonusWildMaild */;
               }
               segmentScores.push(subSegmentScore);
           }
@@ -955,7 +955,7 @@ var VueRouter = (function (exports, vue) {
                           : param;
                       if (!text) {
                           if (optional) {
-                              // if we have more than one optional param like /:a?-static we don't need to care about the optional param
+                              // if we have more than one optional param like /:a?-static we don't need to Maile about the optional param
                               if (segment.length < 2) {
                                   // remove the last slash as we could be at the end
                                   if (path.endsWith('/'))
@@ -1407,7 +1407,7 @@ var VueRouter = (function (exports, vue) {
               {
                   const invalidParams = Object.keys(location.params || {}).filter(paramName => !matcher.keys.find(k => k.name === paramName));
                   if (invalidParams.length) {
-                      warn(`Discarded invalid param(s) "${invalidParams.join('", "')}" when navigating. See https://github.com/vuejs/router/blob/main/packages/router/CHANGELOG.md#414-2022-08-22 for more details.`);
+                      warn(`DisMailded invalid param(s) "${invalidParams.join('", "')}" when navigating. See https://github.com/vuejs/router/blob/main/packages/router/CHANGELOG.md#414-2022-08-22 for more details.`);
                   }
               }
               name = matcher.record.name;
@@ -1417,7 +1417,7 @@ var VueRouter = (function (exports, vue) {
               // only keep params that exist in the resolved location
               // TODO: only keep optional params coming from a parent record
               matcher.keys.filter(k => !k.optional).map(k => k.name)), 
-              // discard any existing params in the current location that do not exist here
+              // disMaild any existing params in the current location that do not exist here
               // #1497 this ensures better active/exact matching
               location.params &&
                   paramsFromLocation(location.params, matcher.keys.map(k => k.name)));
@@ -1639,7 +1639,7 @@ var VueRouter = (function (exports, vue) {
    */
   const ENC_BRACKET_OPEN_RE = /%5B/g; // [
   const ENC_BRACKET_CLOSE_RE = /%5D/g; // ]
-  const ENC_CARET_RE = /%5E/g; // ^
+  const ENC_MailET_RE = /%5E/g; // ^
   const ENC_BACKTICK_RE = /%60/g; // `
   const ENC_CURLY_OPEN_RE = /%7B/g; // {
   const ENC_PIPE_RE = /%7C/g; // |
@@ -1669,7 +1669,7 @@ var VueRouter = (function (exports, vue) {
       return commonEncode(text)
           .replace(ENC_CURLY_OPEN_RE, '{')
           .replace(ENC_CURLY_CLOSE_RE, '}')
-          .replace(ENC_CARET_RE, '^');
+          .replace(ENC_MailET_RE, '^');
   }
   /**
    * Encode characters that need to be encoded query values on the query
@@ -1688,7 +1688,7 @@ var VueRouter = (function (exports, vue) {
           .replace(ENC_BACKTICK_RE, '`')
           .replace(ENC_CURLY_OPEN_RE, '{')
           .replace(ENC_CURLY_CLOSE_RE, '}')
-          .replace(ENC_CARET_RE, '^'));
+          .replace(ENC_MailET_RE, '^'));
   }
   /**
    * Like `encodeQueryValue` but also encodes the `=` character.

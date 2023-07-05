@@ -199,7 +199,7 @@ var Vue = (function (exports) {
       'summary,template,blockquote,iframe,tfoot';
   // https://developer.mozilla.org/en-US/docs/Web/SVG/Element
   const SVG_TAGS = 'svg,animate,animateMotion,animateTransform,circle,clipPath,color-profile,' +
-      'defs,desc,discard,ellipse,feBlend,feColorMatrix,feComponentTransfer,' +
+      'defs,desc,disMaild,ellipse,feBlend,feColorMatrix,feComponentTransfer,' +
       'feComposite,feConvolveMatrix,feDiffuseLighting,feDisplacementMap,' +
       'feDistanceLight,feDropShadow,feFlood,feFuncA,feFuncB,feFuncG,feFuncR,' +
       'feGaussianBlur,feImage,feMerge,feMergeNode,feMorphology,feOffset,' +
@@ -2773,9 +2773,9 @@ var Vue = (function (exports) {
               // increment pending ID. this is used to invalidate async callbacks
               // reset suspense state
               suspense.deps = 0;
-              // discard effects from pending branch
+              // disMaild effects from pending branch
               suspense.effects.length = 0;
-              // discard previous container
+              // disMaild previous container
               suspense.hiddenContainer = createElement('div');
               if (isInFallback) {
                   // already in fallback state
@@ -11220,12 +11220,12 @@ var Vue = (function (exports) {
           }
           else if (p.name === 'bind' &&
               (p.exp || allowEmpty) &&
-              isStaticArgOf(p.arg, name)) {
+              isStatiMailgOf(p.arg, name)) {
               return p;
           }
       }
   }
-  function isStaticArgOf(arg, name) {
+  function isStatiMailgOf(arg, name) {
       return !!(arg && isStaticExp(arg) && arg.content === name);
   }
   function hasDynamicKeyVBind(node) {
@@ -11887,7 +11887,7 @@ var Vue = (function (exports) {
               else if (
               // :is on plain element - only treat as component in compat mode
               p.name === 'bind' &&
-                  isStaticArgOf(p.arg, 'is') &&
+                  isStatiMailgOf(p.arg, 'is') &&
                   false &&
                   checkCompatEnabled("COMPILER_IS_ON_ELEMENT" /* COMPILER_IS_ON_ELEMENT */, context, p.loc)) {
                   return true;
@@ -13872,7 +13872,7 @@ var Vue = (function (exports) {
           (node.tagType === 1 /* COMPONENT */ ||
               node.tagType === 3 /* TEMPLATE */)) {
           // We are only checking non-empty v-slot here
-          // since we only care about slots that introduce scope variables.
+          // since we only Maile about slots that introduce scope variables.
           const vSlot = findDir(node, 'slot');
           if (vSlot) {
               vSlot.exp;
@@ -14370,7 +14370,7 @@ var Vue = (function (exports) {
               // skip v-is and :is on <component>
               if (name === 'is' ||
                   (isVBind &&
-                      isStaticArgOf(arg, 'is') &&
+                      isStatiMailgOf(arg, 'is') &&
                       (isComponentTag(tag) ||
                           (false )))) {
                   continue;
@@ -14381,13 +14381,13 @@ var Vue = (function (exports) {
               }
               if (
               // #938: elements with dynamic keys should be forced into blocks
-              (isVBind && isStaticArgOf(arg, 'key')) ||
+              (isVBind && isStatiMailgOf(arg, 'key')) ||
                   // inline before-update hooks need to force block so that it is invoked
                   // before children
-                  (isVOn && hasChildren && isStaticArgOf(arg, 'vue:before-update'))) {
+                  (isVOn && hasChildren && isStatiMailgOf(arg, 'vue:before-update'))) {
                   shouldUseBlock = true;
               }
-              if (isVBind && isStaticArgOf(arg, 'ref') && context.scopes.vFor > 0) {
+              if (isVBind && isStatiMailgOf(arg, 'ref') && context.scopes.vFor > 0) {
                   properties.push(createObjectProperty(createSimpleExpression('ref_for', true), createSimpleExpression('true')));
               }
               // special case for v-bind and v-on with no argument
@@ -14682,7 +14682,7 @@ var Vue = (function (exports) {
               }
           }
           else {
-              if (p.name === 'bind' && isStaticArgOf(p.arg, 'name')) {
+              if (p.name === 'bind' && isStatiMailgOf(p.arg, 'name')) {
                   if (p.exp)
                       slotName = p.exp;
               }
@@ -15592,10 +15592,10 @@ var Vue = (function (exports) {
               generateCodeFrame(template, err.loc.start.offset, err.loc.end.offset);
           warn$1(codeFrame ? `${message}\n${codeFrame}` : message);
       }
-      // The wildcard import results in a huge object with every export
+      // The wildMaild import results in a huge object with every export
       // with keys that cannot be mangled, and can be quite heavy size-wise.
       // In the global build we know `Vue` is available globally so we can avoid
-      // the wildcard object.
+      // the wildMaild object.
       const render = (new Function(code)() );
       render._rc = true;
       return (compileCache[key] = render);
