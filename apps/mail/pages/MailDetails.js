@@ -17,6 +17,7 @@ export default {
             <RouterLink :to="'/mail/' + mail.prevMailId">Prev Mail</RouterLink> |
             
             <RouterLink to="/mail">Back to Mails</RouterLink>
+            <!-- <button @click="onRemoveMail(mail.id)">x</button> -->
         </section>
     `,
     data() {
@@ -26,6 +27,10 @@ export default {
     },
     created() {
         this.loadMail()
+
+
+
+
     },
     methods: {
         loadMail() {
@@ -33,14 +38,25 @@ export default {
             mailService
                 .get(mailId)
                 .then(mail => {
-                        this.mail = mail
+                    this.mail = mail
                 })
                 .catch(err => {
-                        alert('Cannot load mail')
-                        this.$router.push('/mail')
-                    })
-            },
-            
+                    alert('Cannot load mail')
+                    this.$router.push('/mail')
+                })
+        },
+        // onRemoveMail(mailId) {
+        //     mailService.remove(mailId)
+        //         .then(() => {
+        //             const idx = this.mails.findIndex(car => car.id === carId)
+        //             this.cars.splice(idx, 1)
+        //             showSuccessMsg('Car removed')
+        //         })
+        //         .catch(err => {
+        //             showErrorMsg('Cannot remove car')
+        //         })
+        // }
+
     },
     watch: {
         mailId() {

@@ -1,3 +1,4 @@
+import { mailService } from '../services/mail.service.js'
 import MailPreview from './MailPreview.js'
 
 export default {
@@ -9,16 +10,27 @@ export default {
                     <!-- <h1>hi</h1> -->
                     <MailPreview :mail="mail"/>
                     <section class="actions">
-                        <!-- <button @click="onRemoveMail(mail.id)">x</button> -->
+
+                        
+                        <!-- <button @click="isRead">x</button> -->
                     </section>
                 </li>
             </TransitionGroup>
         </section>
     `,
     methods: {
-        onRemoveCar(carId) {
-            this.$emit('remove', mailId)
-        }
+        // onRemoveCar(carId) {
+        //     this.$emit('remove', mailId)
+        // }
+        
+            // console.log(mail)
+
+        
+    },
+    computed: {
+        
+        
+        
     },
     components: {
         MailPreview,
