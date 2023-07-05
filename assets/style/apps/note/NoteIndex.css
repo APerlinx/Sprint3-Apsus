@@ -1,7 +1,7 @@
 .keep-index {
     margin-top: 4em;
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 100px auto 20px;
     grid-template-areas: 
     "nav-bar add-note"
     "nav-bar notes";
@@ -12,11 +12,9 @@
 }
 
 .notes {
-    width: 100%;
     grid-area: notes;
     justify-self: center;
     align-self: center;
-
 }
 
 .add-note {

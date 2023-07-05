@@ -1,7 +1,8 @@
 .app-header {
-  background-color: var(--clr5);
-  color: var(--secondary-clr1);
+  background-color: #fff;
+  color: black;
   padding: 1em;
+  border-bottom:1px solid grey ;
 }
 
 @media(max-width: 720px) {
