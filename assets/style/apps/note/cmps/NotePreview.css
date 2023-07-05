@@ -1,12 +1,54 @@
 .note-preview {
-    background-color: #fff;
-    width: 238px;
-    height: max-content;
-    padding: 12px 16px;
-    border-color: #e0e0e0;
-    border: 1px solid;
-    text-align: center;
-    break-inside: avoid-column;
-    margin-bottom: 1em;
-    border-radius: 8px;
+    position: relative;
+  background-color: #fff;
+  width: 238px;
+  padding: 12px 16px;
+  padding-bottom: 0px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  break-inside: avoid-column;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
 }
+
+.note-preview:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tool-tip {
+  display: flex;
+  gap: 8px;
+  margin-top: 0.2em;
+  justify-content: center;
+  align-items: end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.note-preview:hover .tool-tip {
+    opacity: 1;
+  }
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-size: 24px; 
+  cursor: pointer;
+  transform: scale(0.8);
+  padding: 0.35em;
+  border-radius: 50%;
+  transition: 0.218s;
+}
+
+.material-icons:hover {
+   background-color: rgb(224, 224, 224);
+  }
+
+  .unpinned-icon {
+    font-size: 24px;
+    color: #000; /* Adjust the color as needed */
+    background-color: transparent;
+  }
+  
+  

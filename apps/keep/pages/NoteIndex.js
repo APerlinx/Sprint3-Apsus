@@ -5,6 +5,8 @@ import NoteFilter from '../cmps/NoteFilter.js'
 import NoteList from '../cmps/NoteList.js'
 import NoteAdd from '../cmps/NoteAdd.js'
 
+import KeepMenu from '../cmps/KeepMenu.js'
+
 
 export default {
 
@@ -18,7 +20,7 @@ export default {
              @remove="removeSelected" />
         </section>
         <nav class="menu">
-            <h1>navbar</h1>
+            <KeepMenu />
         </nav>
     </main>
   
@@ -56,5 +58,6 @@ export default {
         NoteFilter,
         NoteList,
         NoteAdd,
+        KeepMenu,
       },
 }

@@ -202,9 +202,11 @@ function _createNotes() {
         type: 'NoteTodos',
         isPinned: false,
         info: {
-          title: 'Get my stuff together',
+          title: 'Coding',
           todos: [
-            { txt: 'Learn javascript', doneAt: null },
+            { txt: 'Learn Javascript', doneAt: null },
+            { txt: 'Learn Vue', doneAt: null },
+            { txt: 'Learn Angular', doneAt: null },
           ]
         }
       }
