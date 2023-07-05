@@ -24,6 +24,7 @@ export const noteService = {
   getnoteCountBySpeedMap,
   addReview,
   removeReview,
+  // pinUnpin,
 };
 window.noteService = noteService;
 
@@ -49,7 +50,7 @@ function query() {
 
 function get(noteId) {
   return storageService.get(NOTE_KEY, noteId)
-      .then(note => _setNextPrevNoteId(note))
+      .then(note => _setNextPrevnoteId(note))
 }
 
 function remove(noteId) {
@@ -97,6 +98,16 @@ function getNextnoteId(noteId) {
     return notes[idx + 1].id;
   });
 }
+
+// function pinUnpin(noteId) {
+//     return get(noteId) 
+//             .then(note => {
+//               note.isPinned ? 
+//                 !note.isPinned
+//                 : note.isPinned === tr
+//             } )
+//     console.log('note', note);
+// }
 
 function getnoteCountBySpeedMap() {
   return storageService.query(NOTE_KEY).then((notes) => {

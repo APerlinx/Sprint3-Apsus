@@ -1,34 +1,56 @@
-import NotePreview from './NotePreview.js'
+import NotePreview from './NotePreview.js';
 
 export default {
-    props: {
-        notes: {
-          type: Array,
-          required: true,
-          default: [],
-          validator: function(value) {
-            return value.length >= 0;
-          }
-        }
+  emits: ['remove','pin-state'],
+  props: {
+    notes: {
+      type: Array,
+      required: true,
+      default: [],
+      validator: function (value) {
+        return value.length >= 0;
+      },
     },
-    template: `
-        <section class="note-list">
-            <ul>
-                <li v-for="note in notes" :key="note.id" class="clean-list">
-                    <!-- <section class="actions">
-                        <button @click="onRemoveNote(note.id)" class="remove-btn clean-btn">x</button>
-                    </section> -->
-                    <NotePreview :note="note" @remove="onRemoveNote" />
-                </li>
-            </ul>
-        </section>
+  },
+  template: `
+     <section class="note-list pinned" v-if="pinnedNotes.length > 0">
+     <h5>pinned</h5>
+        <TransitionGroup name="list" tag="ul">
+            <li v-for="note in pinnedNotes" :key="note.id" class="clean-list">
+             <NotePreview :note="note" @remove="onRemoveNote" @toggle-pin="onTogglePin" />
+            </li>
+        </TransitionGroup>
+    </section>
+    <section section class="note-list unpinned">
+    <h5>other</h5>
+         <TransitionGroup name="list" tag="ul">
+            <li v-for="note in unpinnedNotes" :key="note.id" class="clean-list">
+             <NotePreview :note="note" @remove="onRemoveNote" @toggle-pin="onTogglePin" />
+            </li>
+        </TransitionGroup>
+    </section>
+
     `,
-    methods: {
-        onRemoveNote(noteId) {
-            this.$emit('remove',noteId)
-        },
+    data() {
+        return {};
+      }, 
+  computed: {
+    pinnedNotes() {
+      return this.notes.filter((note) => note.isPinned);
     },
-    components: {
-       NotePreview,
+    unpinnedNotes() {
+      return this.notes.filter((note) => !note.isPinned);
+    },
+  },
+  methods: {
+    onRemoveNote(noteId) {
+      this.$emit('remove', noteId);
+    },
+    onTogglePin(note) {
+        this.$emit('pin-state', note);
     }
-}
+  },
+  components: {
+    NotePreview,
+  },
+};

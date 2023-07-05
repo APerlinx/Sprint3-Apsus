@@ -18,7 +18,8 @@ export default {
             <NoteList
              v-if="notes"
              :notes="notes"
-             @remove="removeNote" />
+             @remove="removeNote" 
+             @pin-state="togglePin" />
         </section>
         <nav class="menu">
             <KeepMenu />
@@ -63,6 +64,26 @@ export default {
       .catch(err => {
           showErrorMsg('Cannot save note')
       })
+    },
+    togglePin(note) {
+      const noteIndex = this.notes.findIndex((n) => n.id === note.id);
+    
+      if (noteIndex !== -1) {
+
+        this.notes[noteIndex].isPinned = note.isPinned;
+        noteService.save(this.notes[noteIndex])
+          .then(() => {
+            note.isPinned ?
+            showSuccessMsg('Note pinned')
+            :
+            showSuccessMsg('Note unpinned')
+          })
+          .catch((err) => {
+            showErrorMsg('Cannot update note');
+          });
+      } else {
+        console.log('Note not found in the list')
+      }
     },
     setFilterBy(filterBy) {
       this.filterBy = filterBy

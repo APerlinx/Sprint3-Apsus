@@ -3,10 +3,11 @@ import NoteTodos from './NoteTodos.js';
 import NoteImg from './NoteImg.js';
 
 export default {
+  emit: ['toggle-pin'],
   props: ['note'],
   template: `
     <article class="note-preview">
-         <i class="material-icons unpinned-icon">push_pin</i>
+        <i class="material-icons unpinned-icon" @click="togglePin">push_pin</i> 
       <component :is="getComponentName(note.type)" :note="note" />
       <div class="tool-tip">
          <i class="material-icons" title="reminder">add_alert</i>
@@ -34,7 +35,11 @@ export default {
     },
     removeNote(noteId) {
       this.$emit('remove', noteId)
-    }
+    },
+    togglePin() {
+      this.note.isPinned = !this.note.isPinned
+      this.$emit('toggle-pin', this.note)
+    },
   },
   components: {
     NoteTxt,
