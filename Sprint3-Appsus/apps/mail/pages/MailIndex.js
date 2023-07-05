@@ -7,7 +7,7 @@ import MailList from '../cmps/MailList.js'
 export default {
 	template: `
         <section class="mail-index">
-            <h1>hi</h1>
+            <pre>{{mails}}</pre>
             <!-- <RouterLink to="/mail/edit">Edit Mail</RouterLink>  -->
 
             <!-- <MailFilter @filter="setFilterBy"/> -->
@@ -19,7 +19,16 @@ export default {
     `,
     data() {
         return {
-            mails: [],
+            mails: [{
+                id: 'e101',
+                subject: 'Miss you!',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt : 1551133930594,
+                removedAt : null,
+                from: 'momo@momo.com',
+                to: 'user@appsus.com'
+                }],
             filterBy: null,
         }
     },
