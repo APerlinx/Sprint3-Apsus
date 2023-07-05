@@ -66,17 +66,3 @@
     border-radius: 50%;
   }
   
-  
-
-.note {
-    background-color: #fff;
-    width: 238px;
-    height: max-content;
-    padding: 12px 16px;
-    border-color: #e0e0e0;
-    border: 1px solid;
-    text-align: center;
-    break-inside: avoid-column; /* Prevent notes from breaking across columns */
-    margin-bottom: 1em;
-    border-radius: 8px;
-}

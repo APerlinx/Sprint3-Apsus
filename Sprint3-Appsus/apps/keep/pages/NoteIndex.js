@@ -1,23 +1,21 @@
 import { noteService } from '../services/note.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
+import NoteFilter from '../cmps/NoteFilter.js'
+import NoteList from '../cmps/NoteList.js'
+import NoteAdd from '../cmps/NoteAdd.js'
+
 
 export default {
 
 	template: `
     <main class="keep-index">
-       <div class="add-note" contenteditable="true" role="textbox">
-       <button class="add-icon" title="Add Note"><i class="fas fa-plus"></i></button>
-       <button class="delete-icon" title="Delete Note"><i class="fas fa-trash"></i></button>
-       </div>  
+        <NoteAdd />
         <section class="notes">
-          
-          <div class="note">im a note</div>
-          <div class="note">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-          <div class="note">Eius vero, fugiat nobis excepturi doloremque laboriosam</div>
-          <div class="note">id quam dolor, dolorem repellat distinctio accusantium ad iusto earum nesciunt similique tempore deserunt? In?</div>
-          <div class="note">Eius vero, fugiat nobis excepturi doloremque laboriosam</div>
-          <div class="note">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+            <NoteList
+             v-if="notes"
+             :notes="notes"
+             @remove="removeSelected" />
         </section>
         <nav class="menu">
             <h1>navbar</h1>
@@ -34,7 +32,29 @@ export default {
     created() {
         noteService
           .query()
-          .then(books => this.books = books)
-          .catch((error) => console.error('Error fetching books:', error))
+          .then(notes => this.notes = notes)
+          .catch((error) => console.error('Error fetching notes:', error))
+      },
+      methods: {
+        removeSelected(noteId) {
+          noteService.remove(noteId)
+            .then(() => {
+             const idx = this.notes.findIndex((note) => note.id === noteId)
+              this.notes.splice(idx, 1)
+              showSuccessMsg('note removed')
+            })
+            .catch(err => {
+              showErrorMsg('Cannot remove note')
+            })
+        },
+    
+        setFilterBy(filterBy) {
+          this.filterBy = filterBy
+        },
+      },
+      components: {
+        NoteFilter,
+        NoteList,
+        NoteAdd,
       },
 }

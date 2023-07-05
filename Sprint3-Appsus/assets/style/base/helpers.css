@@ -55,3 +55,10 @@
 .fa.fa-behance::before {
     content: "\f1b4";
 }
+
+/* btn helpers */
+
+.clean-btn {
+    background: none;
+    border: none;
+}
