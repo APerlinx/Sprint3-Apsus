@@ -1,4 +1,4 @@
-// import CarPreview from './CarPreview.js'
+import MailPreview from './MailPreview.js'
 
 export default {
     props: ['mails'],
@@ -6,8 +6,8 @@ export default {
         <section class="mail-list">
             <TransitionGroup name="list" tag="ul">
                 <li v-for="mail in mails" :key="mail.id">
-                    <h1>hi</h1>
-                    <!-- <MailPreview :mail="mail"/> -->
+                    <!-- <h1>hi</h1> -->
+                    <MailPreview :mail="mail"/>
                     <section class="actions">
                         <!-- <button @click="onRemoveMail(mail.id)">x</button> -->
                     </section>
@@ -21,7 +21,7 @@ export default {
         }
     },
     components: {
-        // MailPreview,
+        MailPreview,
     },
     name: 'MailList',
 }
