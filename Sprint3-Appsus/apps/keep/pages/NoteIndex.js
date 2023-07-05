@@ -1,6 +1,11 @@
+import { noteService } from '../services/note.service.js'
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+
+
 export default {
+
 	template: `
-    <main class="keep-app">
+    <main class="keep-index">
        <div class="add-note" contenteditable="true" role="textbox">
        <button class="add-icon" title="Add Note"><i class="fas fa-plus"></i></button>
        <button class="delete-icon" title="Delete Note"><i class="fas fa-trash"></i></button>
@@ -20,4 +25,16 @@ export default {
     </main>
   
     `,
+    data() {
+        return {
+            notes: [],
+            filterBy: null,
+        }
+    },
+    created() {
+        noteService
+          .query()
+          .then(books => this.books = books)
+          .catch((error) => console.error('Error fetching books:', error))
+      },
 }

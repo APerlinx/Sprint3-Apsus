@@ -3,14 +3,14 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 // import notesData from '../data/note-data.js'
 
-const PAGE_SIZE = 5;
-const NOTE_KEY = 'noteDB';
+const PAGE_SIZE = 5
+const NOTE_KEY = 'noteDB'
 
-var gFilterBy = {  };
-var gSortBy = { };
+var gFilterBy = {}
+var gSortBy = {}
 var gPageIdx;
 
-_createNote()
+_createNotes()
 
 export const noteService = {
   query,
@@ -29,22 +29,22 @@ window.noteService = noteService;
 
 function query() {
   return storageService.query(NOTE_KEY).then((notes) => {
-//     if (gFilterBy.title) {
-//       const regex = new RegExp(gFilterBy.title, 'i');
-//       notes = notes.filter((note) => regex.test(note.title));
-//     }
-//     if (gPageIdx !== undefined) {
-//       const startIdx = gPageIdx * PAGE_SIZE;
-//       notes = notes.slice(startIdx, startIdx + PAGE_SIZE);
-//     }
-//     if (gSortBy.price !== undefined) {
-//         notes.sort((c1, c2) => (c1.price - c2.price) * gSortBy.price);
-//     } else if (gSortBy.title !== undefined) {
-//         notes.sort((c1, c2) => c1.title.localeCompare(c2.title) * gSortBy.title);
-//     }
+    if (gFilterBy.title) {
+      const regex = new RegExp(gFilterBy.title, 'i');
+      notes = notes.filter((note) => regex.test(note.title));
+    }
+    if (gPageIdx !== undefined) {
+      const startIdx = gPageIdx * PAGE_SIZE;
+      notes = notes.slice(startIdx, startIdx + PAGE_SIZE);
+    }
+    if (gSortBy.price !== undefined) {
+        notes.sort((c1, c2) => (c1.price - c2.price) * gSortBy.price);
+    } else if (gSortBy.title !== undefined) {
+        notes.sort((c1, c2) => c1.title.localeCompare(c2.title) * gSortBy.title);
+    }
 
-//     return notes;
-//   });
+    return notes;
+  });
 }
 
 function get(noteId) {
@@ -65,8 +65,20 @@ function save(note) {
 }
 
 function getEmptynote() {
- 
+    return {
+      id: '',
+      createdAt: Date.now(),
+      type: '',
+      isPinned: false,
+      style: {
+        backgroundColor: '#00d'
+      },
+      info: {
+        txt: 'New Note!'
+      }
+    };
 }
+  
 
 function getFilterBy() {
   return { ...gFilterBy };
@@ -133,13 +145,13 @@ function _setNextPrevnoteId(note) {
       })
 }
 
-function _createnotes() {
-  let notes = utilService.loadFromStorage(NOTE_KEY);
-  if (!notes || !notes.length) {
-    notes = notesData;
-    utilService.saveToStorage(note_KEY, notes);
-  }
-}
+// function _createnotes() {
+//   let notes = utilService.loadFromStorage(NOTE_KEY);
+//   if (!notes || !notes.length) {
+//     notes = notesData;
+//     utilService.saveToStorage(NOTE_KEY, notes);
+//   }
+// }
 
 function _createnote(title) {
   const note = getEmptynote(title);
@@ -147,23 +159,48 @@ function _createnote(title) {
   return note;
 }
 
-function _createDemoNotes() {
-    const noteTitle = ['note1', 'note2', 'note3']
-    const noteDescs = ['placerat nisi sodales suscipit tellus', 'placerat sodales suscipit tellus', 'placerat nisi suscipit']
-    const thumbnail = 'http://ca.org/notes-photos/20.jpg'
-    const listPrice = [
-    {amount:10,currencyCode:'EUR',isOnSale:false},
-    {amount:15,currencyCode:'EUR',isOnSale:false},
-    {amount:20,currencyCode:'EUR',isOnSale:false}
-]
-    
-    const notes = noteTitle.map((noteTitle, i) => {
-        const note = _createnote(noteTitle)
-        note.desc = noteDescs[i]
-        note.thumbnail = thumbnail[i]
-        note.listPrice = listPrice[i]
-        return note
-    })
+function _createNotes() {
+    const notes = [
+      {
+        id: 'n101',
+        createdAt: 1112222,
+        type: 'NoteTxt',
+        isPinned: true,
+        style: {
+          backgroundColor: '#00d'
+        },
+        info: {
+          txt: 'Fullstack Me Baby!'
+        }
+      },
+      {
+        id: 'n102',
+        type: 'NoteImg',
+        isPinned: false,
+        info: {
+          url: 'http://some-img/me',
+          title: 'Bobi and Me'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n103',
+        type: 'NoteTodos',
+        isPinned: false,
+        info: {
+          title: 'Get my stuff together',
+          todos: [
+            { txt: 'Driving license', doneAt: null },
+            { txt: 'Coding power', doneAt: 187111111 }
+          ]
+        }
+      }
+    ];
+  
+    utilService.saveToStorage(NOTE_KEY, notes);
+  }
+  
 
-    utilService.saveToStorage(NOTES_KEY, notes)
-}
+  
