@@ -14,11 +14,11 @@ export default {
     template: `
         <section class="note-list">
             <ul>
-                <li v-for="note in notes" :key="note.id">
-                    <section class="actions">
+                <li v-for="note in notes" :key="note.id" class="clean-list">
+                    <!-- <section class="actions">
                         <button @click="onRemoveNote(note.id)" class="remove-btn clean-btn">x</button>
-                    </section>
-                    <NotePreview :note="note" class="note-preview"/>
+                    </section> -->
+                    <NotePreview :note="note" />
                 </li>
             </ul>
         </section>

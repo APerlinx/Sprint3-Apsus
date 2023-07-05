@@ -6,17 +6,17 @@
     "nav-bar add-note"
     "nav-bar notes";
 }
+
+.menu {
+    grid-area: nav-bar;
+}
+
 .notes {
     width: 100%;
     grid-area: notes;
     justify-self: center;
     align-self: center;
-    column-count: 4; 
-    column-gap: 1rem;
-}
 
-.menu {
-    grid-area: nav-bar;
 }
 
 .add-note {

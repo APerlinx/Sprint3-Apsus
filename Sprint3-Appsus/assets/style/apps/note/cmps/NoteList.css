@@ -1,0 +1,22 @@
+.note-list ul {
+    column-count: 4; 
+    column-gap: 1rem;
+}
+
+.note-list ul li {
+    text-align: center;
+}
+
+.book-preview {
+ font-size: 1rem;
+}
+
+.actions {
+    position: absolute;
+}
+
+.actions button {
+   margin: 0;
+   padding: 0.1em;
+}
+

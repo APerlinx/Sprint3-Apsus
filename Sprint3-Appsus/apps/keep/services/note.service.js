@@ -196,6 +196,17 @@ function _createNotes() {
             { txt: 'Coding power', doneAt: 187111111 }
           ]
         }
+      },
+      {
+        id: 'n104',
+        type: 'NoteTodos',
+        isPinned: false,
+        info: {
+          title: 'Get my stuff together',
+          todos: [
+            { txt: 'Learn javascript', doneAt: null },
+          ]
+        }
       }
     ];
   

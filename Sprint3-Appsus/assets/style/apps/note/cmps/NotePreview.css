@@ -6,7 +6,7 @@
     border-color: #e0e0e0;
     border: 1px solid;
     text-align: center;
-    break-inside: avoid-column; /* Prevent notes from breaking across columns */
+    break-inside: avoid-column;
     margin-bottom: 1em;
     border-radius: 8px;
 }
