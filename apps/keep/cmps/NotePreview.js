@@ -6,6 +6,9 @@ export default {
   props: ['note'],
   template: `
        <article class="note-preview">
+       <i class="material-icons unpinned-icon">push_pin</i>
+      
+
     <component :is="getComponentName(note.type)" :note="note" />
     <div class="tool-tip">
     <i class="material-icons" title="reminder">add_alert</i>
