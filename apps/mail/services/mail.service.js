@@ -104,8 +104,8 @@ function getNextMailId(mailId) {
 //     })
 // }
 
-function getEmptyMail(subject = 'No subject', body = 'Empty Message', from = 'momo@momo.com', to = 'user@appsus.com') {
-    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to }
+function getEmptyMail(subject = '', body = '', from = 'momo@momo.com', to = '') {
+    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'draft'}
 }
 
 function _createMails() {

@@ -19,7 +19,7 @@ const options = {
             <HomePage v-if="route === 'home'"/>
             <MailIndex v-if="route === 'mail'" />
             <NoteIndex v-if="route === 'note'" />
-            <AboutPage v-if="route === 'about'" />
+            <AboutUs v-if="route === 'about'" />
         </section>
             <RouterView />
             <AppFooter />

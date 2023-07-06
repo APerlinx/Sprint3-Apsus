@@ -1,26 +1,19 @@
+import LongText from './LongText.js'
+
 export default {
     props: ['mail'],
     template: `
-        <article class="mail-preview">
-            <!-- <h1>id:{{ mail.id }}</h1> -->
-            
-            
-            <RouterLink :class="isReadClass" :to="'/mail/' + mail.id">
-                
+        <article :class="isRead" @click="markRead(mail)" class="mail-preview">
+    
                 <h3>{{ mail.from }}</h3>
-                <h2>{{ mail.subject }}</h2>
+                <LongText :subject="mail.subject"> </LongText>
                 <h4>{{ mail.sentAt }}</h4>
-                <button @click="markRead(mail)">Mark</button>
-            </RouterLink> 
-            <!-- <RouterLink :to="'/car/edit/' + car.id">Edit</RouterLink> -->
+
         </article>
     `,
     computed: {
-        isReadClass(){
-            return{
-                read: this.mail.isRead === true,
-                unread: this.mail.isRead === false
-            }
+        isRead(){
+            if(this.mail.isRead) return 'isRead'
         }
         // isRead(){
         //     console.log(this.mail.id)
@@ -28,20 +21,19 @@ export default {
         // }
     },
     methods:{
-        markRead(mail){
-            // this.$emit('mark', mailId)
-            // console.log(mail)
-            if(mail.isRead = false){
-                mail.isRead = true
-            }
-            else mail.isRead = false
-            
-            
-            mailService.save(mail)
+        markRead(){
+            this.mail.isRead = true
+    
+            mailService.save(this.mail)
+            this.$router.push({path: `mail/${this.mail.id}`})
+            this.$emit('update', this.mail.id)
 
     },
     },
     created() {
         // console.log(this.mail)
     },
+    components: { 
+        LongText,
+    }
 }
