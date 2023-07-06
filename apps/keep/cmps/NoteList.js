@@ -1,7 +1,7 @@
 import NotePreview from './NotePreview.js';
 
 export default {
-  emits: ['remove','pin-state'],
+  emits: ['trash','pin-state'],
   props: {
     notes: {
       type: Array,
@@ -17,7 +17,7 @@ export default {
      <h5>pinned</h5>
         <TransitionGroup name="list" tag="ul">
             <li v-for="note in pinnedNotes" :key="note.id" class="clean-list">
-             <NotePreview :note="note" @remove="onRemoveNote" @toggle-pin="onTogglePin" />
+             <NotePreview :note="note" @trash="onTrashNote" @toggle-pin="onTogglePin" />
             </li>
         </TransitionGroup>
     </section>
@@ -25,7 +25,7 @@ export default {
     <h5>other</h5>
          <TransitionGroup name="list" tag="ul">
             <li v-for="note in unpinnedNotes" :key="note.id" class="clean-list">
-             <NotePreview :note="note" @remove="onRemoveNote" @toggle-pin="onTogglePin" />
+             <NotePreview :note="note" @trash="onTrashNote" @toggle-pin="onTogglePin" />
             </li>
         </TransitionGroup>
     </section>
@@ -43,8 +43,8 @@ export default {
     },
   },
   methods: {
-    onRemoveNote(noteId) {
-      this.$emit('remove', noteId);
+    onTrashNote(noteId) {
+      this.$emit('trash', noteId);
     },
     onTogglePin(note) {
         this.$emit('pin-state', note);

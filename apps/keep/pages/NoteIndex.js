@@ -1,23 +1,32 @@
-import { noteService } from '../services/note.service.js'
-import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+import { noteService } from '../services/note.service.js';
+import {
+  showSuccessMsg,
+  showErrorMsg,
+} from '../../../services/event-bus.service.js';
 
+import NoteFilter from '../cmps/NoteFilter.js';
+import NoteList from '../cmps/NoteList.js';
+import TrashedNotesList from '../cmps/TrashedNotesList.js';
+import NoteAdd from '../cmps/NoteAdd.js';
 
-import NoteFilter from '../cmps/NoteFilter.js'
-import NoteList from '../cmps/NoteList.js'
-import NoteAdd from '../cmps/NoteAdd.js'
-
-import KeepMenu from '../cmps/KeepMenu.js'
+import KeepMenu from '../cmps/KeepMenu.js';
 
 export default {
   template: `
     <main class="keep-index">
         <NoteAdd @add-note="onAddNote" />
         <section class="notes">
-            <NoteList
-             v-if="notes"
-             :notes="displayedNotes"
-             @remove="removeNote" 
-             @pin-state="togglePin" />
+        <NoteList 
+        v-if="!displayTrashed" 
+        :notes="filteredNotes" 
+        @trash="trashNote" 
+        @pin-state="togglePin" />
+
+       <TrashedNotesList 
+       v-else 
+       :trashedNotes="trashedNotes"
+        @remove="trashNote" />
+
         </section>
         <nav class="menu">
             <KeepMenu 
@@ -35,14 +44,15 @@ export default {
       trashedNotes: [],
       filterBy: null,
       showArchived: false,
+      displayTrashed: false,
     };
   },
   created() {
-    this.fetchNotes()
+    this.fetchNotes();
   },
   computed: {
     filteredNotes() {
-      return this.notes.filter((note) => !note.isArchived);
+      return this.notes.filter((note) => !note.isArchived && !note.isTrashed);
     },
     displayedNotes() {
       if (this.showArchived) {
@@ -53,22 +63,29 @@ export default {
     },
   },
   mounted() {
-    this.$eventBus.on('selected-labels-updated', this.handleSelectedLabelsUpdated)
-    this.$eventBus.on('bg-color-change', this.handleBgColorChange)
-    this.$eventBus.on('selected-note-archive', this.archiveNote)
-    },
+    this.$eventBus.on('selected-labels-updated',this.handleSelectedLabelsUpdated);
+    this.$eventBus.on('bg-color-change', this.handleBgColorChange);
+    this.$eventBus.on('selected-note-archive', this.archiveNote);
+    this.$eventBus.on('remove-permanetly', this.removeNote);
+    this.$eventBus.on('restore-note', this.restoreNote);
+  },
   methods: {
     displayArchived() {
       this.showArchived = !this.showArchived;
     },
+    displayTrash() {
+      this.displayTrashed = !this.displayTrashed;
+    },
     archiveNote(noteId) {
-      const targetArray = this.notes.find((note) => note.id === noteId) ? this.notes : this.archivedNotes;
+      const targetArray = this.notes.find((note) => note.id === noteId)
+        ? this.notes
+        : this.archivedNotes;
       const noteIndex = targetArray.findIndex((note) => note.id === noteId);
-    
+
       if (noteIndex !== -1) {
         const noteToArchive = targetArray[noteIndex];
         noteToArchive.isArchived = !noteToArchive.isArchived;
-    
+
         if (noteToArchive.isArchived) {
           targetArray.splice(noteIndex, 1);
           this.archivedNotes.unshift(noteToArchive);
@@ -76,7 +93,7 @@ export default {
           targetArray.splice(noteIndex, 1);
           this.notes.unshift(noteToArchive);
         }
-    
+
         noteService
           .save(noteToArchive)
           .then(() => {
@@ -91,22 +108,73 @@ export default {
           });
       }
     },
-    
+
     handleSelectedLabelsUpdated(data) {
- 
-      const { selectedLabels, note } = data
+      const { selectedLabels, note } = data;
       note.labels = selectedLabels;
-      noteService.save(note)
-        .then(savedNote => {
-          showSuccessMsg('Label updated')
-          const index = this.notes.findIndex(n => n.id === savedNote.id)
+      noteService
+        .save(note)
+        .then((savedNote) => {
+          showSuccessMsg('Label updated');
+          const index = this.notes.findIndex((n) => n.id === savedNote.id);
           if (index !== -1) {
-            this.notes.splice(index, 1, savedNote)
+            this.notes.splice(index, 1, savedNote);
           }
         })
-        .catch(err => {
-          showErrorMsg('Cannot add/remove label right now')
-        })
+        .catch((err) => {
+          showErrorMsg('Cannot add/remove label right now');
+        });
+    },
+    trashNote(noteId) {
+      const targetArray = this.notes.find((note) => note.id === noteId)
+        ? this.notes
+        : this.trashedNotes;
+      const noteIndex = targetArray.findIndex((note) => note.id === noteId);
+
+      if (noteIndex !== -1) {
+        const noteToTrash = targetArray[noteIndex];
+        noteToTrash.isTrashed = !noteToTrash.isTrashed;
+
+        if (noteToTrash.isTrashed) {
+          targetArray.splice(noteIndex, 1);
+          this.trashedNotes.unshift(noteToTrash);
+        } else {
+          targetArray.splice(noteIndex, 1);
+          this.notes.unshift(noteToTrash);
+        }
+        noteService
+          .save(noteToTrash)
+          .then(() => {
+            if (noteToTrash.isTrashed) {
+              showSuccessMsg('Note trashed!');
+            } else {
+              showSuccessMsg('Note untrashed!');
+            }
+          })
+          .catch((error) => {
+            showErrorMsg('Failed to update note');
+          });
+      }
+    },
+    restoreNote(noteId) {
+      const noteIndex = this.trashedNotes.findIndex((note) => note.id === noteId);
+    
+      if (noteIndex !== -1) {
+        const noteToRestore = this.trashedNotes[noteIndex];
+        noteToRestore.isTrashed = false;
+    
+        this.trashedNotes.splice(noteIndex, 1);
+        this.notes.unshift(noteToRestore);
+    
+        noteService
+          .save(noteToRestore)
+          .then(() => {
+            showSuccessMsg('Note restored!');
+          })
+          .catch((error) => {
+            showErrorMsg('Failed to restore note');
+          });
+      }
     },
     
     removeNote(noteId) {
@@ -114,8 +182,9 @@ export default {
         .remove(noteId)
         .then(() => {
           const idx = this.notes.findIndex((note) => note.id === noteId)
-          this.notes.splice(idx, 1)
-          showSuccessMsg('note removed')
+          this.notes.splice(idx, 1);
+          showSuccessMsg('Note removed');
+          this.fetchNotes()
         })
         .catch((err) => {
           showErrorMsg('Cannot remove note')
@@ -125,27 +194,27 @@ export default {
       let note = noteService.getEmptynote()
       note.type = 'NoteTxt'
       note.info.txt = newNote
-      noteService.save(note)
-      .then(savedNote => {
+      noteService
+        .save(note)
+        .then((savedNote) => {
           showSuccessMsg('Note saved')
           this.notes.push(savedNote)
-      })
-      .catch(err => {
+        })
+        .catch((err) => {
           showErrorMsg('Cannot save note')
-      })
+        });
     },
     togglePin(note) {
       const noteIndex = this.notes.findIndex((n) => n.id === note.id)
-    
-      if (noteIndex !== -1) {
 
+      if (noteIndex !== -1) {
         this.notes[noteIndex].isPinned = note.isPinned
-        noteService.save(this.notes[noteIndex])
+        noteService
+          .save(this.notes[noteIndex])
           .then(() => {
-            note.isPinned ?
-            showSuccessMsg('Note pinned')
-            :
-            showSuccessMsg('Note unpinned')
+            note.isPinned
+              ? showSuccessMsg('Note pinned')
+              : showSuccessMsg('Note unpinned')
           })
           .catch((err) => {
             showErrorMsg('Cannot update note')
@@ -155,17 +224,18 @@ export default {
       }
     },
     handleBgColorChange({ note, color }) {
-      console.log('note,color', note,color);
+      console.log('note,color', note, color)
       note.bgColor = color;
-      noteService.save(note)
+      noteService
+        .save(note)
         .then(() => {
           showSuccessMsg('Color applied!')
         })
         .catch((error) => {
-          showErrorMsg('Failed to apply color');
+          showErrorMsg('Failed to apply color')
         });
     },
-    
+
     setFilterBy(filterBy) {
       this.filterBy = filterBy
     },
@@ -173,16 +243,26 @@ export default {
       noteService
         .query()
         .then((notes) => {
-          this.notes = notes.filter((note) => !note.isArchived);
-          this.archivedNotes = notes.filter((note) => note.isArchived);
+          this.notes = notes.filter(
+            (note) => !note.isArchived && !note.isTrashed
+          );
+          this.archivedNotes = notes.filter((note) => note.isArchived)
+          this.trashedNotes = notes.filter((note) => note.isTrashed)
         })
-        .catch((error) => console.error('Error fetching notes:', error));
+        .catch((error) => console.error('Error fetching notes:', error))
     },
   },
+  beforeUnmount() {
+    this.$off('display-notes');
+    this.$off('display-archived');
+    this.$off('display-trash');
+  },
+
   components: {
     NoteFilter,
     NoteList,
     NoteAdd,
     KeepMenu,
+    TrashedNotesList,
   },
 };
