@@ -16,6 +16,7 @@
   border: .2px solid #ccc;
   padding: 10px;
   width: 100%;
+  cursor: pointer;
 }
 
 .mail-preview h2,
@@ -40,8 +41,15 @@
 }
 
 
+.isRead, .isRead * {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  font-size:medium;
+  
+}
 .isRead{
   background-color: rgba(100,121,143,0.122);
+
 }
 
 /* .unread{

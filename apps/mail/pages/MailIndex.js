@@ -7,8 +7,13 @@ import MailList from '../cmps/MailList.js'
 export default {
     template: `
         <section class="mail-index">
-            <!-- <pre>{{mails}}</pre> -->
-            <RouterLink to="/mail/compose">Compose</RouterLink> 
+            
+            <RouterLink to="/mail/compose">
+            <i title="Compose" class="material-icons">create</i>
+            </RouterLink> 
+            <!-- <RouterLink title="inbox" to="/mail/compose" class="compose-icon">
+                <i class="material-icons">create</i>
+            </RouterLink> -->
 
             <MailFilter @filter="setFilterBy"/>
             <MailList 
@@ -59,19 +64,10 @@ export default {
             filteredMails = filteredMails.filter((mail) => regex.test(mail.subject))
             const regex1 = new RegExp(this.filterBy.body, 'i')
             filteredMails = filteredMails.filter((mail) => regex1.test(mail.body))
-            filteredMails = filteredMails.filter((mail) => {
-
-                switch (mail.status) {
-                    case 'inbox':
-                        return filteredMails
-                        
-                    case 'sent':
-                        return filteredMails
-                    case 'trash':
-                        return filteredMails
-                    case 'draft':
-                        return filteredMails
-        }})
+            
+            if (this.filterBy.status) {
+                filteredMails = filteredMails.filter((mail) => mail.status === this.filterBy.status)
+              }
 
 
             //   filteredMails = filteredMails.filter((mail) => mail..amount <= this.filterBy.price)

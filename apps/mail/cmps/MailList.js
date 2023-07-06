@@ -10,7 +10,7 @@ export default {
                     <MailPreview  @update="update" :mail="mail"/>
                     <section class="actions">
                         <!-- <button @click="onRemoveMail(mail.id)">x</button> -->
-                        <i class="material-icons" title="delete" @click="onRemoveMail(mail.id)">delete</i>
+                       
                         
                         
                     </section>
