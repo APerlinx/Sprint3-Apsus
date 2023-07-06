@@ -4,20 +4,21 @@ import { mailService } from '../services/mail.service.js'
 export default {
     template: `
         <section class="mail-details" v-if="mail">
-            <h1>id:{{ mail.id }}</h1>
-            <h2>subject:{{ mail.subject }}</h2>
-            <h3>content:{{ mail.body }}</h3>
-            <!-- <h4>isRead?{{ mail.isRead }}</h4> -->
-            <h5>sentAt:{{ mail.sentAt }}</h5>
-            <h6>from:{{ mail.from }}</h6>
-            <h6>to:{{ mail.to }}</h6>
+            <div class="header">
+                <h1 class="from">{{ mail.from }}</h1>
+                <h5 class="sent-at">{{ mail.sentAt }}</h5>
+            </div>
+            <h2 class="subject">{{ mail.subject }}</h2>
+            <div class="content">{{ mail.body }}</div>
+            <h6 class="to">To: {{ mail.to }}</h6>
             
 
-            <RouterLink :to="'/mail/' + mail.nextMailId">Next Mail</RouterLink> |
-            <RouterLink :to="'/mail/' + mail.prevMailId">Prev Mail</RouterLink> |
-            
-            <RouterLink to="/mail">Back to Mails</RouterLink>
-            <!-- <button @click="onRemoveMail(mail.id)">x</button> -->
+            <div class="navigation">
+                <RouterLink :to="'/mail/' + mail.nextMailId">Next Mail</RouterLink> |
+                <RouterLink :to="'/mail/' + mail.prevMailId">Prev Mail</RouterLink> |
+                <RouterLink to="/mail">Back to Mails</RouterLink>
+             </div>
+     
         </section>
     `,
     data() {
@@ -45,17 +46,6 @@ export default {
                     this.$router.push('/mail')
                 })
         },
-        // onRemoveMail(mailId) {
-        //     mailService.remove(mailId)
-        //         .then(() => {
-        //             const idx = this.mails.findIndex(car => car.id === carId)
-        //             this.cars.splice(idx, 1)
-        //             showSuccessMsg('Car removed')
-        //         })
-        //         .catch(err => {
-        //             showErrorMsg('Cannot remove car')
-        //         })
-        // }
 
     },
     watch: {

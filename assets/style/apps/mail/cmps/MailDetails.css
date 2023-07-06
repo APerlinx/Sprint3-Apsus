@@ -1,5 +1,45 @@
+
 .mail-details {
-    position: relative;
-    padding: 10px;
-    background-color: var(--thistle);
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.from {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sent-at {
+  font-size: 16px;
+  color: #888;
+}
+
+.subject {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.to {
+  font-size: 14px;
+  color: #888;
+  margin-top: 20px;
+}
+
+.navigation {
+  margin-top: 20px;
+}
+

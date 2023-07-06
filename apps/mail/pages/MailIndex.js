@@ -7,13 +7,6 @@ import MailList from '../cmps/MailList.js'
 export default {
     template: `
         <section class="mail-index">
-            
-            <RouterLink to="/mail/compose">
-            <i title="Compose" class="material-icons">create</i>
-            </RouterLink> 
-            <!-- <RouterLink title="inbox" to="/mail/compose" class="compose-icon">
-                <i class="material-icons">create</i>
-            </RouterLink> -->
 
             <MailFilter @filter="setFilterBy"/>
             <MailList 
@@ -22,7 +15,7 @@ export default {
                 @update="update"
                 @remove="removeMail" /> 
             </section>
-            <!-- :mails="mails" -->
+      
     `,
     data() {
         return {
@@ -32,13 +25,9 @@ export default {
     },
     methods: {
         update(mailId) {
-            // console.log(mailId)
             const idx = this.mails.findIndex(mail => mail.id === mailId)
             this.mails[idx].isRead = true
-            // mailService.save(this.mail)
-            // this.mails[idx].isRead = true
-            // console.log(this.mails[idx])
-
+         
         },
         removeMail(mailId) {
             mailService
@@ -62,8 +51,8 @@ export default {
             let filteredMails = this.mails
             const regex = new RegExp(this.filterBy.subject, 'i')
             filteredMails = filteredMails.filter((mail) => regex.test(mail.subject))
-            const regex1 = new RegExp(this.filterBy.body, 'i')
-            filteredMails = filteredMails.filter((mail) => regex1.test(mail.body))
+            const regex1 = new RegExp(this.filterBy.from, 'i')
+            filteredMails = filteredMails.filter((mail) => regex1.test(mail.from))
             
             if (this.filterBy.status) {
                 filteredMails = filteredMails.filter((mail) => mail.status === this.filterBy.status)

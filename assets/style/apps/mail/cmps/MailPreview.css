@@ -1,3 +1,9 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+
+}
+
 .mail-list ul {
   padding: 0;
 }
@@ -23,6 +29,9 @@
 .mail-preview h3 {
   margin: 0;
   flex: 1;
+}
+.mail-preview h4{
+  margin: 0;
 }
 
 .mail-preview a {

@@ -17,7 +17,7 @@ export default {
       formatText() {
         if(this.subject.length > 12){
 
-          return this.subject.slice(0, 12) + '...'
+          return this.subject.slice(0, 20) + '...'
         }
         return this.subject
        

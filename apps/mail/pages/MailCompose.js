@@ -11,7 +11,7 @@ export default {
             <button :disabled="!isValid">Send</button>
             
             <hr />
-            <RouterLink to="/mail">Cancel</RouterLink> 
+            <RouterLink @click="saveToDraft" to="/mail">Cancel</RouterLink> 
             
             
         </form>
@@ -19,7 +19,7 @@ export default {
     `,
     data() {
         return {
-            newMail: { to: '' },
+            newMail: {},
 
         }
     },
@@ -48,16 +48,23 @@ export default {
                 .catch(err => {
                     showErrorMsg('Cannot send mail')
                 })
+        },
+        saveToDraft(){
+            console.log('hi')
+            // if()
+            // this.newMail.status = 'draft'
+            mailService.save(this.newMail)
+
         }
 
     },
     watch: {
-        newMail: {
-            handler() {
-                mailService.save(this.newMail)
+        // newMail: {
+        //     handler() {
+        //         mailService.save(this.newMail)
                 
-            },
-            deep: true,
-        }
+        //     },
+        //     deep: true,
+        // }
     }
 }
