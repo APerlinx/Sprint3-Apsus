@@ -2,28 +2,37 @@ export default {
     template: `
         <section class="mail-filter">
             <input 
-                v-model="filterBy.txt" 
+                v-model="filterBy.subject"
+                @input="onSetFilterBy" 
                 type="text" 
-                placeholder="search">
+                placeholder="search By Subject">
             <input 
-                v-model.number="filterBy.date" 
-                type="number" 
-                placeholder="date">
+                v-model="filterBy.body" 
+                @input="onSetFilterBy"
+                placeholder="Search content">
+            <!-- <button v-model="filterBy.sent" @click="onSetFilterBy">options</button> -->
         </section>
     `,
     data() {
         return {
             filterBy: {
-                txt: '', date: 0,
+                subject: '',
+                body: '',
+                status:'draft'
             }
         }
     },
-    watch: {
-        filterBy: {
-            handler() {
-                this.$emit('filter', this.filterBy)
-            },
-            deep: true,
-        }
-    }
+    methods: {
+        onSetFilterBy() {
+          this.$emit('filter', this.filterBy)
+        },
+      },
+    // watch: {
+    //     filterBy: {
+    //         handler() {
+    //             this.$emit('filter', this.filterBy)
+    //         },
+    //         deep: true,
+    //     }
+    // }
 }
