@@ -9,7 +9,7 @@ export default {
 
 <div class="modal-overlay" @click="closeNote">
     <div class="note-dialog">
-      <!-- <h2 class="note-dialog-title">{{ note.title }}</h2> -->
+      <h2 v-if="note-dialog-title" class="note-dialog-title">{{ note.title }}</h2>
       <component :is="getComponentName(note.type)" :note="note" />
       <button class="note-dialog-close-btn" @click="closeNote">Close</button>
     </div>

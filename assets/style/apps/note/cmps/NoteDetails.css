@@ -1,0 +1,44 @@
+.note-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .tool-tip-dialog {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+    justify-content: space-evenly;
+    align-items: end;
+    margin-bottom: -1.5em;
+  }
+  
+  .material-icons.dialog {
+    font-family: 'Material Icons';
+    font-size: 24px;
+    cursor: pointer;
+    transform: scale(0.8);
+    padding: 0.35em;
+    border-radius: 50%;
+    transition: 0.218s;
+  }
+  
+  .note-dialog-close-btn {
+    align-self: flex-end;
+    background: none;
+    font-weight: 550;
+    padding-inline-start: 19em;
+    margin-bottom: -0.4em;
+  }
+
+  .note-dialog-close-btn:hover {
+    background: none;
+  }
+
+  .content[contenteditable="true"]:focus {
+    outline: none;
+  }
+  
+

@@ -16,6 +16,7 @@ export default {
       this.$emit('display-archived');
     },
     handleDisplayTrash() {
+      // this.$router.push({ path: '/note/trash' });
       this.$emit('display-trash');
     },
   },

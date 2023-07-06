@@ -16,4 +16,8 @@
   .add-note {
     direction: ltr;
   }
+
+  .todo-done {
+    text-decoration: line-through;
+  }
   

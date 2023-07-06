@@ -36,23 +36,27 @@ export default {
     <div class="modal-overlay" v-if="showLabelModal" @click="closeModal"></div>
     <LabelAdd v-if="showLabelModal" :note="note" :position="labelModalPosition" @close-modal="closeModal" @labels="updateNoteLabels" />
 
+      <!-- Move this to NoteDetails cmp ! -->
     <div v-if="dialogOpen" class="note-dialog">
       <h2 class="note-dialog-title">{{ selectedNote.title }}</h2>
-      <div class="content" contenteditable="true"> 
+      <div class="content" contenteditable="true" @input="updateNoteContent"> 
          <component :is="getComponentName(selectedNote.type)" :note="selectedNote" />
       </div>
       <div class="tool-tip-dialog">
-        <i v-if="!isTrashed" class="material-icons" title="add labels" @click="showLabelModal = true">label</i>
-        <i v-if="!isTrashed" class="material-icons" title="background options" @click="showColorPicker = !showColorPicker">palette</i>
+
+        <i v-if="!isTrashed" class="material-icons dialog" title="add labels" @click="showLabelModal = true">label</i>
+        <i v-if="!isTrashed" class="material-icons dialog" title="background options" @click="showColorPicker = !showColorPicker">palette</i>
         <BgAdd v-if="showColorPicker" :note="note" @bg-color-change="updateBgColor" />
-        <i v-if="isTrashed" class="material-icons" title="delete permanently" @click="deletePermanently(note.id)">delete_forever</i>
-        <i class="material-icons" :title="isTrashed ? 'restore' : 'delete'" @click="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
+        <i v-if="isTrashed" class="material-icons dialog" title="delete permanently" @click="deletePermanently(note.id)">delete_forever</i>
+        <i class="material-icons dialog" :title="isTrashed ? 'restore' : 'delete'" @click="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
           {{ isTrashed ? 'restore' : 'delete' }}
         </i>
-        <i v-if="!isTrashed" class="material-icons" title="archive" @click="archiveNote(note.id)">archive</i>
-        <i v-if="!isTrashed" class="material-icons" title="email note">email</i>
+        <i v-if="!isTrashed" class="material-icons dialog" title="archive" @click="archiveNote(note.id)">archive</i>
+        <i v-if="!isTrashed" class="material-icons dialog" title="email note">email</i>
+     
+         <button class="note-dialog-close-btn clean-btn" @click="closeNote">Close</button>
       </div>
-      <button class="note-dialog-close-btn clean-btn" @click="closeNote">Close</button>
+     
     </div>
   </div>
     `,
@@ -92,17 +96,22 @@ export default {
         NoteImg,
         NoteVideo,
       };
-      return componentMap[type] || 'div';
+      return componentMap[type] || 'div'
+    },
+    updateNoteContent(event) {
+      this.selectedNote.info.txt = event.target.innerText
+      this.$eventBus.emit('note-content-updated', this.selectedNote)
+
     },
     trashNote(noteId) {
-      this.$emit('trash', noteId);
+      this.$emit('trash', noteId)
     },
     togglePin() {
-      this.note.isPinned = !this.note.isPinned;
-      this.$emit('toggle-pin', this.note);
+      this.note.isPinned = !this.note.isPinned
+      this.$emit('toggle-pin', this.note)
     },
     closeModal() {
-      this.showLabelModal = false;
+      this.showLabelModal = false
     },
     updateNoteLabels({ noteLabels, note }) {
       note.labels = noteLabels

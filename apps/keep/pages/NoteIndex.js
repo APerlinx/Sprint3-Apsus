@@ -16,21 +16,28 @@ export default {
     <main class="keep-index">
         <NoteAdd @add-note="onAddNote" />
         <section class="notes">
-             <NoteList 
-              v-if="!displayTrashed" 
-              :notes="filteredNotes" 
-              @trash="trashNote" 
-              @pin-state="togglePin" />
+    <NoteList 
+        v-if="!displayTrashed && !showArchived" 
+        :notes="filteredNotes" 
+        @trash="trashNote" 
+        @pin-state="togglePin" />
 
-             <TrashedNotesList 
-              v-else 
-              :trashedNotes="trashedNotes"
-              @remove="trashNote" />
-        </section>
+    <NoteList 
+        v-else-if="showArchived && !displayTrashed" 
+        :notes="archivedNotes"
+        @trash="trashNote" 
+        @pin-state="togglePin" />
+
+    <TrashedNotesList 
+        v-else-if="displayTrashed" 
+        :trashedNotes="trashedNotes"
+        @remove="trashNote" />
+</section>
+
         <nav class="menu">
            <KeepMenu 
             @display-archived="displayArchived" 
-            @display-notes="displayArchived"
+            @display-notes="displayNotes"
             @display-trash="displayTrash" />
         </nav>
     </main>
@@ -51,35 +58,44 @@ export default {
   },
   computed: {
     filteredNotes() {
-      return this.notes.filter((note) => !note.isArchived && !note.isTrashed);
+      return this.notes.filter((note) => !note.isArchived && !note.isTrashed)
     },
     displayedNotes() {
       if (this.showArchived) {
-        return this.archivedNotes;
+        return this.archivedNotes
       } else {
-        return this.filteredNotes;
+        return this.filteredNotes
       }
     },
   },
   mounted() {
-    this.$eventBus.on('selected-labels-updated',this.handleSelectedLabelsUpdated);
-    this.$eventBus.on('bg-color-change', this.handleBgColorChange);
-    this.$eventBus.on('selected-note-archive', this.archiveNote);
-    this.$eventBus.on('remove-permanetly', this.removeNote);
-    this.$eventBus.on('restore-note', this.restoreNote);
+    this.$eventBus.on('selected-labels-updated',this.handleSelectedLabelsUpdated)
+    this.$eventBus.on('bg-color-change', this.handleBgColorChange)
+    this.$eventBus.on('selected-note-archive', this.archiveNote)
+    this.$eventBus.on('remove-permanetly', this.removeNote)
+    this.$eventBus.on('restore-note', this.restoreNote)
+    this.$eventBus.on('note-content-updated', this.setNewText)
   },
   methods: {
+    setNewText(noteToUpdate) {
+      noteService
+       .save(noteToUpdate)
+    },
     displayArchived() {
       this.showArchived = !this.showArchived;
     },
     displayTrash() {
       this.displayTrashed = !this.displayTrashed;
     },
+    displayNotes() {
+      this.showArchived = false;
+      this.displayTrashed = false;
+    },
     archiveNote(noteId) {
       const targetArray = this.notes.find((note) => note.id === noteId)
         ? this.notes
         : this.archivedNotes;
-      const noteIndex = targetArray.findIndex((note) => note.id === noteId);
+      const noteIndex = targetArray.findIndex((note) => note.id === noteId)
 
       if (noteIndex !== -1) {
         const noteToArchive = targetArray[noteIndex];
