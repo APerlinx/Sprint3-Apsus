@@ -7,7 +7,7 @@ export default {
         <section class="mail-list">
             <TransitionGroup name="list" tag="ul">
                 <li v-for="mail in mails" :key="mail.id">
-                    <MailPreview  @update="update" :mail="mail"/>
+                    <MailPreview  @update="update" @remove="removeMail" :mail="mail"/>
                     <section class="actions">
                         <!-- <button @click="onRemoveMail(mail.id)">x</button> -->
                        
@@ -26,9 +26,10 @@ export default {
             // this.$emit('update', mailId)
 
         },
-        onRemoveMail(mailId) {
+        removeMail(mailId){
             this.$emit('remove', mailId)
-          },
+        }
+        
         
 
 

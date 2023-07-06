@@ -8,7 +8,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: 100px;
+    /* justify-content: center; */
+  }
+
+  a .material-icons {
+    border-radius: 40%;
+    padding: 15px;
+    background-color: #c2e7ff;
+    position: fixed;
+    left: 2px;
+    
+  }
+  
+  a .material-icons :hover{
+    background-color: #c2e7ff;
+
   }
   
   .mail-index {

@@ -4,6 +4,7 @@
 
 }
 
+
 .mail-list ul {
   padding: 0;
 }
@@ -14,6 +15,18 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.mail-list ul li:hover{
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.mail-list ul li .material-icons {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.mail-list ul li:hover .material-icons {
+  opacity: 1;
+}
+
 
 .mail-preview {
   display: flex;
@@ -34,11 +47,11 @@
   margin: 0;
 }
 
-.mail-preview a {
+/* .mail-preview a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
 .actions {
   display: flex;
@@ -57,7 +70,8 @@
   
 }
 .isRead{
-  background-color: rgba(100,121,143,0.122);
+  background-color: #f2f6fc;
+  
 
 }
 
@@ -66,9 +80,4 @@
 }  */
 
 
-.mail-preview:hover {
-  box-shadow: inset -1px 0 0 #dadce0,
-  0 1px 2px 0 rgba(60,64,67,.3),
-  0 1px 3px 1px rgba(60, 64, 67, .15);
-}
 

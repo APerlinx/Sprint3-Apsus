@@ -4,8 +4,6 @@ import { storageService } from '../../../services/async-storage.service.js'
 const PAGE_SIZE = 5
 const MAIL_KEY = 'mailDB'
 
-// var gFilterBy = { txt: '', minSpeed: 0 }
-// var gSortBy = { vendor: 1 }
 var gPageIdx
 
 _createMails()
@@ -32,7 +30,7 @@ export const mailService = {
     getNextMailId,
     getFilterBy,
     setFilterBy,
-    // getCarCountBySpeedMap,
+  
 }
 window.mailService = mailService
 
@@ -89,22 +87,8 @@ function getNextMailId(mailId) {
     })
 }
 
-// function getCarCountBySpeedMap() {
-//     return storageService.query(CAR_KEY).then(cars => {
-//         const carCountBySpeedMap = cars.reduce(
-//             (map, car) => {
-//                 if (car.maxSpeed < 120) map.slow++
-//                 else if (car.maxSpeed < 200) map.normal++
-//                 else map.fast++
-//                 return map
-//             },
-//             { slow: 0, normal: 0, fast: 0 }
-//         )
-//         return carCountBySpeedMap
-//     })
-// }
 
-function getEmptyMail(subject = '', body = '', from = 'momo@momo.com', to = '') {
+function getEmptyMail(subject = '', body = '', from = '', to = '') {
     return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'inbox'}
 }
 

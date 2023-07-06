@@ -7,6 +7,7 @@ import MailList from '../cmps/MailList.js'
 export default {
     template: `
         <section class="mail-index">
+        <!-- <img class="gb_Mc" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" srcset="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r5.png 2x " alt="" aria-hidden="true" role="presentation" style="width:109px;height:40px"> -->
 
             <MailFilter @filter="setFilterBy"/>
             <MailList 
