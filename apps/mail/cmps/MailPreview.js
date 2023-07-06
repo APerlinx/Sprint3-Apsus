@@ -8,6 +8,7 @@ export default {
                 <h3>{{ mail.from }}</h3>
                 <LongText :subject="mail.subject"> </LongText>
                 <h4>{{ mail.sentAt }}</h4>
+                <i class="material-icons" title="delete" @click="onRemoveMail(mail.id)">delete</i>
 
         </article>
     `,

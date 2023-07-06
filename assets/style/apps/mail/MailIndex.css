@@ -1,0 +1,38 @@
+.sidebar {
+    position: fixed;
+    top: 64px; /* Adjust this value to match the height of the app header */
+    left: 0;
+    height: calc(100vh - 64px); /* Adjust this value to account for the app header height */
+    width: 60px;
+    /* background-color: #f2f2f2; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mail-index {
+    margin-left: 60px; /* Adjust this value to provide space for the sidebar */
+    /* Other styles for the mail index section */
+  }
+
+  .compose-icon {
+    position: fixed;
+    top: 97px; /* Adjust this value to match the height of the app header */
+    left: 0;
+    width: 60px;
+    height: 60px;
+    /* background-color: #f2f2f2; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .compose-icon i {
+    font-size: 24px;
+    color: black;
+  }
+  
+  
+  
+  

@@ -4,7 +4,7 @@ import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.servic
 export default {
     template: `
         <form @submit.prevent="save" class="compose-mail">
-            <h2>send a mail</h2>
+            <h2>New Message</h2>
             <input v-model="newMail.to" type="text" placeholder="To: "> <br>
             <input v-model="newMail.subject" type="text" placeholder="Subject: " required> <br>
             <textarea v-model="newMail.body" rows="12" cols="60"></textarea>
@@ -32,11 +32,13 @@ export default {
     },
     created() {
         this.newMail = mailService.getEmptyMail()
+        this.newMail.status = 'draft'
 
     },
 
     methods: {
         save() {
+            this.newMail.status = 'sent'
             mailService.save(this.newMail)
                 .then(mail => {
                     console.log('Saved Mail', mail)
@@ -48,5 +50,14 @@ export default {
                 })
         }
 
+    },
+    watch: {
+        newMail: {
+            handler() {
+                mailService.save(this.newMail)
+                
+            },
+            deep: true,
+        }
     }
 }
