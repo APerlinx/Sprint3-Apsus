@@ -23,7 +23,10 @@
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/NoteTods.css';
 @import './apps/note/cmps/KeepMenu.css';
-
+@import './apps/note/cmps/LabelAdd.css';
+@import './apps/note/cmps/BgAdd.css';
+@import './apps/note/cmps/NoteImg.css';
+@import './apps/note/cmps/NoteAdd.css';
 
 /* Mail cmps */
 @import './apps/mail/cmps/MailList.css';

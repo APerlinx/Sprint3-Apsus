@@ -178,6 +178,7 @@ function _createNotes() {
         id: 'n101',
         createdAt: 1112222,
         type: 'NoteTxt',
+        labels: ['Work'],
         isPinned: true,
         style: {
           backgroundColor: '#00d'
@@ -189,10 +190,11 @@ function _createNotes() {
       {
         id: 'n102',
         type: 'NoteImg',
+        labels: [],
         isPinned: false,
         info: {
-          url: 'http://some-img/me',
-          title: 'Bobi and Me'
+          url: 'https://picsum.photos/200',
+          title: 'Place to vist'
         },
         style: {
           backgroundColor: '#00d'
@@ -201,6 +203,7 @@ function _createNotes() {
       {
         id: 'n103',
         type: 'NoteTodos',
+        labels: ['Family','Friends'],
         isPinned: false,
         info: {
           title: 'Get my stuff together',
@@ -213,6 +216,7 @@ function _createNotes() {
       {
         id: 'n104',
         type: 'NoteTodos',
+        labels: [],
         isPinned: false,
         info: {
           title: 'Coding',
@@ -222,7 +226,83 @@ function _createNotes() {
             { txt: 'Learn Angular', doneAt: null },
           ]
         }
-      }
+      },
+      {
+        id: 'n105',
+        type: 'NoteImg',
+        labels: [],
+        isPinned: false,
+        info: {
+          url: 'https://picsum.photos/201',
+          title: 'Place to vist'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n106',
+        type: 'NoteTxt',
+        labels: [],
+        isPinned: false,
+        info: {
+          txt: 'Dont forget your the keys'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n107',
+        type: 'NoteTodos',
+        labels: [],
+        isPinned: false,
+        info: {
+          title: 'Books to read',
+          todos: [
+            { txt: 'The brothers Karamazov', doneAt: null },
+            { txt: 'A tale of two cities', doneAt: null },
+            { txt: 'The lord of the rings', doneAt: null },
+          ]
+        }
+      },
+      {
+        id: 'n108',
+        type: 'NoteTxt',
+        labels: [],
+        isPinned: false,
+        info: {
+          txt: 'Pick up parents from the airpot on the 4 of july'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n109',
+        type: 'NoteTxt',
+        labels: [],
+        isPinned: false,
+        info: {
+          txt: 'Project deadline is on the 8.7 before submit clean the code a little bit'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n110',
+        type: 'NoteVideo',
+        labels: [],
+        isPinned: false,
+        info: {
+          title: 'Watch when you have time',
+          url: 'https://www.youtube.com/embed/_L-Ni7bFAHg'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
     ];
   
     utilService.saveToStorage(NOTE_KEY, notes);

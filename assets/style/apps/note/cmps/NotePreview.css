@@ -54,6 +54,48 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .note-preview:hover .unpinned-icon {
   opacity: 1;
 }
+
+/* labels */ 
+
+.note-label {
+  font-size: 0.5em;
+  border-radius: 8px;
+  color: black;
+}
+
+.note-label:hover {
+  background-color: lightslategray;
+}
+
+.label-work {
+  background-color: lightcoral;
+}
+
+.label-family {
+  background-color: lightseagreen;
+}
+
+.label-critical {
+  background-color: lightcyan;
+}
+
+.label-friends {
+  background-color: lightgoldenrodyellow;
+}
+
+.label-spam {
+  background-color: lightgreen;
+}
+
+.label-romantic {
+  background-color: lightskyblue;
+}
+
+.label-memories {
+  background-color: lightsalmon;
+} 
+

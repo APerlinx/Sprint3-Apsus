@@ -23,7 +23,6 @@ export default {
    handleClose() {
     const noteContent = this.$refs.noteDiv.innerText.trim()
     if (noteContent !== '') {
-      console.log('Note:', noteContent)
       this.$emit('add-note', noteContent)
     }
     this.$refs.noteDiv.innerText = '';

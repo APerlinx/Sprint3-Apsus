@@ -2,8 +2,8 @@ export default {
     props: ['note'],
     template: `
         <article class="note-img">
-            <img src="">
-            <h1>Image Here!</h1>
+            <p>{{note.info.title}}</p>
+            <img :src="note.info.url" alt="Note image" class="note-img">
         </article>
     `,
     computed: {

@@ -1,6 +1,7 @@
 const { createApp } = Vue
 
 import { router } from './routes.js'
+import { eventBus } from './services/event-bus.service.js'; // Import the eventBus object
 
 import AppHeader from './cmps/AppHeader.js'
 import AppFooter from './cmps/AppFooter.js'
@@ -43,5 +44,6 @@ const options = {
 }
 
 const app = createApp(options)
+app.config.globalProperties.$eventBus = eventBus; // Provide the event bus to the global properties
 app.use(router)
 app.mount('#app')

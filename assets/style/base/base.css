@@ -3,7 +3,7 @@
 }
 
 html {
-  
+  font-family: 'Open Sans', sans-serif;
 }
 
 body {
@@ -12,7 +12,6 @@ body {
   background-color: #fff;
   color: #202124;
   direction: ltr;
-  font-family: "Roboto",arial,sans-serif;
   font-size: 15px;
 }
 

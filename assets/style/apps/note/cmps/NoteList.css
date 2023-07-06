@@ -3,7 +3,6 @@
     column-gap: 1rem;
     margin: auto;
     padding: 0;
-
 }
 
 .note-list ul li {
@@ -39,9 +38,26 @@ list-move, /* apply transition to moving elements */
   transform: translateX(30px);
 }
 
-/* ensure leaving items are taken out of layout flow so that moving
-   animations can be calculated correctly. */
 .list-leave-active {
   position: absolute;
 }
+
+@media (max-width: 1110px) {
+  .note-list ul {
+    column-count: 3; /* Two columns on smaller screens */
+  }
+}
+
+@media (max-width: 860px) {
+  .note-list ul {
+    column-count: 2; /* Two columns on smaller screens */
+  }
+}
+
+@media (max-width: 660px) {
+  .note-list ul {
+    column-count: 1; /* Two columns on smaller screens */
+  }
+}
+
 

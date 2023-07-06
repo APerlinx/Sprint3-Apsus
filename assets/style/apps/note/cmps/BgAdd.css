@@ -1,0 +1,24 @@
+.color-options {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  z-index: 999;
+}
+
+.color-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.color {
+  border-radius: 5px;
+}
+
+.no-color-icon {
+    padding: 0;
+}
