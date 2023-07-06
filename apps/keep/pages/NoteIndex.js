@@ -16,20 +16,19 @@ export default {
     <main class="keep-index">
         <NoteAdd @add-note="onAddNote" />
         <section class="notes">
-        <NoteList 
-        v-if="!displayTrashed" 
-        :notes="filteredNotes" 
-        @trash="trashNote" 
-        @pin-state="togglePin" />
+             <NoteList 
+              v-if="!displayTrashed" 
+              :notes="filteredNotes" 
+              @trash="trashNote" 
+              @pin-state="togglePin" />
 
-       <TrashedNotesList 
-       v-else 
-       :trashedNotes="trashedNotes"
-        @remove="trashNote" />
-
+             <TrashedNotesList 
+              v-else 
+              :trashedNotes="trashedNotes"
+              @remove="trashNote" />
         </section>
         <nav class="menu">
-            <KeepMenu 
+           <KeepMenu 
             @display-archived="displayArchived" 
             @display-notes="displayArchived"
             @display-trash="displayTrash" />
@@ -108,7 +107,6 @@ export default {
           });
       }
     },
-
     handleSelectedLabelsUpdated(data) {
       const { selectedLabels, note } = data;
       note.labels = selectedLabels;
@@ -176,7 +174,6 @@ export default {
           });
       }
     },
-    
     removeNote(noteId) {
       noteService
         .remove(noteId)

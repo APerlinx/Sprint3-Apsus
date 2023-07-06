@@ -31,6 +31,16 @@
   opacity: 1;
 }
 
+.tool-tip-dialog {
+  display: flex;
+  gap: 8px;
+  margin-top: 0.2em;
+  justify-content: center;
+  align-items: end;
+
+}
+
+
 .material-icons {
   font-family: 'Material Icons';
   font-size: 24px;
@@ -98,4 +108,40 @@
 .label-memories {
   background-color: lightsalmon;
 } 
+
+/* Dialog */ 
+
+.note-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  width: 600px;
+}
+
+.note-dialog-title {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+.note-dialog-close-btn {
+  display: block;
+  margin-top: 20px;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.note-dialog-close-btn:hover {
+  background-color: #ccc;
+}
 

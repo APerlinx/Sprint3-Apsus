@@ -11,14 +11,17 @@
 
 .keep-app-menu i {
     box-sizing: border-box;
-    font-size: 2em;
+    font-size: 1.8em;
     padding: 0.3em;
-    border-radius: 50%;
+    border-radius: 555px;
     transition: 0.2s;
 }
 
 
 .keep-app-menu i:hover {
-    background-color: rgb(235, 235, 180) ;
+    background-color: rgb(255, 238, 184) ;
     cursor: pointer;
 }
+.grey-icon {
+    color: grey;
+  }
