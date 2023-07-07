@@ -7,3 +7,10 @@
     font-weight: normal;
     src: url('../../fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
   }
+
+  @font-face {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../fonts/Roboto-Regular.ttf') format('truetype');
+  }

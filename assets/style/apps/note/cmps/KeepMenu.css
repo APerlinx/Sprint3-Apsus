@@ -1,27 +1,66 @@
 .keep-app-menu {
-    position: sticky;
-    top:10px;
-    display: grid;
-    grid-template-rows: repeat(5,1fr);
-    grid-auto-flow: row;
-    row-gap: 0.5em;
-    justify-content: center;
-    align-items: center;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-auto-flow: row;
+  row-gap: 0.5em;
+  justify-content: start;
+  align-items: start;
+}
+
+.keep-app-menu span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 0.9em;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+  margin-inline-start: 1.5em;
+}
+
+.keep-app-menu div {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  width: 250px;
+  height: max-content;
+  cursor: pointer;
+  transition: 50ms;
 }
 
 .keep-app-menu i {
-    box-sizing: border-box;
-    font-size: 1.8em;
-    padding: 0.3em;
-    border-radius: 555px;
-    transition: 0.2s;
+  margin-left: 1rem;
+  box-sizing: border-box;
+  font-size: 1.6em;
+  padding: 0.3em;
+  transition: 0.2s;
 }
 
-
-.keep-app-menu i:hover {
-    background-color: rgb(255, 238, 184) ;
+/* .keep-app-menu i:hover {
     cursor: pointer;
+    align-self: start;
+    border-radius: 555px;
+} */
+
+.keep-app-menu div:hover {
+  background-color: rgb(228, 228, 228);
+  width: 100%;
+  border-radius: 0px 555px 555px 0px;
 }
+
+div.menu-item {
+  padding: 0;
+}
+
+.grey-icon.is-active {
+  background-color: rgb(245, 231, 155);
+  border-radius: 555px;
+}
+
+div.menu-item.is-active {
+  background-color: rgb(245, 231, 155);
+  border-radius: 555px;
+}
+
 .grey-icon {
-    color: grey;
-  }
+  color: grey;
+}

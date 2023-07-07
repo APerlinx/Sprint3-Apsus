@@ -56,3 +56,9 @@ button {
   outline: 1px solid gold
 }
 
+input, textarea {
+  border: none;
+  outline: none;
+}
+
+

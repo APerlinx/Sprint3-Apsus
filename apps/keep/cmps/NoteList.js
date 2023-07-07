@@ -1,4 +1,4 @@
-import NotePreview from './NotePreview.js';
+import NotePreview from './NotePreview.js'
 
 export default {
   emits: ['trash','pin-state'],
@@ -8,7 +8,7 @@ export default {
       required: true,
       default: [],
       validator: function (value) {
-        return value.length >= 0;
+        return value.length >= 0
       },
     },
   },
@@ -36,10 +36,10 @@ export default {
       }, 
   computed: {
     pinnedNotes() {
-      return this.notes.filter((note) => note.isPinned);
+      return this.notes.filter((note) => note.isPinned)
     },
     unpinnedNotes() {
-      return this.notes.filter((note) => !note.isPinned);
+      return this.notes.filter((note) => !note.isPinned)
     },
   },
   methods: {

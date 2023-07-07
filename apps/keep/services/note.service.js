@@ -203,12 +203,12 @@ function _createNotes() {
       {
         id: 'n103',
         type: 'NoteTodos',
-        labels: ['Family','Friends'],
+        labels: ['Work','Critical'],
         isPinned: false,
         info: {
           title: 'Get my stuff together',
           todos: [
-            { txt: 'Driving license', doneAt: null },
+            { txt: 'Buy Coding powder', doneAt: null },
             { txt: 'Coding power', doneAt: 187111111 }
           ]
         }
@@ -221,9 +221,9 @@ function _createNotes() {
         info: {
           title: 'Coding',
           todos: [
-            { txt: 'Learn Javascript', doneAt: null },
-            { txt: 'Learn Vue', doneAt: null },
-            { txt: 'Learn Angular', doneAt: null },
+            { txt: 'Master Javascript', doneAt: null },
+            { txt: 'Master Vue', doneAt: null },
+            { txt: 'Learn Angular and react', doneAt: null },
           ]
         }
       },
@@ -232,9 +232,10 @@ function _createNotes() {
         type: 'NoteImg',
         labels: [],
         isPinned: false,
+        labels: ['Memories'],
         info: {
           url: 'https://picsum.photos/201',
-          title: 'Place to vist'
+          title: 'Memories'
         },
         style: {
           backgroundColor: '#00d'
@@ -246,7 +247,7 @@ function _createNotes() {
         labels: [],
         isPinned: false,
         info: {
-          txt: 'Dont forget your the keys'
+          txt: 'Dont forget to buy your girlfriend gift this time'
         },
         style: {
           backgroundColor: '#00d'
@@ -298,6 +299,61 @@ function _createNotes() {
         info: {
           title: 'Watch when you have time',
           url: 'https://www.youtube.com/embed/_L-Ni7bFAHg'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n111',
+        type: 'NoteTxt',
+        labels: [],
+        isPinned: true,
+        info: {
+          txt: 'the city dumps fill the junkyards fill the madhouses fill the hospitals fill the graveyards fill nothing else fills.', 
+          title: 'Charles Bukowski poet'
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n112',
+        type: 'NoteTxt',
+        labels: [],
+        isPinned: false,
+        info: {
+          txt: 'Ask friends if they have Edgar Allen Po books to borrow.', 
+        },
+        style: {
+          backgroundColor: '#00d'
+        }
+      },
+      {
+        id: 'n103',
+        type: 'NoteTodos',
+        labels: [],
+        isPinned: false,
+        info: {
+          title: 'Places to see',
+          todos: [
+            { txt: 'Niagara falls.', doneAt: null },
+            { txt: 'Climb el capitan,US.', doneAt: null },
+            { txt: 'Grand Canyon', doneAt: null },
+            { txt: 'Pyramids', doneAt: null },
+            { txt: 'Seijalandsfoss,Iceland', doneAt: null },
+            { txt: 'mt.pyrenees', doneAt: null },
+            { txt: 'Gridwood.Alaska', doneAt: null },
+          ]
+        }
+      },
+      {
+        id: 'n112',
+        type: 'NoteTxt',
+        labels: [],
+        isPinned: false,
+        info: {
+          txt: 'Buy new gi for bjj clas next month.', 
         },
         style: {
           backgroundColor: '#00d'

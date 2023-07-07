@@ -1,8 +1,5 @@
 import { noteService } from '../services/note.service.js';
-import {
-  showSuccessMsg,
-  showErrorMsg,
-} from '../../../services/event-bus.service.js';
+import {showSuccessMsg,showErrorMsg} from '../../../services/event-bus.service.js';
 
 import NoteFilter from '../cmps/NoteFilter.js';
 import NoteList from '../cmps/NoteList.js';
@@ -14,8 +11,11 @@ import KeepMenu from '../cmps/KeepMenu.js';
 export default {
   template: `
     <main class="keep-index">
-        <NoteAdd @add-note="onAddNote" />
-        <section class="notes">
+        <NoteAdd 
+        @add-note="onAddNote"
+        @open-full-display="isFullDisplay"
+        :isFullDisplay="fullDisplay" />
+    <section class="notes">
     <NoteList 
         v-if="!displayTrashed && !showArchived" 
         :notes="filteredNotes" 
@@ -32,16 +32,20 @@ export default {
         v-else-if="displayTrashed" 
         :trashedNotes="trashedNotes"
         @remove="trashNote" />
-</section>
+    </section>
 
-        <nav class="menu">
+    <nav class="side-bar" 
+     :class="{ 'is-open': isSidebarOpen }"
+     @mouseenter="isSidebarOpen = true"
+     @mouseleave="isSidebarOpen = false">
            <KeepMenu 
+            :isSidebarOpen="isSidebarOpen"
             @display-archived="displayArchived" 
             @display-notes="displayNotes"
-            @display-trash="displayTrash" />
-        </nav>
+            @display-trash="displayTrash"
+            @toggle-sidebar="toggleSidebar"  />
+    </nav>
     </main>
-  
     `,
   data() {
     return {
@@ -51,7 +55,9 @@ export default {
       filterBy: null,
       showArchived: false,
       displayTrashed: false,
-    };
+      isSidebarOpen: false,
+      fullDisplay: false,
+    }
   },
   created() {
     this.fetchNotes();
@@ -77,6 +83,14 @@ export default {
     this.$eventBus.on('note-content-updated', this.setNewText)
   },
   methods: {
+    isFullDisplay() {
+      this.fullDisplay = true
+      console.log('fullDisplay', this.fullDisplay);
+
+    },
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen
+    },
     setNewText(noteToUpdate) {
       noteService
        .save(noteToUpdate)
