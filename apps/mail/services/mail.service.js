@@ -88,7 +88,7 @@ function getNextMailId(mailId) {
 }
 
 
-function getEmptyMail(subject = '', body = '', from = '', to = '') {
+function getEmptyMail(subject = '', body = '', from = 'momo@momo.com', to = '') {
     return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'inbox', starred: false}
 }
 
