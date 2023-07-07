@@ -14,7 +14,7 @@ export default {
   },
   template: `
      <section class="note-list pinned" v-if="pinnedNotes.length > 0">
-     <h5>pinned</h5>
+     <p>pinned</p>
         <TransitionGroup name="list" tag="ul">
             <li v-for="note in pinnedNotes" :key="note.id" class="clean-list">
              <NotePreview :note="note" @trash="onTrashNote" @toggle-pin="onTogglePin" />
@@ -22,7 +22,7 @@ export default {
         </TransitionGroup>
     </section>
     <section section class="note-list unpinned">
-    <h5>other</h5>
+    <p>others</p>
          <TransitionGroup name="list" tag="ul">
             <li v-for="note in unpinnedNotes" :key="note.id" class="clean-list">
              <NotePreview :note="note" @trash="onTrashNote" @toggle-pin="onTogglePin" />

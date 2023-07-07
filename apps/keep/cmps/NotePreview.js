@@ -28,13 +28,15 @@ export default {
         <i class="material-icons" :title="isTrashed ? 'restore' : 'delete'" @click="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
           {{ isTrashed ? 'restore' : 'delete' }}
         </i>
-        <i v-if="!isTrashed" class="material-icons" title="archive" @click="archiveNote(note.id)">archive</i>
+        <i v-if="!isTrashed" class="material-icons" title="Archive" @click="archiveNote(note.id)">archive</i>
         <i v-if="!isTrashed" class="material-icons" title="email note">email</i>
+        <!-- <router-link v-if="!isTrashed" :to="getComposeEmailLink()" class="material-icons" title="email note">email</router-link> -->
+
       </div>
     </article>
 
     <div class="modal-overlay" v-if="showLabelModal" @click="closeModal"></div>
-    <LabelAdd v-if="showLabelModal" :note="note" :position="labelModalPosition" @close-modal="closeModal" @labels="updateNoteLabels" />
+    <LabelAdd v-if="showLabelModal" :note="note" :position="labelModalPosition" @close-modal="closeModal" @selected-labels="updateNoteLabels" />
 
       <!-- Move this to NoteDetails cmp ! -->
     <div v-if="dialogOpen" class="note-dialog">
@@ -51,9 +53,8 @@ export default {
         <i class="material-icons dialog" :title="isTrashed ? 'restore' : 'delete'" @click="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
           {{ isTrashed ? 'restore' : 'delete' }}
         </i>
-        <i v-if="!isTrashed" class="material-icons dialog" title="archive" @click="archiveNote(note.id)">archive</i>
+        <i v-if="!isTrashed" class="material-icons dialog" title="Archive" @click="archiveNote(note.id)">archive</i>
         <i v-if="!isTrashed" class="material-icons dialog" title="email note">email</i>
-     
          <button class="note-dialog-close-btn clean-btn" @click="closeNote">Close</button>
       </div>
      
@@ -66,7 +67,6 @@ export default {
       labelModalPosition: { x: 0, y: 0 },
       label: '',
       showColorPicker: false,
-      dialogOpen: false,
       dialogOpen: false,
       selectedNote: null,
     };
@@ -85,8 +85,8 @@ export default {
       return labelClassMap;
     },
     isTrashed() {
-      return this.note.isTrashed
-    }
+      return this.note.isTrashed;
+    },
   },
   methods: {
     getComponentName(type) {
@@ -96,41 +96,43 @@ export default {
         NoteImg,
         NoteVideo,
       };
-      return componentMap[type] || 'div'
+      return componentMap[type] || 'div';
     },
     updateNoteContent(event) {
-      this.selectedNote.info.txt = event.target.innerText
-      this.$eventBus.emit('note-content-updated', this.selectedNote)
-
+      this.selectedNote.info.txt = event.target.innerText;
+      this.$eventBus.emit('note-content-updated', this.selectedNote);
     },
     trashNote(noteId) {
-      this.$emit('trash', noteId)
+      this.$emit('trash', noteId);
     },
     togglePin() {
-      this.note.isPinned = !this.note.isPinned
-      this.$emit('toggle-pin', this.note)
+      this.note.isPinned = !this.note.isPinned;
+      this.$emit('toggle-pin', this.note);
+    },
+    updateSelectedLabels(note) {
+      
     },
     closeModal() {
-      this.showLabelModal = false
+      this.showLabelModal = false;
     },
-    updateNoteLabels({ noteLabels, note }) {
-      note.labels = noteLabels
+    updateNoteLabels(noteLabels) {
+      this.$eventBus.emit('selected-labels-updated', { selectedLabels: noteLabels, note: this.selectedNote });
     },
     archiveNote(noteId) {
-      this.$eventBus.emit('selected-note-archive', noteId)
+      this.$eventBus.emit('selected-note-archive', noteId);
     },
     deletePermanently(noteId) {
-      this.$eventBus.emit('remove-permanetly', noteId)
+      this.$eventBus.emit('remove-permanently', noteId);
     },
     restorehNote(noteId) {
-      this.$eventBus.emit('restore-note', noteId)
+      this.$eventBus.emit('restore-note', noteId);
     },
     openNote() {
-      this.selectedNote = this.note
-      this.dialogOpen = true
+      this.selectedNote = this.note;
+      this.dialogOpen = true;
     },
     closeNote() {
-      this.dialogOpen = false
+      this.dialogOpen = false;
     },
   },
   components: {

@@ -1,6 +1,5 @@
 export default {
     emits: ['labels'],
-    props: ['note'],
     template: `
  <div class="label-add-modal" @click="closeModal">
   <button class="label-btn clean-btn">x</button>
@@ -23,12 +22,11 @@ export default {
         return {
           selectedLabels: [],
           labels: ['Critical', 'Family', 'Work', 'Friends', 'Spam', 'Memories', 'Romantic'],
-          noteLabels: this.note.labels,
         }
       },
       methods: {
-        updateSelectedLabels(note) {
-            this.$eventBus.emit('selected-labels-updated', { selectedLabels: this.selectedLabels, note });
+        updateSelectedLabels() {
+          this.$emit('selected-labels', this.selectedLabels);
         },
         closeModal() {
             this.$emit('close-modal')

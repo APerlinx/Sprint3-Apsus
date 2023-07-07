@@ -22,8 +22,7 @@ export const noteService = {
   getFilterBy,
   setFilterBy,
   getnoteCountBySpeedMap,
-  addReview,
-  removeReview,
+  getVideoIdFromUrl,
   // pinUnpin,
 };
 window.noteService = noteService;
@@ -124,24 +123,18 @@ function getnoteCountBySpeedMap() {
   });
 }
 
-
-function addReview(noteId, review) {
-  return get(noteId)
-      .then(note => {
-          if (!note.reviews) note.reviews = []
-          review.id = utilService.makeId()
-          note.reviews.push(review)
-          return save(note)
-      })
-}
-
-function removeReview(noteId, reviewId) {
-  return get(noteId)
-      .then(note => {
-          const idx = note.reviews.findIndex(review => review.id === reviewId)
-          note.reviews.splice(idx, 1)
-          return save(note)
-      })
+function getVideoIdFromUrl(url) {
+  if (typeof url !== 'string') {
+    return null;
+  }
+  const regex = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#&?]*).*/;
+  const result = url.match(regex);
+  
+  if (result && result[2].length === 11) {
+    return result[2];
+  } else {
+    return null;
+  }
 }
 
 function _setNextPrevnoteId(note) {
@@ -330,7 +323,7 @@ function _createNotes() {
         }
       },
       {
-        id: 'n103',
+        id: 'n113',
         type: 'NoteTodos',
         labels: [],
         isPinned: false,
@@ -348,7 +341,7 @@ function _createNotes() {
         }
       },
       {
-        id: 'n112',
+        id: 'n114',
         type: 'NoteTxt',
         labels: [],
         isPinned: false,
