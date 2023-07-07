@@ -1,19 +1,42 @@
 .keep-index {
-    margin-top: 4em;
-    display: grid;
-    grid-template-columns: 100px auto 20px;
-    grid-template-areas: 
-    "nav-bar add-note"
-    "nav-bar notes";
+  display: grid;
+  grid-template-columns: 100px auto 20px;
+  grid-template-areas:
+    'nav-bar add-note'
+    'nav-bar notes';
+  margin-top: 0.1em;
 }
 
-.menu {
-    grid-area: nav-bar;
+.side-bar {
+  grid-area: nav-bar;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  width: 60px;
+  transition: width 0.3s, box-shadow 0.1s 0.1s;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.side-bar.is-open {
+  width: 250px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
 }
 
 .notes {
-    grid-area: notes;
-    justify-self: center;
-    align-self: center;
+  grid-area: notes;
+  justify-self: center;
+  align-self: center;
 }
 
+.side-bar.is-open,
+.side-bar:hover {
+  width: 250px;
+}
+
+.side-bar.is-open .keep-app-menu span,
+.side-bar:hover .keep-app-menu span {
+  visibility: visible;
+  opacity: 1;
+}
