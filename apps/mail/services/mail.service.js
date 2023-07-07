@@ -4,8 +4,6 @@ import { storageService } from '../../../services/async-storage.service.js'
 const PAGE_SIZE = 5
 const MAIL_KEY = 'mailDB'
 
-// var gFilterBy = { txt: '', minSpeed: 0 }
-// var gSortBy = { vendor: 1 }
 var gPageIdx
 
 _createMails()
@@ -32,7 +30,7 @@ export const mailService = {
     getNextMailId,
     getFilterBy,
     setFilterBy,
-    // getCarCountBySpeedMap,
+  
 }
 window.mailService = mailService
 
@@ -89,34 +87,38 @@ function getNextMailId(mailId) {
     })
 }
 
-// function getCarCountBySpeedMap() {
-//     return storageService.query(CAR_KEY).then(cars => {
-//         const carCountBySpeedMap = cars.reduce(
-//             (map, car) => {
-//                 if (car.maxSpeed < 120) map.slow++
-//                 else if (car.maxSpeed < 200) map.normal++
-//                 else map.fast++
-//                 return map
-//             },
-//             { slow: 0, normal: 0, fast: 0 }
-//         )
-//         return carCountBySpeedMap
-//     })
-// }
 
-function getEmptyMail(subject = '', body = '', from = 'momo@momo.com', to = '') {
-    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'inbox'}
+function getEmptyMail(subject = '', body = '', from = '', to = '') {
+    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'inbox', starred: false}
 }
 
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
-        mails.push(_createMail('Miss you!', 'Would love to catch up sometimes', 'momo@momo.com', 'user@appsus.com'))
-        mails.push(_createMail('hi!', 'what are you doing', 'bla@bla.com', 'user@appsus.com'))
-        mails.push(_createMail('dear john', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'hwu@add.com', 'user@appsus.com'))
-        mails.push(_createMail('hello', 'whats the weather?', 'asd@ttg.com', 'user@appsus.com'))
-        mails.push(_createMail('Dear Mrs. Smith', 'whats the time?', 'momo@momo.com', 'sas@fd.com'))
+        mails.push(_createMail("Important: Your Account Security Update", 'Would love to catch up sometimes', 'john.doe@gmail.com', 'user@appsus.com'))
+        mails.push(_createMail('ישראכרט', 'Would love to catch up sometimes', 'sarahsmith@yahoo.com', 'user@appsus.com'))
+        mails.push(_createMail("Congratulations on Your New Job!", 'Would love to catch up sometimes', 'david.wilson@hotmail.com', 'user@appsus.com'))
+        mails.push(_createMail('Google Storage', 'Would love to catch up sometimes', 'emily.johnson@outlook.com', 'user@appsus.com'))
+        mails.push(_createMail('Ted Talks', 'Ted Talks - come listen to the best', 'michael.brown@aol.com', 'user@appsus.com'))
+        mails.push(_createMail('עדכון פרטים אישיים', 'Would love to catch up sometimes', 'jennifer.thomas@gmail.com', 'user@appsus.com'))
+        mails.push(_createMail('בנק הפועלים', 'Would love to catch up sometimes', 'matthew.miller@yahoo.com', 'user@appsus.com'))
+        mails.push(_createMail('תשלום כביש 6', 'Would love to catch up sometimes', 'olivia.anderson@outlook.com', 'user@appsus.com'))
+        mails.push(_createMail("Invitation to our Exclusive Event", 'Would love to catch up sometimes', 'william.taylor@gmail.com', 'user@appsus.com'))
+        mails.push(_createMail("URGENT: Payment Due Reminder", 'Would love to catch up sometimes', 'sophia.wilson@yahoo.com', 'user@appsus.com'))
+        mails.push(_createMail('רישום ללימודים', 'Would love to catch up sometimes', 'momo@momo.com', 'user@appsus.com'))
+        mails.push(_createMail('חשוב: עדכון אבטחת החשבון שלך', 'Would love to catch up sometimes', 'james.jackson@hotmail.com', 'user@appsus.com'))
+        mails.push(_createMail("Request for Collaboration" , 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'hwu@add.com', 'user@appsus.com'))
+        mails.push(_createMail('GitHub', 'Would love to catch up sometimes', 'ava.thompson@gmail.com', 'user@appsus.com'))
+        mails.push(_createMail('Miss you!', 'Would love to catch up sometimes', 'benjamin.davis@yahoo.com', 'user@appsus.com'))
+        mails.push(_createMail('תזכורת:פגישה בקרוב', 'Would love to catch up sometimes', 'mia.hernandez@outlook.com', 'user@appsus.com'))
+        mails.push(_createMail('Youre storage is running out', 'Would love to catch up sometimes', 'ethan.martinez@gmail.com', 'user@appsus.com'))
+        mails.push(_createMail('הצטרף לתכנית הזיכויים שלנו', 'Would love to catch up sometimes', 'emma.anderson@yahoo.com', 'user@appsus.com'))
+        mails.push(_createMail("Join Our Rewards Program Today!", 'Would love to catch up sometimes', 'alexander.white@hotmail.com', 'user@appsus.com'))
+        mails.push(_createMail("Special Offer: Limited-Time Discount", 'Would love to catch up sometimes', 'abigail.johnson@gmail.com', 'user@appsus.com'))
+        mails.push(_createMail("Reminder: Upcoming Meeting", 'what are you doing', 'daniel.martin@yahoo.com', 'user@appsus.com'))
+        mails.push(_createMail("Updates on Your Order #12345", 'whats the weather?', 'charlotte.clark@hotmail.com', 'user@appsus.com'))
+        mails.push(_createMail('Dear Mrs. Smith', 'whats the time?', 'momo@momo.com', 'user@appsus.com'))
         utilService.saveToStorage(MAIL_KEY, mails)
     }
 

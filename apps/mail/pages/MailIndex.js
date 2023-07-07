@@ -7,22 +7,17 @@ import MailList from '../cmps/MailList.js'
 export default {
     template: `
         <section class="mail-index">
-            
-            <RouterLink to="/mail/compose">
-            <i title="Compose" class="material-icons">create</i>
-            </RouterLink> 
-            <!-- <RouterLink title="inbox" to="/mail/compose" class="compose-icon">
-                <i class="material-icons">create</i>
-            </RouterLink> -->
+        <!-- <img class="gb_Mc" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" srcset="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r5.png 2x " alt="" aria-hidden="true" role="presentation" style="width:109px;height:40px"> -->
 
             <MailFilter @filter="setFilterBy"/>
             <MailList 
                 v-if="mails"
                 :mails="filteredMails"
                 @update="update"
+               
                 @remove="removeMail" /> 
             </section>
-            <!-- :mails="mails" -->
+      
     `,
     data() {
         return {
@@ -32,14 +27,17 @@ export default {
     },
     methods: {
         update(mailId) {
-            // console.log(mailId)
             const idx = this.mails.findIndex(mail => mail.id === mailId)
-            this.mails[idx].isRead = true
-            // mailService.save(this.mail)
-            // this.mails[idx].isRead = true
-            // console.log(this.mails[idx])
-
+            this.mails[idx].isRead = !this.mails[idx].isRead
+            mailService.save(this.mails[idx])
+         
         },
+        // starred(mailId) {
+        //     const idx = this.mails.findIndex(mail => mail.id === mailId)
+        //     this.mails[idx].starred = !this.mails[idx].starred
+        //     mailService.save(this.mails[idx])
+         
+        // },
         removeMail(mailId) {
             mailService
                 .remove(mailId)
@@ -62,12 +60,15 @@ export default {
             let filteredMails = this.mails
             const regex = new RegExp(this.filterBy.subject, 'i')
             filteredMails = filteredMails.filter((mail) => regex.test(mail.subject))
-            const regex1 = new RegExp(this.filterBy.body, 'i')
-            filteredMails = filteredMails.filter((mail) => regex1.test(mail.body))
+            const regex1 = new RegExp(this.filterBy.from, 'i')
+            filteredMails = filteredMails.filter((mail) => regex1.test(mail.from))
             
             if (this.filterBy.status) {
                 filteredMails = filteredMails.filter((mail) => mail.status === this.filterBy.status)
               }
+            // if (this.filterBy.starred) {
+            //     filteredMails = filteredMails.filter((mail) => mail.starred === this.filterBy.starred)
+            //   }
 
 
             //   filteredMails = filteredMails.filter((mail) => mail..amount <= this.filterBy.price)

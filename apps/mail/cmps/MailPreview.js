@@ -4,11 +4,12 @@ export default {
     props: ['mail'],
     template: `
         <article :class="isRead" @click="markRead(mail)" class="mail-preview">
-    
+                <!-- <i class="material-icons" :title="starred ? 'unstar' : 'star'" @click.stop="toggleStarred">star</i> -->
                 <h3>{{ mail.from }}</h3>
                 <LongText :subject="mail.subject"> </LongText>
                 <h4>{{ mail.sentAt }}</h4>
-                <i class="material-icons" title="delete" @click="onRemoveMail(mail.id)">delete</i>
+                <i class="material-icons" :title="isRead ? 'Mark as Unread' : 'Mark as Read'" @click.stop="toggleReadStatus">{{ isRead ? 'mail' : 'mail_outline' }}</i>
+                <i class="material-icons" title="delete" @click.stop="onRemoveMail(mail.id)">delete</i>
 
         </article>
     `,
@@ -27,9 +28,19 @@ export default {
     
             mailService.save(this.mail)
             this.$router.push({path: `mail/${this.mail.id}`})
-            this.$emit('update', this.mail.id)
-
+            // this.$emit('update', this.mail.id)
     },
+    toggleReadStatus() {
+        // this.mail.isRead = !this.mail.isRead 
+        this.$emit('update', this.mail.id) 
+      },
+    // toggleStarred() {
+    //     // this.mail.isRead = !this.mail.isRead 
+    //     this.$emit('starred', this.mail.id) 
+    //   },
+    onRemoveMail(mailId) {
+        this.$emit('remove', mailId)
+      },
     },
     created() {
         // console.log(this.mail)

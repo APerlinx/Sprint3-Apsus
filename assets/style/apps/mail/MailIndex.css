@@ -1,37 +1,66 @@
 .sidebar {
     position: fixed;
-    top: 64px; /* Adjust this value to match the height of the app header */
+    top: 0px; 
     left: 0;
-    height: calc(100vh - 64px); /* Adjust this value to account for the app header height */
+    /* height: calc(100vh - 64px);  */
     width: 60px;
-    /* background-color: #f2f2f2; */
+    height: 100%;
+    background-color: #f2f6fc;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: space-between; */
+
+    margin-top: 65px;
+    
+  }
+
+  a .material-icons {
+    border-radius: 40%;
+    padding: 15px;
+    background-color: #c2e7ff;
+    position: fixed;
+    left: 2px;
+    
+  }
+  .filterIcons{
+    position: fixed;
+    top: 200px;
+    margin-left:8px;
+  }
+  
+  a .material-icons :hover{
+    background-color: #c2e7ff;
+
   }
   
   .mail-index {
-    margin-left: 60px; /* Adjust this value to provide space for the sidebar */
-    /* Other styles for the mail index section */
+    margin-left: 60px;
   }
 
-  .compose-icon {
-    position: fixed;
-    top: 97px; /* Adjust this value to match the height of the app header */
-    left: 0;
-    width: 60px;
-    height: 60px;
-    /* background-color: #f2f2f2; */
+  .top-actions {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
   }
   
-  .compose-icon i {
+  .top-actions input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    outline: none;
+  }
+  
+  .top-actions input:focus {
+    border-bottom-color: #4CAF50;
+  }
+  
+  .top-actions i {
     font-size: 24px;
     color: black;
   }
+  
   
   
   
