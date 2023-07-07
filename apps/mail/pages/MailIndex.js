@@ -14,6 +14,7 @@ export default {
                 v-if="mails"
                 :mails="filteredMails"
                 @update="update"
+               
                 @remove="removeMail" /> 
             </section>
       
@@ -27,9 +28,16 @@ export default {
     methods: {
         update(mailId) {
             const idx = this.mails.findIndex(mail => mail.id === mailId)
-            this.mails[idx].isRead = true
+            this.mails[idx].isRead = !this.mails[idx].isRead
+            mailService.save(this.mails[idx])
          
         },
+        // starred(mailId) {
+        //     const idx = this.mails.findIndex(mail => mail.id === mailId)
+        //     this.mails[idx].starred = !this.mails[idx].starred
+        //     mailService.save(this.mails[idx])
+         
+        // },
         removeMail(mailId) {
             mailService
                 .remove(mailId)
@@ -58,6 +66,9 @@ export default {
             if (this.filterBy.status) {
                 filteredMails = filteredMails.filter((mail) => mail.status === this.filterBy.status)
               }
+            // if (this.filterBy.starred) {
+            //     filteredMails = filteredMails.filter((mail) => mail.starred === this.filterBy.starred)
+            //   }
 
 
             //   filteredMails = filteredMails.filter((mail) => mail..amount <= this.filterBy.price)

@@ -89,7 +89,7 @@ function getNextMailId(mailId) {
 
 
 function getEmptyMail(subject = '', body = '', from = '', to = '') {
-    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'inbox'}
+    return { id: '', subject, body, isRead: false, sentAt: _formatDate(), removedAt: '', from, to, status:'inbox', starred: false}
 }
 
 function _createMails() {

@@ -14,16 +14,22 @@ export default {
                     @input="onSetFilterBy"
                     placeholder="Search by Email Address">
                 
-                <RouterLink to="/mail/compose">
-                    <i title="Compose" class="material-icons">create</i>
-                </RouterLink>
-            </section>
-            
-            <div class="sidebar">
-                <i class="material-icons" title="Inbox" @click="onFilterClick('inbox')">inbox</i>
-                <i class="material-icons" title="Sent" @click="onFilterClick('sent')">send</i>
-                <i class="material-icons" title="Drafts" @click="onFilterClick('draft')">drafts</i>
-                <i class="material-icons" title="Trash" @click="onFilterClick('trash')">delete</i>
+                </section>
+                
+                <div class="sidebar">
+                  <div>
+                      <RouterLink to="/mail/compose">
+                        <i title="Compose" class="material-icons">create</i>
+                    </RouterLink>
+                  </div>
+                  <div class ="filterIcons">
+                      <i class="material-icons" title="Inbox" @click="onFilterClick('inbox')">inbox</i>
+                      <i class="material-icons" title="Sent" @click="onFilterClick('sent')">send</i>
+                      <i class="material-icons" title="Drafts" @click="onFilterClick('draft')">drafts</i>
+                      <i class="material-icons" title="Trash" @click="onFilterClick('trash')">delete</i>
+
+                  </div>
+                <!-- <i class="material-icons" @click="onFilterByStarred">star</i> -->
             </div>
 
             
@@ -34,7 +40,8 @@ export default {
             filterBy: {
                 subject: '',
                 body: '',
-                status:'inbox'
+                status:'inbox',
+                // starred:'true'
             }
         }
     },
@@ -46,6 +53,9 @@ export default {
             this.filterBy.status = status
             this.$emit('filter', this.filterBy)
           },
+        // onFilterByStarred(){
+        //     this.$emit('filter', this.filterBy)
+        // }
       },
    
 }

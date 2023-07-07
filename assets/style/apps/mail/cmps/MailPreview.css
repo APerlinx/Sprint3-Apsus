@@ -32,7 +32,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: .2px solid #ccc;
+  border-top: .2px solid #ccc;
+  border-bottom: .2px solid #ccc;
   padding: 10px;
   width: 100%;
   cursor: pointer;
@@ -42,16 +43,14 @@
 .mail-preview h3 {
   margin: 0;
   flex: 1;
+  /* width: content;
+  overflow: hidden;
+  white-space: nowrap; */
+  /* height: min-content; */
 }
 .mail-preview h4{
   margin: 0;
 }
-
-/* .mail-preview a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
 
 .actions {
   display: flex;
@@ -75,9 +74,39 @@
 
 }
 
+.starred {
+  color: yellow;
+}
+
 /* .unread{
   background-color: rgba(100,121,143,0.122);
 }  */
 
+@media (max-width: 768px) {
+  .mail-list ul {
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+  }
+
+  /* .mail-list ul li {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .mail-preview {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mail-preview h2,
+  .mail-preview h3,
+  .mail-preview h4 {
+    width: 100%;
+  }
+
+  .mail-preview .material-icons {
+    margin-top: 10px;
+  } */
+}
 
 
