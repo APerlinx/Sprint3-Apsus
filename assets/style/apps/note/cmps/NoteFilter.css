@@ -21,7 +21,6 @@
 
 .label-item {
   text-align: center;
-  vertical-align: middle;
   width: 6em;
   height: 6em;
   background-color: rgb(236, 236, 236);
@@ -33,7 +32,7 @@
   display: flex;
   align-items: center;
   border-radius: 8px;
-  margin-inline-start: 7em;
+  margin-inline-start: 5em;
 }
 
 .search-icon {
@@ -45,5 +44,16 @@
   background-color: rgb(236, 239, 243);
   padding: 11px;
   border-radius: 8px;
+}
+
+.go-back-btn {
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 0.5em 0.7em;
+  border-radius: 8px;
+}
+
+.go-back-btn:hover {
+  background-color: rgb(226, 230, 235);
 }
 

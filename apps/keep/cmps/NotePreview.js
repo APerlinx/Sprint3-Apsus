@@ -9,56 +9,45 @@ import BgAdd from './BgAdd.js';
 
 export default {
   emits: ['toggle-pin', 'trash'],
-  props: ['note'],
+  props: ['note','labels'],
   template: `
   <div>
     <article class="note-preview" :style="{ backgroundColor: note.bgColor }" @click="openNote">
-      <i v-if="!isTrashed" class="material-icons unpinned-icon" @click="togglePin">push_pin</i>
+      <i v-if="!isTrashed" class="material-icons unpinned-icon" @click.stop="togglePin">push_pin</i>
       <TransitionGroup name="list" tag="ul">
         <li v-for="label in note.labels" :key="label" class="clean-list note-label" :class="labelClasses[label]">
           {{ label }}
         </li>
       </TransitionGroup>
-      <component :is="getComponentName(note.type)" :note="note" />
+      <component :is="getComponentName(note.type)" :note="note" :showTitle="true" />
       <div class="tool-tip">
-        <i v-if="!isTrashed" class="material-icons" title="add labels" @click="showLabelModal = true">label</i>
-        <i v-if="!isTrashed" class="material-icons" title="background options" @click="showColorPicker = !showColorPicker">palette</i>
+        <i v-if="!isTrashed" class="material-icons" title="add labels" @click.stop="showLabelModal = true">label</i>
+        <i v-if="!isTrashed" class="material-icons" title="background options" @click.stop="showColorPicker = !showColorPicker">palette</i>
         <BgAdd v-if="showColorPicker" :note="note" @bg-color-change="updateBgColor" />
-        <i v-if="isTrashed" class="material-icons" title="delete permanently" @click="deletePermanently(note.id)">delete_forever</i>
-        <i class="material-icons" :title="isTrashed ? 'restore' : 'delete'" @click="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
+        <i v-if="isTrashed" class="material-icons" title="delete permanently" @click.stop="deletePermanently(note.id)">delete_forever</i>
+        <i class="material-icons" :title="isTrashed ? 'restore' : 'delete'" @click.stop="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
           {{ isTrashed ? 'restore' : 'delete' }}
         </i>
-        <i v-if="!isTrashed" class="material-icons" title="Archive" @click="archiveNote(note.id)">archive</i>
-        <i v-if="!isTrashed" class="material-icons" title="email note">email</i>
-        <!-- <router-link v-if="!isTrashed" :to="getComposeEmailLink()" class="material-icons" title="email note">email</router-link> -->
+        <i v-if="!isTrashed" class="material-icons" title="Archive" @click.stop="archiveNote(note.id)">archive</i>
+        <i v-if="!isTrashed" class="material-icons" title="email note" @click.stop="openEmail">email</i>
 
       </div>
     </article>
 
     <div class="modal-overlay" v-if="showLabelModal" @click="closeModal"></div>
-    <LabelAdd v-if="showLabelModal" :note="note" :position="labelModalPosition" @close-modal="closeModal" @selected-labels="updateNoteLabels" />
-
-      <!-- Move this to NoteDetails cmp ! -->
-    <div v-if="dialogOpen" class="note-dialog">
-      <h2 class="note-dialog-title">{{ selectedNote.title }}</h2>
-      <div class="content" contenteditable="true" @input="updateNoteContent"> 
-         <component :is="getComponentName(selectedNote.type)" :note="selectedNote" />
-      </div>
-      <div class="tool-tip-dialog">
-
-        <i v-if="!isTrashed" class="material-icons dialog" title="add labels" @click="showLabelModal = true">label</i>
-        <i v-if="!isTrashed" class="material-icons dialog" title="background options" @click="showColorPicker = !showColorPicker">palette</i>
-        <BgAdd v-if="showColorPicker" :note="note" @bg-color-change="updateBgColor" />
-        <i v-if="isTrashed" class="material-icons dialog" title="delete permanently" @click="deletePermanently(note.id)">delete_forever</i>
-        <i class="material-icons dialog" :title="isTrashed ? 'restore' : 'delete'" @click="isTrashed ? restorehNote(note.id) : trashNote(note.id)">
-          {{ isTrashed ? 'restore' : 'delete' }}
-        </i>
-        <i v-if="!isTrashed" class="material-icons dialog" title="Archive" @click="archiveNote(note.id)">archive</i>
-        <i v-if="!isTrashed" class="material-icons dialog" title="email note">email</i>
-         <button class="note-dialog-close-btn clean-btn" @click="closeNote">Close</button>
-      </div>
-     
-    </div>
+        <LabelAdd 
+        v-if="showLabelModal" 
+        :note="note"
+        :labels="labels" 
+        :position="labelModalPosition"
+        @close-modal="closeModal" 
+        @selected-labels="updateNoteLabels" />
+        
+        <NoteDetails 
+        v-if="dialogOpen" 
+        :note="note" 
+        @close-note="closeNote"
+        @toggle-pin="togglePin" />
   </div>
     `,
   data() {
@@ -134,6 +123,26 @@ export default {
     closeNote() {
       this.dialogOpen = false;
     },
+    openEmail() {
+      const subject = this.note.info.title;
+      let body = '';
+    
+      if (this.note.type === 'NoteTxt') {
+        body = this.note.info.txt;
+      } else if (this.note.type === 'NoteTodos') {
+        body = this.note.info.todos.map(todo => '• ' + todo.txt).join('\n');
+      } else if (this.note.type === 'NoteImg') {
+        body = this.note.info.url;
+      } else if (this.note.type === 'NoteVideo') {
+        body = this.note.info.url;
+      }
+    
+      this.$router.push({
+        name: 'MailCompose',
+        query: { subject, body: encodeURIComponent(body) },
+      });
+      
+    }    
   },
   components: {
     NoteTxt,

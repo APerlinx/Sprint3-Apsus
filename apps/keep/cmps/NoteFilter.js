@@ -10,7 +10,7 @@ export default {
             v-model="searchQuery"
             @keyup.enter="filterBySearch">
       </i>
-        <div class="title">Labels</div>
+      <div class="go-back-btn" @click="goBackToNotes">Go back</div>
     </div>
       
      <ul>
@@ -26,28 +26,31 @@ export default {
   data() {
     return {
       searchQuery: '',
-      labels: [
-        'Critical',
-        'Family',
-        'Work',
-        'Friends',
-        'Spam',
-        'Memories',
-        'Romantic',
-      ],
+      labels: [],
     }
   },
+  created() {
+    if (this.$route.query.labels) {
+      this.labels = JSON.parse(this.$route.query.labels);
+    }
+  },
+  
+  
   methods: {
+    handleLabelsFetched(labels) {
+        this.labels = labels
+        console.log('labels', this.labels);
+    },
     filterBy(label) {
         this.$router.push({ path: '/note', query: { label } });
-        console.log('label', label);
     },
     filterBySearch() { 
-        console.log('filterBySearch called');
-        if (this.searchQuery) {
+      if (this.searchQuery) {
           this.$router.push({ path: '/note', query: { search: this.searchQuery } });
-          console.log('searchQuery', this.searchQuery);
-        }
+      }
     },
+    goBackToNotes() {
+        this.$router.push({ path: '/note' });
+    }
   },
 }

@@ -5,6 +5,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 const PAGE_SIZE = 5
 const NOTE_KEY = 'noteDB'
+const LABELS_KEY = 'labelsDB'
 
 var gFilterBy = {}
 var gSortBy = {}
@@ -23,8 +24,10 @@ export const noteService = {
   setFilterBy,
   getnoteCountBySpeedMap,
   getVideoIdFromUrl,
-  // pinUnpin,
-};
+  addNewLabel,
+  getLabels,
+  removeLabel,
+}
 window.noteService = noteService;
 
 function query() {
@@ -79,7 +82,6 @@ function getEmptynote() {
     };
 }
   
-
 function getFilterBy() {
   return { ...gFilterBy };
 }
@@ -134,6 +136,28 @@ function getVideoIdFromUrl(url) {
     return result[2];
   } else {
     return null;
+  }
+}
+
+function addNewLabel(label) {
+  const labels = utilService.loadFromStorage(LABELS_KEY) || []
+  labels.push(label)
+  utilService.saveToStorage(LABELS_KEY, labels)
+  console.log('Label added:', label)
+}
+
+function getLabels() {
+  return storageService
+    .query(LABELS_KEY)
+    .then(labels => labels || []);
+}
+
+function removeLabel(label) {
+  const labels = utilService.loadFromStorage(LABELS_KEY) || [];
+  const index = labels.indexOf(label);
+  if (index !== -1) {
+    labels.splice(index, 1);
+    utilService.saveToStorage(LABELS_KEY, labels);
   }
 }
 
@@ -356,7 +380,13 @@ function _createNotes() {
   
     utilService.saveToStorage(NOTE_KEY, notes);
   }
+  let labels = utilService.loadFromStorage(LABELS_KEY);
+  if (!labels || !labels.length) {
+    labels = ['Critical', 'Family', 'Work', 'Friends', 'Spam', 'Memories', 'Romantic'];
+
+    utilService.saveToStorage(LABELS_KEY, labels);
   }
+}
   
 
   

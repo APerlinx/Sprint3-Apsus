@@ -11,21 +11,33 @@ export default {
         return value.length >= 0
       },
     },
+    labels: {
+      type: Array,
+      default: () => [],
+    }
   },
   template: `
      <section class="note-list pinned" v-if="pinnedNotes.length > 0">
-     <p>pinned</p>
+     <p class="section-title">pinned</p>
         <TransitionGroup name="list" tag="ul">
             <li v-for="note in pinnedNotes" :key="note.id" class="clean-list">
-             <NotePreview :note="note" @trash="onTrashNote" @toggle-pin="onTogglePin" />
+             <NotePreview 
+             :note="note" 
+             :labels="labels"
+             @trash="onTrashNote" 
+             @toggle-pin="onTogglePin" />
             </li>
         </TransitionGroup>
     </section>
     <section section class="note-list unpinned">
-    <p>others</p>
+    <p class="section-title">others</p>
          <TransitionGroup name="list" tag="ul">
             <li v-for="note in unpinnedNotes" :key="note.id" class="clean-list">
-             <NotePreview :note="note" @trash="onTrashNote" @toggle-pin="onTogglePin" />
+             <NotePreview 
+             :note="note" 
+             :labels="labels"
+             @trash="onTrashNote" 
+             @toggle-pin="onTogglePin" />
             </li>
         </TransitionGroup>
     </section>

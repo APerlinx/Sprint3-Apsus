@@ -26,8 +26,10 @@ const routerOptions = {
 			component: NoteIndex,
 		},
 		{
-			path: '/note/filter',
+			path: '/note-filter',
+			name: 'NoteFilter',
 			component: NoteFilter,
+			props: true,
 		},
 		{
 			path: '/mail',
@@ -39,7 +41,8 @@ const routerOptions = {
         },
 		{
             path: '/mail/compose',
-            component: MailCompose
+			name: 'MailCompose',
+            component: MailCompose,
         }
 	],
 }

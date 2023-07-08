@@ -1,6 +1,12 @@
 export default {
-    emits: ['labels'],
-    template: `
+  // emits: ['labels'],
+  props: {
+    labels: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  template: `
  <div class="label-add-modal" @click="closeModal">
   <button class="label-btn clean-btn">x</button>
   <h3>Choose Labels</h3>
@@ -16,20 +22,18 @@ export default {
   
   </div>
 </div>
-
     `,
-      data() {
-        return {
-          selectedLabels: [],
-          labels: ['Critical', 'Family', 'Work', 'Friends', 'Spam', 'Memories', 'Romantic'],
-        }
-      },
-      methods: {
-        updateSelectedLabels() {
-          this.$emit('selected-labels', this.selectedLabels);
-        },
-        closeModal() {
-            this.$emit('close-modal')
-          },
-      }
-}
+  data() {
+    return {
+      selectedLabels: [],
+    };
+  },
+  methods: {
+    updateSelectedLabels() {
+      this.$emit('selected-labels', this.selectedLabels);
+    },
+    closeModal() {
+      this.$emit('close-modal');
+    },
+  },
+};

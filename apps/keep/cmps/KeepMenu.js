@@ -4,6 +4,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    labels: {
+      type: Array,
+      default: () => [],
+    }
   },
   template: `
     <section class="keep-app-menu">
@@ -14,11 +18,11 @@ export default {
            <span v-show="isSidebarOpen">Notes</span>
       </div>
   <div class="menu-item" :class="{ 'is-active': activeMenu === 'filter' }" @click="handleFilterNotes">
-        <i class="mdi mdi-filter-outline grey-icon" title="Filter" :class="{ 'is-active': activeMenu === '' }"></i>
+        <i class="mdi mdi-filter-outline grey-icon" title="Filter"></i>
         <span span v-if="isSidebarOpen">Filter</span>
   </div>
-  <div class="menu-item" :class="{ 'is-active': activeMenu === '' }">
-        <i class="mdi mdi-pencil grey-icon" title="Edit labels" :class="{ 'is-active': activeMenu === '' }"></i>
+  <div class="menu-item" :class="{ 'is-active': activeMenu === 'label' }" @click="handleOpenAddLabel">
+        <i class="mdi mdi-pencil grey-icon" title="Edit labels"></i>
         <span v-if="isSidebarOpen">Edit labels</span>
   </div>
     <div class="menu-item" :class="{ 'is-active': activeMenu === 'archive' }" @click="handleDisplayArchived">
@@ -54,7 +58,13 @@ export default {
     },
     handleFilterNotes() {
       this.activeMenu = 'filter'
-      this.$router.push('/note/filter');
+      this.$router.push({
+        name: 'NoteFilter',
+        query: { labels: JSON.stringify(this.labels) },
+      });
+    },
+    handleOpenAddLabel() {
+      this.$emit('open-add-label');
     },
     toggleSidebar() {
       this.$emit('toggle-sidebar')

@@ -1,8 +1,8 @@
 export default {
-    props: ['note'],
+    props: ['note', 'showTitle'],
     template: `
         <article class="note-img">
-            <p>{{note.info.title}}</p>
+            <h3 v-if="showTitle">{{ note.info.title }}</h3>
             <img :src="note.info.url" alt="Note image" class="note-img">
         </article>
     `,

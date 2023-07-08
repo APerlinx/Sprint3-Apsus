@@ -1,16 +1,15 @@
 .label-add-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%; /* Position the modal to the right of the note */
-    translate: -50% -50%;
-    background-color: #fff;
-    border: 3px solid grey;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    width: 200px;
-    z-index: 999;
-    border-radius: 8px;
-  }
+  position: fixed;
+  top: calc(50% - 100px); 
+  left: calc(50% - 100px); 
+  background-color: #fff;
+  border: 3px solid grey;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  width: 200px;
+  z-index: 999;
+  border-radius: 8px;
+}
 
   .label-add-modal ul {
     display: flex;
