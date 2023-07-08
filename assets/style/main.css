@@ -39,3 +39,19 @@
 @import './apps/mail/cmps/MailPreview.css';
 @import './apps/mail/cmps/MailCompose.css';
 @import './apps/mail/mq.css';
+
+/* Book Cmp */ 
+
+@import './apps/book/cmps/AddReview.css';
+@import './apps/book/cmps/BookEdit.css';
+@import './apps/book/cmps/BookAdd.css';
+
+@import './apps/book/cmps/BookFilter.css';
+@import './apps/book/cmps/BookList.css';
+@import './apps/book/cmps/BookPreview.css';
+@import './apps/book/cmps/AddReview.css';
+
+@import './apps/book/cmps/UserMsg.css';
+@import './apps/book/cmps/StarRating.css';
+
+/* Pages */

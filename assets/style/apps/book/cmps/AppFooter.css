@@ -1,0 +1,12 @@
+.app-footer {
+    display: flex;
+    align-items: center;
+    height: 4vh;
+
+    padding: 10px;
+    background-color: var(--columbia-blue);
+}
+
+.app-footer p {
+    margin: 0;
+}

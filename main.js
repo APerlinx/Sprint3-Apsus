@@ -9,6 +9,7 @@ import UserMsg from './cmps/UserMsg.js'
 
 import NoteIndex from './apps/keep/pages/NoteIndex.js'
 import MailIndex from './apps/mail/pages/MailIndex.js'
+import BookIndex from './apps/book/pages/BookIndex.js'
 import HomePage from './views/HomePage.js'
 import AboutUs from './views/AboutUs.js'
 
@@ -20,6 +21,7 @@ const options = {
             <HomePage v-if="route === 'home'"/>
             <MailIndex v-if="route === 'mail'" />
             <NoteIndex v-if="route === 'note'" />
+            <BookIndex v-if="route === 'book'" />
             <AboutUs v-if="route === 'about'" />
         </section>
             <RouterView />
@@ -40,6 +42,7 @@ const options = {
         AboutUs,
         NoteIndex,
         MailIndex,
+        BookIndex,
 	},
 }
 

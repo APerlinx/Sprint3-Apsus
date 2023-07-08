@@ -1,0 +1,38 @@
+.book-filter {
+    padding: 10px;
+    background-color: var(--gray1);
+    margin-block-start: 10px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 300px ;
+}
+
+fieldset {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 10em;
+    height: 7em;
+    text-align: center;
+}
+legend {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.year-input {
+    margin-bottom: 0.5em;
+   text-align: center;
+}
+
+.title-input {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 0;
+}
+
+a {
+    padding: 2em;
+}

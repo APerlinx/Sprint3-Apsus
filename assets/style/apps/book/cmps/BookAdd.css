@@ -1,0 +1,9 @@
+.add-google-book {
+    margin-inline-start: 1em;
+    transition: 0.2s;
+}
+
+.add-google-book:hover {
+    cursor: pointer;
+    scale: 1.2;
+}

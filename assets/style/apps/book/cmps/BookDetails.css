@@ -1,0 +1,27 @@
+.book-details {
+    position: relative;
+    padding: 10px;
+    background-color: var(--thistle);
+}
+
+.book-details img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 120px;
+    transition: 400ms;
+}
+
+.cheap {
+    color: green;
+}
+
+.expensive {
+    color: red;
+}
+
+.links {
+    position: absolute;
+    top: 400px;
+    right: 10px;
+}

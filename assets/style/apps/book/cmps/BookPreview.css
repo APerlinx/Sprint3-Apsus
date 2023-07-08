@@ -1,0 +1,38 @@
+.details-link{
+    background-color: rgb(241, 241, 241,0.8);
+    padding: 0.4em 0.8em;
+    text-align: center;
+    border-radius: 10px 0 0 0;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.edit-link {
+    background-color: rgb(241, 241, 241,0.8);
+    padding: 0.4em 0.8em;
+    border-left: 1px solid rgb(185, 184, 184);
+    text-align: center;
+    border-radius: 0 10px 0 0;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.edit-link:hover {
+    background-color: rgb(214, 212, 212);
+}
+
+.details-link:hover {
+    background-color: rgb(214, 212, 212);
+}
+
+
+.preview-title {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.preview-price {
+    font-size: 1em;
+    color: #B12704;
+}
+
