@@ -9,6 +9,7 @@ import MailIndex from './apps/mail/pages/MailIndex.js'
 import MailDetails from './apps/mail/pages/MailDetails.js'
 import MailCompose from './apps/mail/pages/MailCompose.js'
 
+
 import BookIndex from './apps/book/pages/BookIndex.js'
 import BookDetails from './apps/book/pages/BookDetails.js'
 import BookEdit from './apps/book/pages/BookEdit.js'
@@ -52,10 +53,6 @@ const routerOptions = {
             component: MailCompose,
         },
 		{
-			path: '/note/:noteId',
-			component: NoteDetails
-		},
-		{
 			path: '/book',
 			component: BookIndex,
 		  },
@@ -72,6 +69,7 @@ const routerOptions = {
 			name: 'BookAdd',
 			component: BookAdd,
 		  },
+		
 	],
 }
 
