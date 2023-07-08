@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     updateSelectedLabels() {
-      this.$emit('selected-labels', this.selectedLabels);
+      this.$emit('selected-labels', this.selectedLabels)
     },
     closeModal() {
-      this.$emit('close-modal');
+      this.$emit('close-modal')
     },
   },
 };

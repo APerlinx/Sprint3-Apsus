@@ -53,7 +53,7 @@ export default {
     },
     handleDisplayTrash() {
       // this.$router.push({ path: '/note/trash' });
-      this.activeMenu = 'trash';
+      this.activeMenu = 'trash'
       this.$emit('display-trash')
     },
     handleFilterNotes() {
@@ -64,7 +64,7 @@ export default {
       });
     },
     handleOpenAddLabel() {
-      this.$emit('open-add-label');
+      this.$emit('open-add-label')
     },
     toggleSidebar() {
       this.$emit('toggle-sidebar')

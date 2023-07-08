@@ -16,10 +16,10 @@ export default {
       </div>
       <div class="label-section">
       
-      <div v-for="(label, index) in labels" :key="index" class="label-item" @mouseover="hoverLabel = index" @mouseleave="hoverLabel = -1">
-  <i class="mdi" :class="{'mdi-label': hoverLabel !== index, 'mdi-trash-can': hoverLabel === index}" @click="deleteLabel(index)"></i>
-  <span class="label">{{ label }}</span>
-</div>
+      <div v-for="(label, index) in labels" :key="index" class="label-item" @mouseover="hoverLabel = index" @mouseleave="hoverLabel = null">
+              <i class="mdi" :class="{'mdi-label': hoverLabel !== index, 'mdi-trash-can': hoverLabel === index}" @click="deleteLabel(index)"></i>
+          <span class="label">{{ label }}</span>
+        </div>
 
       </div>
     </div>
@@ -37,26 +37,26 @@ export default {
   },
   methods: {
     createLabel() {
-      if (!this.labelName) return;
-      const newLabel = this.labelName;
-      this.labels.push(newLabel);
-      this.labelName = '';
-      const index = this.labels.length - 1;
-      this.labels.splice(index, 0, newLabel);
-      this.$emit('new-label-created', newLabel);
+      if (!this.labelName) return
+      const newLabel = this.labelName
+      this.labels.push(newLabel)
+      this.labelName = ''
+      const index = this.labels.length - 1
+      this.labels.splice(index, 0, newLabel)
+      this.$emit('new-label-created', newLabel)
     },
     deleteLabel(index) {
-      const deletedLabel = this.labels[index];
-      this.labels.splice(index, 1);
-      this.$emit('delete-label', deletedLabel);
+      const deletedLabel = this.labels[index]
+      this.labels.splice(index, 1)
+      this.$emit('delete-label', deletedLabel)
     },
     closeModal() {
-      this.$emit('close-add-label');
+      this.$emit('close-add-label')
     },
   },
   mounted() {
     this.$nextTick(function () {
-      this.$refs.labelInput.focus();
+      this.$refs.labelInput.focus()
     });
   },
 };

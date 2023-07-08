@@ -1,14 +1,13 @@
-import { noteService } from '../services/note.service.js';
+import { noteService } from '../services/note.service.js'
 import {showSuccessMsg,showErrorMsg} from '../../../services/event-bus.service.js'
-// import { eventBus } from '../../../services/event-bus.service.js';
 
-import NoteFilter from '../cmps/NoteFilter.js';
-import NoteList from '../cmps/NoteList.js';
-import TrashedNotesList from '../cmps/TrashedNotesList.js';
-import NoteAdd from '../cmps/NoteAdd.js';
-import EditLabel from '../cmps/EditLabel.js';
+import NoteFilter from '../cmps/NoteFilter.js'
+import NoteList from '../cmps/NoteList.js'
+import TrashedNotesList from '../cmps/TrashedNotesList.js'
+import NoteAdd from '../cmps/NoteAdd.js'
+import EditLabel from '../cmps/EditLabel.js'
 
-import KeepMenu from '../cmps/KeepMenu.js';
+import KeepMenu from '../cmps/KeepMenu.js'
 
 export default {
   template: `
@@ -107,7 +106,7 @@ export default {
   },
   methods: {
     toggleAddLabelModal() {
-      this.isAddLabelModalOpen = !this.isAddLabelModalOpen;
+      this.isAddLabelModalOpen = !this.isAddLabelModalOpen
     },
     clearFilter() {
       this.$router.push({ path: '/note' })
@@ -131,11 +130,11 @@ export default {
  
    
     displayArchived() {
-      this.showArchived = !this.showArchived;
+      this.showArchived = !this.showArchived
     },
 
     displayTrash() {
-      this.displayTrashed = !this.displayTrashed;
+      this.displayTrashed = !this.displayTrashed
     },
 
     displayNotes() {
@@ -149,11 +148,11 @@ export default {
     },
 
     handleNoteChange({ id, newTitle, newContent }) {
-      const note = this.notes.find(note => note.id === id);
+      const note = this.notes.find(note => note.id === id)
       if (note) {
         console.log('newTitle', newTitle);
-        note.info.title = newTitle;
-        note.info.txt = newContent;
+        note.info.title = newTitle
+        note.info.txt = newContent
       }
       noteService.save(note)
     },
@@ -164,52 +163,51 @@ export default {
       const noteIndex = targetArray.findIndex((note) => note.id === noteId)
 
       if (noteIndex !== -1) {
-        const noteToArchive = targetArray[noteIndex];
+        const noteToArchive = targetArray[noteIndex]
         noteToArchive.isArchived = !noteToArchive.isArchived;
 
         if (noteToArchive.isArchived) {
-          targetArray.splice(noteIndex, 1);
-          this.archivedNotes.unshift(noteToArchive);
+          targetArray.splice(noteIndex, 1)
+          this.archivedNotes.unshift(noteToArchive)
         } else {
-          targetArray.splice(noteIndex, 1);
-          this.notes.unshift(noteToArchive);
+          targetArray.splice(noteIndex, 1)
+          this.notes.unshift(noteToArchive)
         }
 
         noteService
           .save(noteToArchive)
           .then(() => {
             if (noteToArchive.isArchived) {
-              showSuccessMsg('Note archived!');
+              showSuccessMsg('Note archived!')
             } else {
-              showSuccessMsg('Note unarchived!');
+              showSuccessMsg('Note unarchived!')
             }
           })
           .catch((error) => {
-            showErrorMsg('Failed to update note');
+            showErrorMsg('Failed to update note')
           });
       }
     },
 
     handleSelectedLabelsUpdated(data) {
-      const { selectedLabels, note } = data;
+      const { selectedLabels, note } = data
       note.labels = selectedLabels;
       noteService
         .save(note)
         .then((savedNote) => {
           showSuccessMsg('Label updated');
-          const index = this.notes.findIndex((n) => n.id === savedNote.id);
+          const index = this.notes.findIndex((n) => n.id === savedNote.id)
           if (index !== -1) {
             this.notes.splice(index, 1, savedNote);
           }
         })
         .catch((err) => {
-          showErrorMsg('Cannot add/remove label right now');
+          showErrorMsg('Cannot add/remove label right now')
         });
     },
 
     handleNewLabel(newLabel) {
-      noteService.addNewLabel(newLabel);
-      console.log('Label added');
+      noteService.addNewLabel(newLabel)
       this.fetchLabels();
     },
     
@@ -228,51 +226,51 @@ export default {
       const targetArray = this.notes.find((note) => note.id === noteId)
         ? this.notes
         : this.trashedNotes;
-      const noteIndex = targetArray.findIndex((note) => note.id === noteId);
+      const noteIndex = targetArray.findIndex((note) => note.id === noteId)
 
       if (noteIndex !== -1) {
-        const noteToTrash = targetArray[noteIndex];
-        noteToTrash.isTrashed = !noteToTrash.isTrashed;
+        const noteToTrash = targetArray[noteIndex]
+        noteToTrash.isTrashed = !noteToTrash.isTrashed
 
         if (noteToTrash.isTrashed) {
-          targetArray.splice(noteIndex, 1);
-          this.trashedNotes.unshift(noteToTrash);
+          targetArray.splice(noteIndex, 1)
+          this.trashedNotes.unshift(noteToTrash)
         } else {
-          targetArray.splice(noteIndex, 1);
-          this.notes.unshift(noteToTrash);
+          targetArray.splice(noteIndex, 1)
+          this.notes.unshift(noteToTrash)
         }
         noteService
           .save(noteToTrash)
           .then(() => {
             if (noteToTrash.isTrashed) {
-              showSuccessMsg('Note trashed!');
+              showSuccessMsg('Note trashed!')
             } else {
-              showSuccessMsg('Note untrashed!');
+              showSuccessMsg('Note untrashed!')
             }
           })
           .catch((error) => {
-            showErrorMsg('Failed to update note');
+            showErrorMsg('Failed to update note')
           });
       }
     },
 
     restoreNote(noteId) { 
-      const noteIndex = this.trashedNotes.findIndex((note) => note.id === noteId);
+      const noteIndex = this.trashedNotes.findIndex((note) => note.id === noteId)
     
       if (noteIndex !== -1) {
         const noteToRestore = this.trashedNotes[noteIndex];
         noteToRestore.isTrashed = false;
     
-        this.trashedNotes.splice(noteIndex, 1);
-        this.notes.unshift(noteToRestore);
+        this.trashedNotes.splice(noteIndex, 1)
+        this.notes.unshift(noteToRestore)
     
         noteService
           .save(noteToRestore)
           .then(() => {
-            showSuccessMsg('Note restored!');
+            showSuccessMsg('Note restored!')
           })
           .catch((error) => {
-            showErrorMsg('Failed to restore note');
+            showErrorMsg('Failed to restore note')
           });
       }
     },
@@ -283,7 +281,7 @@ export default {
         .then(() => {
           const idx = this.notes.findIndex((note) => note.id === noteId)
           this.notes.splice(idx, 1);
-          showSuccessMsg('Note removed');
+          showSuccessMsg('Note removed')
           this.fetchNotes()
         })
         .catch((err) => {
@@ -391,7 +389,7 @@ export default {
         .query()
         .then((notes) => {
           if (this.filterBy || this.searchQuery) {
-            const query = this.filterBy || this.searchQuery;
+            const query = this.filterBy || this.searchQuery
     
             const filteredNotes = notes.filter((note) => {
               return (
@@ -403,14 +401,14 @@ export default {
             });
             this.notes = filteredNotes;
           } else {  // Fetch all notes if there's no filter or search query
-            const filteredNotes = notes.filter((note) => !note.isArchived && !note.isTrashed);
-            this.notes = filteredNotes;
+            const filteredNotes = notes.filter((note) => !note.isArchived && !note.isTrashed)
+            this.notes = filteredNotes
           }
     
-          this.archivedNotes = notes.filter((note) => note.isArchived);
-          this.trashedNotes = notes.filter((note) => note.isTrashed);
+          this.archivedNotes = notes.filter((note) => note.isArchived)
+          this.trashedNotes = notes.filter((note) => note.isTrashed)
         })
-        .catch((error) => console.error('Error fetching notes:', error));
+        .catch((error) => console.error('Error fetching notes:', error))
     },
     
   },
@@ -418,15 +416,15 @@ export default {
     '$route.query.search': {
       immediate: true,
       handler(newVal) {
-        this.searchQuery = newVal;
-        this.fetchNotes();
+        this.searchQuery = newVal
+        this.fetchNotes()
       }
     },
     '$route.query.label': {
       immediate: true,
       handler(newVal) {
-        this.filterBy = newVal;
-        this.fetchNotes();
+        this.filterBy = newVal
+        this.fetchNotes()
       }
     },
   },
