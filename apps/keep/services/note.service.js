@@ -143,7 +143,6 @@ function addNewLabel(label) {
   const labels = utilService.loadFromStorage(LABELS_KEY) || []
   labels.push(label)
   utilService.saveToStorage(LABELS_KEY, labels)
-  console.log('Label added:', label)
 }
 
 function getLabels() {
