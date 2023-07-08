@@ -5,9 +5,10 @@ export default {
     template: `
         <form @submit.prevent="save" class="compose-mail">
             <h2>New Message</h2>
-            <input v-model="newMail.to" type="text" placeholder="To: "> <br>
-            <input v-model="newMail.subject" type="text" placeholder="Subject: " required> <br>
+            <input v-model="newMail.to" type="text" placeholder="To: " /><br>
+            <input v-model="newMail.subject" type="text" placeholder="Subject: " required /><br>
             <textarea v-model="newMail.body" rows="12" cols="60"></textarea>
+
             <button :disabled="!isValid">Send</button>
             
             <hr />
@@ -23,6 +24,13 @@ export default {
 
         }
     },
+    created() {
+        this.newMail = mailService.getEmptyMail();
+        this.newMail.to = '';
+        this.newMail.subject = this.$route.query.subject || '';
+        this.newMail.body = decodeURIComponent(this.$route.query.body) || '';
+        this.newMail.status = 'draft';
+    },   
     computed: {
         isValid() {
             return this.newMail.to.length > 0 &&
@@ -30,12 +38,6 @@ export default {
                    this.newMail.body.length > 0 
         }
     },
-    created() {
-        this.newMail = mailService.getEmptyMail()
-        this.newMail.status = 'draft'
-
-    },
-
     methods: {
         save() {
             this.newMail.status = 'sent'

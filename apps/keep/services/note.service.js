@@ -5,6 +5,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 const PAGE_SIZE = 5
 const NOTE_KEY = 'noteDB'
+const LABELS_KEY = 'labelsDB'
 
 var gFilterBy = {}
 var gSortBy = {}
@@ -22,10 +23,11 @@ export const noteService = {
   getFilterBy,
   setFilterBy,
   getnoteCountBySpeedMap,
-  addReview,
-  removeReview,
-  // pinUnpin,
-};
+  getVideoIdFromUrl,
+  addNewLabel,
+  getLabels,
+  removeLabel,
+}
 window.noteService = noteService;
 
 function query() {
@@ -80,7 +82,6 @@ function getEmptynote() {
     };
 }
   
-
 function getFilterBy() {
   return { ...gFilterBy };
 }
@@ -124,24 +125,40 @@ function getnoteCountBySpeedMap() {
   });
 }
 
-
-function addReview(noteId, review) {
-  return get(noteId)
-      .then(note => {
-          if (!note.reviews) note.reviews = []
-          review.id = utilService.makeId()
-          note.reviews.push(review)
-          return save(note)
-      })
+function getVideoIdFromUrl(url) {
+  if (typeof url !== 'string') {
+    return null;
+  }
+  const regex = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#&?]*).*/;
+  const result = url.match(regex);
+  
+  if (result && result[2].length === 11) {
+    return result[2];
+  } else {
+    return null;
+  }
 }
 
-function removeReview(noteId, reviewId) {
-  return get(noteId)
-      .then(note => {
-          const idx = note.reviews.findIndex(review => review.id === reviewId)
-          note.reviews.splice(idx, 1)
-          return save(note)
-      })
+function addNewLabel(label) {
+  const labels = utilService.loadFromStorage(LABELS_KEY) || []
+  labels.push(label)
+  utilService.saveToStorage(LABELS_KEY, labels)
+  console.log('Label added:', label)
+}
+
+function getLabels() {
+  return storageService
+    .query(LABELS_KEY)
+    .then(labels => labels || []);
+}
+
+function removeLabel(label) {
+  const labels = utilService.loadFromStorage(LABELS_KEY) || [];
+  const index = labels.indexOf(label);
+  if (index !== -1) {
+    labels.splice(index, 1);
+    utilService.saveToStorage(LABELS_KEY, labels);
+  }
 }
 
 function _setNextPrevnoteId(note) {
@@ -330,7 +347,7 @@ function _createNotes() {
         }
       },
       {
-        id: 'n103',
+        id: 'n113',
         type: 'NoteTodos',
         labels: [],
         isPinned: false,
@@ -348,7 +365,7 @@ function _createNotes() {
         }
       },
       {
-        id: 'n112',
+        id: 'n114',
         type: 'NoteTxt',
         labels: [],
         isPinned: false,
@@ -363,7 +380,13 @@ function _createNotes() {
   
     utilService.saveToStorage(NOTE_KEY, notes);
   }
+  let labels = utilService.loadFromStorage(LABELS_KEY);
+  if (!labels || !labels.length) {
+    labels = ['Critical', 'Family', 'Work', 'Friends', 'Spam', 'Memories', 'Romantic'];
+
+    utilService.saveToStorage(LABELS_KEY, labels);
   }
+}
   
 
   

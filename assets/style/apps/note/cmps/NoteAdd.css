@@ -33,7 +33,7 @@
 
 .note-header input {
   font-size: 1.2em;
-  margin-bottom: 1.5em;
+  margin-bottom: 0.3em;
 }
 
 .add-note input {
@@ -49,8 +49,6 @@
 .add-note.full-display::before {
   content: '';
 }
-
-
 
 .add-note .add-icon {
   right: 50px;
@@ -72,6 +70,29 @@
 .add-note:focus::before {
   display: none;
 }
+
+.note-icons {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  right: 10px;
+  bottom: 10px;
+
+}
+
+.note-icon .mdi {
+  cursor: pointer;
+  padding: 0.3em;
+}
+
+.note-icon .mdi:hover {
+  background-color: rgb(228, 228, 228);
+  border-radius: 50%;
+}
+
+
+
 
 /* mq */
 

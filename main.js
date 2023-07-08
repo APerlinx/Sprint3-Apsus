@@ -29,7 +29,7 @@ const options = {
     `,
         data() {
             return {
-                route: 'about',
+                route: '',
             }
         },
 	 components: {

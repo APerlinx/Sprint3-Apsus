@@ -1,0 +1,79 @@
+.label-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.label-modal-content {
+  text-align: center;
+}
+
+.label-modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.label-modal-content input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-bottom: 1px solid grey;
+}
+
+.done-btn {
+  margin-inline-start: 100%;
+  translate: -100%
+}
+
+.label-section {
+  margin-top: 20px;
+}
+
+.label-item {
+  display: flex;
+  align-items: center;
+  height: max-content;
+  background: none;
+}
+
+.label-item span {
+  margin-right: 5px;
+  font-size: 0.8em;
+  margin-inline-start: 2em;
+}
+
+.label-modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.218s;
+  padding: 0.35em;
+}
+
+.input-icon:hover {
+background-color: rgb(224, 224, 224);
+}
+
+

@@ -26,6 +26,28 @@
     margin-bottom: 3em;
 }
 
+.note-list .section-title {
+  color: #5f6368;
+  letter-spacing: .07272727em;
+  font-family: 'Roboto', sans-serif;
+  font-size: .6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  text-transform: uppercase;
+  margin: 32px 32px 8px;
+}
+
+.note-list p {
+  color: #5f6368;
+  letter-spacing: .07272727em;
+  font-family: 'Roboto', sans-serif;
+  font-size: .6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
 list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {

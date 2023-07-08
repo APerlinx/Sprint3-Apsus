@@ -1,12 +1,9 @@
 export default {
-    props: ['note'],
+    props: ['note', 'showTitle'],
     template: `
         <article class="note-txt">
-        <h2>{{ note.info.title }}</h2>
+            <h2 v-if="showTitle">{{ note.info.title }}</h2>
             <p>{{ note.info.txt }}</p>
         </article>
     `,
-    computed: {
-        
-    }
 }

@@ -4,6 +4,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    labels: {
+      type: Array,
+      default: () => [],
+    }
   },
   template: `
     <section class="keep-app-menu">
@@ -13,12 +17,12 @@ export default {
             :class="{ 'is-active': activeMenu === 'notes' }"></i>
            <span v-show="isSidebarOpen">Notes</span>
       </div>
-  <div class="menu-item" :class="{ 'is-active': activeMenu === '' }" >
-        <i class="mdi mdi-bell-outline grey-icon" title="Nothing here yet ;-)" @click="toggleSidebar" :class="{ 'is-active': activeMenu === '' }"></i>
-        <span span v-if="isSidebarOpen">Reminder</span>
+  <div class="menu-item" :class="{ 'is-active': activeMenu === 'filter' }" @click="handleFilterNotes">
+        <i class="mdi mdi-filter-outline grey-icon" title="Filter"></i>
+        <span span v-if="isSidebarOpen">Filter</span>
   </div>
-  <div class="menu-item" :class="{ 'is-active': activeMenu === '' }">
-        <i class="mdi mdi-pencil grey-icon" title="Edit labels" :class="{ 'is-active': activeMenu === '' }"></i>
+  <div class="menu-item" :class="{ 'is-active': activeMenu === 'label' }" @click="handleOpenAddLabel">
+        <i class="mdi mdi-pencil grey-icon" title="Edit labels"></i>
         <span v-if="isSidebarOpen">Edit labels</span>
   </div>
     <div class="menu-item" :class="{ 'is-active': activeMenu === 'archive' }" @click="handleDisplayArchived">
@@ -40,6 +44,7 @@ export default {
   methods: {
     handleDisplayNotes() {
       this.activeMenu = 'notes'
+      this.$emit('clear-filter')
       this.$emit('display-notes')
     },
     handleDisplayArchived() {
@@ -51,9 +56,18 @@ export default {
       this.activeMenu = 'trash';
       this.$emit('display-trash')
     },
+    handleFilterNotes() {
+      this.activeMenu = 'filter'
+      this.$router.push({
+        name: 'NoteFilter',
+        query: { labels: JSON.stringify(this.labels) },
+      });
+    },
+    handleOpenAddLabel() {
+      this.$emit('open-add-label');
+    },
     toggleSidebar() {
       this.$emit('toggle-sidebar')
     },
-    
   },
 };

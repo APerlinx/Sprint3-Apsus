@@ -5,7 +5,7 @@ import MailIndex from './apps/mail/pages/MailIndex.js'
 import MailDetails from './apps/mail/pages/MailDetails.js'
 import MailCompose from './apps/mail/pages/MailCompose.js'
 
-import TrashedNotesList from './apps/keep/cmps/TrashedNotesList.js'
+import NoteFilter from './apps/keep/cmps/NoteFilter.js'
 
 
 const { createRouter, createWebHashHistory } = VueRouter
@@ -26,8 +26,10 @@ const routerOptions = {
 			component: NoteIndex,
 		},
 		{
-			path: '/note/trash',
-			component: TrashedNotesList,
+			path: '/note-filter',
+			name: 'NoteFilter',
+			component: NoteFilter,
+			props: true,
 		},
 		{
 			path: '/mail',
@@ -39,7 +41,8 @@ const routerOptions = {
         },
 		{
             path: '/mail/compose',
-            component: MailCompose
+			name: 'MailCompose',
+            component: MailCompose,
         }
 	],
 }
