@@ -28,6 +28,10 @@
 .header-shadow {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.app-header nav .active {
+  color: darkcyan;
+  text-decoration: underline;
+}
 
 @media(max-width: 720px) {
   .app-header {
