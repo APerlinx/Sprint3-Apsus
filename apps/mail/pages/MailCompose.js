@@ -10,6 +10,7 @@ export default {
             <textarea v-model="newMail.body" rows="12" cols="60"></textarea>
 
             <button :disabled="!isValid">Send</button>
+            <button @click="makeNote">Make Note!</button>
             
             <hr />
             <RouterLink @click="saveToDraft" to="/mail">Cancel</RouterLink> 
@@ -29,6 +30,7 @@ export default {
         this.newMail.to = '';
         this.newMail.subject = this.$route.query.subject || '';
         this.newMail.body = decodeURIComponent(this.$route.query.body) || '';
+        if(this.newMail.body === 'undefined') this.newMail.body = '';
         this.newMail.status = 'draft';
     },   
     computed: {
@@ -57,6 +59,14 @@ export default {
             // this.newMail.status = 'draft'
             mailService.save(this.newMail)
 
+        },
+        makeNote(){
+            const subject = this.newMail.subject
+            const body = this.newMail.body
+            this.$router.push({
+                name: 'NoteIndex',
+                query: { subject, body: encodeURIComponent(body) },
+              })
         }
 
     },

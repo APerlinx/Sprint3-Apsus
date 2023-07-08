@@ -4,6 +4,7 @@ import NoteIndex from './apps/keep/pages/NoteIndex.js'
 import MailIndex from './apps/mail/pages/MailIndex.js'
 import MailDetails from './apps/mail/pages/MailDetails.js'
 import MailCompose from './apps/mail/pages/MailCompose.js'
+// import NoteAdd from './apps/keep/cmps/NoteAdd.js'
 
 import NoteFilter from './apps/keep/cmps/NoteFilter.js'
 
@@ -23,6 +24,7 @@ const routerOptions = {
 		},
 		{
 			path: '/note',
+			name: 'NoteIndex',
 			component: NoteIndex,
 		},
 		{
@@ -43,7 +45,12 @@ const routerOptions = {
             path: '/mail/compose',
 			name: 'MailCompose',
             component: MailCompose,
-        }
+        },
+		// {
+        //     path: '/note/noteadd',
+		// 	name: 'NoteAdd',
+        //     component: NoteAdd,
+        // }
 	],
 }
 
