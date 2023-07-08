@@ -35,12 +35,6 @@
   transition: 0.2s;
 }
 
-/* .keep-app-menu i:hover {
-    cursor: pointer;
-    align-self: start;
-    border-radius: 555px;
-} */
-
 .keep-app-menu div:hover {
   background-color: rgb(228, 228, 228);
   width: 100%;

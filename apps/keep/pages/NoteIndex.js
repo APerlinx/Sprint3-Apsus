@@ -11,22 +11,23 @@ import KeepMenu from '../cmps/KeepMenu.js'
 
 export default {
   template: `
-    <main class="keep-index">
+    <main class="main-content">
         <NoteAdd 
+        v-if="!displayArchived || !displayTrashed"
         @add-note="onAddNote"
         @open-full-display="openFullDisplay"
         :isFullDisplay="fullDisplay"
         @close-full-display="closeFullDisplay"/>
     <section class="notes">
     <NoteList 
-        v-if="!displayTrashed && !showArchived" 
+        v-if="!displayTrashed && !displayArchive" 
         :labels="labels"
         :notes="filteredNotes" 
         @trash="trashNote" 
         @pin-state="togglePin" />
 
     <NoteList 
-        v-else-if="showArchived && !displayTrashed" 
+        v-else-if="displayArchive && !displayTrashed" 
         :notes="archivedNotes"
         :labels="labels"
         @trash="trashNote" 
@@ -48,7 +49,6 @@ export default {
             @display-archived="displayArchived" 
             @display-notes="displayNotes"
             @display-trash="displayTrash"
-            @toggle-sidebar="toggleSidebar"
             @clear-filter="clearFilter"  
             @open-add-label="toggleAddLabelModal" />
 
@@ -69,7 +69,7 @@ export default {
       labels: [],
       filterBy: null,
       searchQuery: null,
-      showArchived: false,
+      displayArchive: false,
       displayTrashed: false,
       isSidebarOpen: false,
       fullDisplay: false,
@@ -90,7 +90,7 @@ export default {
       return this.notes.filter((note) => !note.isArchived && !note.isTrashed)
     },
     displayedNotes() {
-      if (this.showArchived) {
+      if (this.displayArchive) {
         return this.archivedNotes
       } else {
         return this.filteredNotes
@@ -120,18 +120,11 @@ export default {
     },
 
     closeFullDisplay() {
-      console.log('this.fullDisplay', this.fullDisplay)
       this.fullDisplay = false
     },
 
-    toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen
-    },
-
-
-
     displayArchived() {
-      this.showArchived = !this.showArchived
+      this.displayArchive = !this.displayArchive
     },
 
     displayTrash() {
@@ -139,7 +132,7 @@ export default {
     },
 
     displayNotes() {
-      this.showArchived = false;
+      this.displayArchive = false;
       this.displayTrashed = false;
     },
 

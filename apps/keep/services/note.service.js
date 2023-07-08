@@ -77,7 +77,7 @@ function getEmptynote() {
         backgroundColor: '#00d'
       },
       info: {
-        txt: 'New Note!'
+        txt: 'Empty note'
       }
     };
 }
@@ -353,12 +353,12 @@ function _createNotes() {
         info: {
           title: 'Places to see',
           todos: [
-            { txt: 'Niagara falls.', doneAt: null },
+            { txt: 'Niagara falls.', doneAt: 187111111 },
             { txt: 'Climb el capitan,US.', doneAt: null },
             { txt: 'Grand Canyon', doneAt: null },
             { txt: 'Pyramids', doneAt: null },
             { txt: 'Seijalandsfoss,Iceland', doneAt: null },
-            { txt: 'mt.pyrenees', doneAt: null },
+            { txt: 'mt.pyrenees', doneAt: 187111111 },
             { txt: 'Gridwood.Alaska', doneAt: null },
           ]
         }

@@ -1,5 +1,5 @@
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js';
-import { noteService } from '../services/note.service.js';
+
 import LabelAdd from './LabelAdd.js';
 
 export default {
@@ -47,13 +47,13 @@ export default {
 
       <div v-if="isFullDisplay" class="note-footer">
         <div class="icons">
-          <i class="material-icons" title="Add labels" @click="openLabelAdd">label</i>
+          <i class="material-icons" title="Add labels" @click="this.showLabelAdd = !this.showLabelAdd">label</i>
           <i class="material-icons" title="Background options">palette</i>
           <i class="material-icons" @click="archiveNote()" title="Archive">archive</i>
         </div>
-        <button class="clean-btn" @click="handleClose">Close</button>
+        <button class="clean-btn" @click.stop="handleClose">Close</button>
       </div>
-      <LabelAdd v-if="showLabelAdd" @close-modal="closeLabelAdd" @selected-labels="addLabels" />
+      <LabelAdd v-if="showLabelAdd" @close-modal="this.showLabelAdd = !this.showLabelAdd" @selected-labels="addLabels" />
     </div>
   `,
   data() {
@@ -67,7 +67,6 @@ export default {
       labels: [],
     };
   },
-  
   methods: {
 
     createTextNote() {
@@ -129,12 +128,6 @@ export default {
     },
     addLabels(selectedLabels) {
       this.labels = selectedLabels
-    },
-    openLabelAdd() {
-      this.showLabelAdd = true;
-    },
-    closeLabelAdd() {
-      this.showLabelAdd = false;
     },
   },
   watch: {

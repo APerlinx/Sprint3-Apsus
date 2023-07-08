@@ -1,21 +1,24 @@
-.keep-index {
+.main-content {
   display: grid;
-  grid-template-columns: 100px auto 20px;
+  grid-template-columns: 5em auto 20px;
+  grid-template-rows: 100px 1fr 50px;
   grid-template-areas:
     'nav-bar add-note'
     'nav-bar notes';
   margin-top: 0.1em;
+  
 }
 
 .side-bar {
   grid-area: nav-bar;
   position: sticky;
-  top: 0;
+  top: 5em;
   background-color: #fff;
   width: 60px;
   transition: width 0.3s, box-shadow 0.1s 0.1s;
   overflow: hidden;
   box-shadow: none;
+  height: 100vh;
 }
 
 .side-bar.is-open {
@@ -31,7 +34,7 @@
 .notes {
   grid-area: notes;
   justify-self: center;
-  align-self: center;
+  align-self: start;
   margin-top: 2em;
 }
 
