@@ -7,7 +7,7 @@ template: `
         :key="color"
         class="color-option color"
         :style="{ backgroundColor: color }"
-        @click="selectColor(color)" >
+        @click.stop="selectColor(color)" >
         <i
         v-if="color === 'none'"
         class="material-icons no-color-icon">
