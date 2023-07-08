@@ -4,10 +4,8 @@ import { mailService } from '../services/mail.service.js'
 export default {
     template: `
         <section class="mail-details" v-if="mail">
-            <div class="header">
-                <h1 class="from">{{ mail.from }}</h1>
-                <h5 class="sent-at">{{ mail.sentAt }}</h5>
-            </div>
+            <h5 class="sent-at">{{ mail.sentAt }}</h5>
+            <h1 class="from">{{ mail.from }}</h1>
             <h2 class="subject">{{ mail.subject }}</h2>
             <div class="content">{{ mail.body }}</div>
             <h6 class="to">To: {{ mail.to }}</h6>
