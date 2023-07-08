@@ -1,4 +1,5 @@
-import {showSuccessMsg,showErrorMsg} from '../../../services/event-bus.service.js';
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js';
+import { noteService } from '../services/note.service.js';
 import LabelAdd from './LabelAdd.js';
 
 export default {
@@ -8,7 +9,7 @@ export default {
       type: Boolean,
       default: false
     }
-  },  
+  },
   template: `
     <div 
       class="add-note faux-input"
@@ -66,6 +67,7 @@ export default {
       labels: [],
     };
   },
+  
   methods: {
 
     createTextNote() {
@@ -75,7 +77,7 @@ export default {
     createImageNote() {
       this.noteType = 'NoteImg';
     },
-    
+
     createVideoNote() {
       this.noteType = 'NoteVideo';
     },
@@ -92,13 +94,13 @@ export default {
 
     archiveNote() {
       this.isArchived = !this.isArchived
-      if(this.isArchived) showSuccessMsg('Note archived!')
+      if (this.isArchived) showSuccessMsg('Note archived!')
       else showSuccessMsg('Note unarchived')
     },
 
     handleClose() {
       this.$emit('close-full-display')
-      if(!this.noteType) this.noteType = 'NoteTxt'
+      if (!this.noteType) this.noteType = 'NoteTxt'
       this.$emit('add-note', {
         content: this.noteContent,
         title: this.noteTitle,
@@ -108,12 +110,12 @@ export default {
       })
       this.handleInputReset()
     },
-    
+
     handleInputReset() {
       this.noteContent = ''
       this.noteTitle = ''
       this.noteType = ''
-      this.isArchived = false 
+      this.isArchived = false
     },
 
     handleInput() {

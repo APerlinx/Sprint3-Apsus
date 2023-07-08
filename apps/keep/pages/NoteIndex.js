@@ -1,5 +1,5 @@
 import { noteService } from '../services/note.service.js';
-import {showSuccessMsg,showErrorMsg} from '../../../services/event-bus.service.js'
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 // import { eventBus } from '../../../services/event-bus.service.js';
 
 import NoteFilter from '../cmps/NoteFilter.js';
@@ -78,7 +78,8 @@ export default {
     }
   },
   created() {
-    this.fetchNotes()
+    this.initializeNotes();
+    
     this.fetchLabels()
     const queryLabel = this.$route.query.label
     const querySearch = this.$route.query.search
@@ -98,7 +99,7 @@ export default {
     },
   },
   mounted() {
-    this.$eventBus.on('selected-labels-updated',this.handleSelectedLabelsUpdated)
+    this.$eventBus.on('selected-labels-updated', this.handleSelectedLabelsUpdated)
     this.$eventBus.on('bg-color-change', this.handleBgColorChange)
     this.$eventBus.on('selected-note-archive', this.archiveNote)
     this.$eventBus.on('remove-permanetly', this.removeNote)
@@ -120,7 +121,7 @@ export default {
     },
 
     closeFullDisplay() {
-      console.log('this.fullDisplay',this.fullDisplay)
+      console.log('this.fullDisplay', this.fullDisplay)
       this.fullDisplay = false
     },
 
@@ -128,8 +129,8 @@ export default {
       this.isSidebarOpen = !this.isSidebarOpen
     },
 
- 
-   
+
+
     displayArchived() {
       this.showArchived = !this.showArchived;
     },
@@ -212,7 +213,7 @@ export default {
       console.log('Label added');
       this.fetchLabels();
     },
-    
+
     fetchLabels() {
       noteService
         .getLabels()
@@ -256,16 +257,16 @@ export default {
       }
     },
 
-    restoreNote(noteId) { 
+    restoreNote(noteId) {
       const noteIndex = this.trashedNotes.findIndex((note) => note.id === noteId);
-    
+
       if (noteIndex !== -1) {
         const noteToRestore = this.trashedNotes[noteIndex];
         noteToRestore.isTrashed = false;
-    
+
         this.trashedNotes.splice(noteIndex, 1);
         this.notes.unshift(noteToRestore);
-    
+
         noteService
           .save(noteToRestore)
           .then(() => {
@@ -302,7 +303,7 @@ export default {
         'NoteTodos': this.addTodosNote,
       }
       if (handlers.hasOwnProperty(note.type)) {
-        handlers[note.type](note,newNoteData)
+        handlers[note.type](note, newNoteData)
       } else {
         console.log('something went wrong in onAddNote')
       }
@@ -315,26 +316,26 @@ export default {
           } else {
             this.notes.push(savedNote);
           }
-      })
-          .catch((err) => {
-            showErrorMsg('Cannot save note')
-    })
+        })
+        .catch((err) => {
+          showErrorMsg('Cannot save note')
+        })
     },
 
-    addTextNote(note,newNoteData) {
+    addTextNote(note, newNoteData) {
       note.isArchived = newNoteData.isArchived
       note.info.txt = newNoteData.content
       note.info.title = newNoteData.title
     },
-  
-    addImageNote(note,newNoteData) {
+
+    addImageNote(note, newNoteData) {
 
       note.info.title = newNoteData.title
-      note.info.url = newNoteData.content 
+      note.info.url = newNoteData.content
     },
-  
-    addVideoNote(note,newNoteData) {
-      
+
+    addVideoNote(note, newNoteData) {
+
       note.info.title = newNoteData.title
       const videoId = noteService.getVideoIdFromUrl(newNoteData.content)
       if (videoId === null) {
@@ -344,16 +345,16 @@ export default {
         note.info.url = embedUrl;
       }
     },
-  
+
     addTodosNote(note, newNoteData) {
       note.info.title = newNoteData.title;
       const items = newNoteData.content.split(',')
       note.info.todos = items.map(item => ({
-        txt: item.trim(), 
+        txt: item.trim(),
         doneAt: null
       }));
     },
-    
+
     togglePin(note) {
       const noteIndex = this.notes.findIndex((n) => n.id === note.id)
       if (noteIndex !== -1) {
@@ -392,12 +393,12 @@ export default {
         .then((notes) => {
           if (this.filterBy || this.searchQuery) {
             const query = this.filterBy || this.searchQuery;
-    
+
             const filteredNotes = notes.filter((note) => {
               return (
                 !note.isArchived &&
                 !note.isTrashed &&
-                note.labels && 
+                note.labels &&
                 note.labels.includes(query)
               );
             });
@@ -406,14 +407,26 @@ export default {
             const filteredNotes = notes.filter((note) => !note.isArchived && !note.isTrashed);
             this.notes = filteredNotes;
           }
-    
+
           this.archivedNotes = notes.filter((note) => note.isArchived);
           this.trashedNotes = notes.filter((note) => note.isTrashed);
         })
         .catch((error) => console.error('Error fetching notes:', error));
     },
-    
+    initializeNotes() {
+      if(!this.$route.query.subject || !this.$route.query.body) return
+      const mailNote = noteService.getEmptynote();
+      mailNote.info.title = this.$route.query.subject || '';
+      mailNote.info.txt = decodeURIComponent(this.$route.query.body) || '';
+      mailNote.type = 'NoteTxt';
+      noteService.save(mailNote).then(() => {
+        this.notes.push(mailNote);
+        this.fetchNotes();
+      });
+    },
+
   },
+
   watch: {
     '$route.query.search': {
       immediate: true,
