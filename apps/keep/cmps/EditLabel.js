@@ -6,26 +6,32 @@ export default {
     },
   },
   template: `
-<div class="label-modal-backdrop">
-  <div class="label-modal">
-    <div class="label-modal-content">
-      <h2>{{ modalTitle }}</h2>
-      <div class="input-wrapper">
-        <input ref="labelInput" type="text" v-model="labelName" placeholder="Create Label">
-        <i class="mdi mdi-check input-icon" @click="createLabel"></i>
-      </div>
-      <div class="label-section">
-      
-      <div v-for="(label, index) in labels" :key="index" class="label-item" @mouseover="hoverLabel = index" @mouseleave="hoverLabel = null">
-              <i class="mdi" :class="{'mdi-label': hoverLabel !== index, 'mdi-trash-can': hoverLabel === index}" @click="deleteLabel(index)"></i>
-          <span class="label">{{ label }}</span>
-        </div>
+  <div class="label-modal-backdrop">
+    <div class="label-modal">
+        <div class="label-modal-content">
+          <h2>{{ modalTitle }}</h2>
+          <div class="input-wrapper">
+            <input ref="labelInput" type="text" v-model="labelName" placeholder="Create Label">
+            <i class="mdi mdi-check input-icon" @click="createLabel"></i>
+          </div>
+        <div class="label-section">
+          
+          <div v-for="(label, index) in labels"
+            :key="index" class="label-item" 
+            @mouseover="hoverLabel = index" 
+            @mouseleave="hoverLabel = null">
 
+            <i class="mdi" 
+             :class="{'mdi-label': hoverLabel !== index, 'mdi-trash-can': hoverLabel === index}"
+              @click="deleteLabel(index)"></i>
+            <span class="label">{{ label }}</span>
+          </div>
+
+        </div>
       </div>
+        <button class="clean-btn done-btn" @click="closeModal">Done</button>
     </div>
-    <button class="clean-btn done-btn" @click="closeModal">Done</button>
   </div>
-</div>
 
   `,
   data() {

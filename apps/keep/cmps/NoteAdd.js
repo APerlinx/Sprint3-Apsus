@@ -1,6 +1,6 @@
-import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js';
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
-import LabelAdd from './LabelAdd.js';
+import LabelAdd from './LabelAdd.js'
 
 export default {
   emits: ['add-note', 'open-full-display', 'close-full-display'],
@@ -65,29 +65,29 @@ export default {
       noteType: '',
       isArchived: false,
       labels: [],
-    };
+    }
   },
   methods: {
 
     createTextNote() {
-      this.noteType = 'NoteTxt';
+      this.noteType = 'NoteTxt'
     },
 
     createImageNote() {
-      this.noteType = 'NoteImg';
+      this.noteType = 'NoteImg'
     },
 
     createVideoNote() {
-      this.noteType = 'NoteVideo';
+      this.noteType = 'NoteVideo'
     },
 
     createListNote() {
-      this.noteType = 'NoteTodos';
+      this.noteType = 'NoteTodos'
     },
 
     handleClick() {
       if (!this.isFullDisplay) {
-        this.$emit('open-full-display');
+        this.$emit('open-full-display')
       }
     },
 
@@ -118,8 +118,8 @@ export default {
     },
 
     handleInput() {
-      const content = this.noteContent.trim();
-      this.showNoteText = content.length === 0;
+      const content = this.noteContent.trim()
+      this.showNoteText = content.length === 0
     },
     handleBlur() {
       if (this.$refs.noteDiv.innerText.trim() === "") {

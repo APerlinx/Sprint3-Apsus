@@ -16,7 +16,7 @@ export default {
     if(todo.doneAt !== null) {
       todo.doneAt = null;
     } else {
-      todo.doneAt = Date.now();
+      todo.doneAt = Date.now()
     }
   },
 },

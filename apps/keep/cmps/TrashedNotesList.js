@@ -21,9 +21,7 @@ export default {
     </TransitionGroup>
   </section>
       `,
-  computed: {},
-  methods: {},
   components: {
     NotePreview,
   },
-};
+}

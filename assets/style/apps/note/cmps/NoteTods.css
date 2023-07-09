@@ -1,23 +1,22 @@
 .todo-list {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .todo-list li {
-    display: flex;
-    align-items: center;
-  }
-  
-  .todo-list label {
-    margin-left: 0.5rem;
-  }
-  
-  .add-note {
-    direction: ltr;
-  }
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
 
-  .todo-done {
-    text-decoration: line-through;
-  }
-  
+.todo-list li {
+  display: flex;
+  align-items: center;
+}
+
+.todo-list label {
+  margin-left: 0.5rem;
+}
+
+.add-note {
+  direction: ltr;
+}
+
+.todo-done {
+  text-decoration: line-through;
+}

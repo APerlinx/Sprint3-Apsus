@@ -17,15 +17,16 @@ template: `
     </div>
   `,
   data() {
-        return {
-          colorOptions: [
-            'rgba(173, 216, 230, 0.7)', // lightcyan with 50% opacity
-            'rgba(255, 255, 0, 0.7)', // yellow with 50% opacity
-            'rgba(0, 0, 255, 0.7)', // blue with 50% opacity
-            'rgba(0, 128, 0, 0.7)', // green with 50% opacity
-            'rgba(255, 192, 203, 0.7)', // pink with 50% opacity,
-            'none'],
-        }     
+    return {
+      colorOptions: [
+         'rgba(173, 216, 230, 0.7)', 
+         'rgba(255, 255, 0, 0.7)', 
+         'rgba(0, 0, 255, 0.7)', 
+         'rgba(0, 128, 0, 0.7)', 
+         'rgba(255, 192, 203, 0.7)', 
+         'none'
+      ],
+    }     
   },
   methods: {
       selectColor(color) {

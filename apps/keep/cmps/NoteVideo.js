@@ -6,6 +6,4 @@ export default {
             <iframe :src="note.info.url" frameborder="0" width="200" height="200"></iframe>
         </article>
     `,
-    computed: {
-    }
 }

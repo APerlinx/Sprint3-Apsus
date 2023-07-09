@@ -49,7 +49,6 @@
 .note-dialog-icons {
   display: flex;
   align-items: center;
-
 }
 
 .note-text {
@@ -75,9 +74,9 @@
 }
 .icon-title-container {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  width: 100%; 
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .no-border {

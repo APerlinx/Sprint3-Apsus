@@ -27,7 +27,7 @@
 
 .done-btn {
   margin-inline-start: 100%;
-  translate: -100%
+  translate: -100%;
 }
 
 .label-section {
@@ -73,7 +73,5 @@
 }
 
 .input-icon:hover {
-background-color: rgb(224, 224, 224);
+  background-color: rgb(224, 224, 224);
 }
-
-

@@ -6,7 +6,7 @@ export default {
       <router-link to="/" :class="{active: activeRoute === 'home'}" @click="setActiveRoute('home')">Home</router-link> |
       <router-link to="/mail" :class="{active: activeRoute === 'mail'}" @click="setActiveRoute('mail')">Mail</router-link> |
       <router-link to="/note" :class="{active: activeRoute === 'note'}" @click="setActiveRoute('note')">Note</router-link> |
-      <router-link to="/book" :class="{active: activeRoute === 'book'}" @click="setActiveRoute('boke')">Book</router-link> |
+      <router-link to="/book" :class="{active: activeRoute === 'book'}" @click="setActiveRoute('book')">Book</router-link> |
       <router-link to="/about" :class="{active: activeRoute === 'about'}" @click="setActiveRoute('about')">About</router-link>
     </nav>
   </header>

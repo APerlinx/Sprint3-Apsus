@@ -1,5 +1,5 @@
 import { noteService } from '../services/note.service.js'
-import {showSuccessMsg,showErrorMsg} from '../../../services/event-bus.service.js'
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
 import NoteFilter from '../cmps/NoteFilter.js'
 import NoteList from '../cmps/NoteList.js'
@@ -12,55 +12,63 @@ import KeepMenu from '../cmps/KeepMenu.js'
 export default {
   template: `
     <main class="main-content">
-        <NoteAdd 
+      <NoteAdd
         v-if="!displayArchived || !displayTrashed"
         @add-note="onAddNote"
         @open-full-display="openFullDisplay"
         :isFullDisplay="fullDisplay"
-        @close-full-display="closeFullDisplay"/>
-    <section class="notes">
-    <NoteList 
-        v-if="!displayTrashed && !displayArchive" 
-        :labels="labels"
-        :notes="filteredNotes" 
-        @trash="trashNote" 
-        @pin-state="togglePin" />
+        @close-full-display="closeFullDisplay"
+      />
+      <section class="notes">
+        <NoteList
+          v-if="!displayTrashed && !displayArchive"
+          :labels="labels"
+          :notes="filteredNotes"
+          @trash="trashNote"
+          @pin-state="togglePin"
+        />
 
-    <NoteList 
-        v-else-if="displayArchive && !displayTrashed" 
-        :notes="archivedNotes"
-        :labels="labels"
-        @trash="trashNote" 
-        @pin-state="togglePin" />
+        <NoteList
+          v-else-if="displayArchive && !displayTrashed"
+          :notes="archivedNotes"
+          :labels="labels"
+          @trash="trashNote"
+          @pin-state="togglePin"
+        />
 
-    <TrashedNotesList 
-        v-else-if="displayTrashed" 
-        :trashedNotes="trashedNotes"
-        @remove="trashNote" />
-    </section>
+        <TrashedNotesList
+          v-else-if="displayTrashed"
+          :trashedNotes="trashedNotes"
+          @remove="trashNote"
+        />
+      </section>
 
-     <nav class="side-bar" 
+      <nav
+        class="side-bar"
         :class="{ 'is-open': isSidebarOpen }"
         @mouseenter="isSidebarOpen = true"
-        @mouseleave="isSidebarOpen = false">
-           <KeepMenu 
-            :isSidebarOpen="isSidebarOpen"
-            :labels="labels"
-            @display-archived="displayArchived" 
-            @display-notes="displayNotes"
-            @display-trash="displayTrash"
-            @clear-filter="clearFilter"  
-            @open-add-label="toggleAddLabelModal" />
+        @mouseleave="isSidebarOpen = false"
+      >
+        <KeepMenu
+          :isSidebarOpen="isSidebarOpen"
+          :labels="labels"
+          @display-archived="displayArchived"
+          @display-notes="displayNotes"
+          @display-trash="displayTrash"
+          @clear-filter="clearFilter"
+          @open-add-label="toggleAddLabelModal"
+        />
 
-            <EditLabel
-            v-if="isAddLabelModalOpen && labels"
-            :labels="labels"
-            @new-label-created="handleNewLabel"
-            @close-add-label="toggleAddLabelModal"
-            @delete-label="deleteLabel" />
+        <EditLabel
+          v-if="isAddLabelModalOpen && labels"
+          :labels="labels"
+          @new-label-created="handleNewLabel"
+          @close-add-label="toggleAddLabelModal"
+          @delete-label="deleteLabel"
+        />
       </nav>
     </main>
-    `,
+  `,
   data() {
     return {
       notes: [],
@@ -73,12 +81,12 @@ export default {
       displayTrashed: false,
       isSidebarOpen: false,
       fullDisplay: false,
-      isAddLabelModalOpen: false
+      isAddLabelModalOpen: false,
     }
   },
   created() {
-    this.initializeNotes();
-    
+    this.initializeNotes()
+
     this.fetchLabels()
     const queryLabel = this.$route.query.label
     const querySearch = this.$route.query.search
@@ -101,7 +109,7 @@ export default {
     this.$eventBus.on('selected-labels-updated', this.handleSelectedLabelsUpdated)
     this.$eventBus.on('bg-color-change', this.handleBgColorChange)
     this.$eventBus.on('selected-note-archive', this.archiveNote)
-    this.$eventBus.on('remove-permanetly', this.removeNote)
+    this.$eventBus.on('remove-permanently', this.removeNote)
     this.$eventBus.on('restore-note', this.restoreNote)
     this.$eventBus.on('note-content-edited', this.handleNoteChange)
   },
@@ -116,7 +124,7 @@ export default {
     },
 
     openFullDisplay() {
-      this.fullDisplay = true;
+      this.fullDisplay = true
     },
 
     closeFullDisplay() {
@@ -132,19 +140,18 @@ export default {
     },
 
     displayNotes() {
-      this.displayArchive = false;
-      this.displayTrashed = false;
+      this.displayArchive = false
+      this.displayTrashed = false
     },
 
     deleteLabel(label) {
-      noteService
-        .removeLabel(label)
+      noteService.removeLabel(label)
     },
 
     handleNoteChange({ id, newTitle, newContent }) {
-      const note = this.notes.find(note => note.id === id)
+      const note = this.notes.find((note) => note.id === id)
       if (note) {
-        console.log('newTitle', newTitle);
+        console.log('newTitle', newTitle)
         note.info.title = newTitle
         note.info.txt = newContent
       }
@@ -153,12 +160,12 @@ export default {
     archiveNote(noteId) {
       const targetArray = this.notes.find((note) => note.id === noteId)
         ? this.notes
-        : this.archivedNotes;
+        : this.archivedNotes
       const noteIndex = targetArray.findIndex((note) => note.id === noteId)
 
       if (noteIndex !== -1) {
         const noteToArchive = targetArray[noteIndex]
-        noteToArchive.isArchived = !noteToArchive.isArchived;
+        noteToArchive.isArchived = !noteToArchive.isArchived
 
         if (noteToArchive.isArchived) {
           targetArray.splice(noteIndex, 1)
@@ -179,30 +186,30 @@ export default {
           })
           .catch((error) => {
             showErrorMsg('Failed to update note')
-          });
+          })
       }
     },
 
     handleSelectedLabelsUpdated(data) {
       const { selectedLabels, note } = data
-      note.labels = selectedLabels;
+      note.labels = selectedLabels
       noteService
         .save(note)
         .then((savedNote) => {
-          showSuccessMsg('Label updated');
+          showSuccessMsg('Label updated')
           const index = this.notes.findIndex((n) => n.id === savedNote.id)
           if (index !== -1) {
-            this.notes.splice(index, 1, savedNote);
+            this.notes.splice(index, 1, savedNote)
           }
         })
         .catch((err) => {
           showErrorMsg('Cannot add/remove label right now')
-        });
+        })
     },
 
     handleNewLabel(newLabel) {
       noteService.addNewLabel(newLabel)
-      this.fetchLabels();
+      this.fetchLabels()
     },
 
     fetchLabels() {
@@ -213,13 +220,13 @@ export default {
         })
         .catch((error) => {
           console.error('Failed to fetch labels:', error)
-        });
+        })
     },
 
     trashNote(noteId) {
       const targetArray = this.notes.find((note) => note.id === noteId)
         ? this.notes
-        : this.trashedNotes;
+        : this.trashedNotes
       const noteIndex = targetArray.findIndex((note) => note.id === noteId)
 
       if (noteIndex !== -1) {
@@ -244,19 +251,19 @@ export default {
           })
           .catch((error) => {
             showErrorMsg('Failed to update note')
-          });
+          })
       }
     },
 
     restoreNote(noteId) {
-      const noteIndex = this.trashedNotes.findIndex((note) => note.id === noteId);
+      const noteIndex = this.trashedNotes.findIndex((note) => note.id === noteId)
 
       if (noteIndex !== -1) {
-        const noteToRestore = this.trashedNotes[noteIndex];
-        noteToRestore.isTrashed = false;
+        const noteToRestore = this.trashedNotes[noteIndex]
+        noteToRestore.isTrashed = false
 
-        this.trashedNotes.splice(noteIndex, 1);
-        this.notes.unshift(noteToRestore);
+        this.trashedNotes.splice(noteIndex, 1)
+        this.notes.unshift(noteToRestore)
 
         noteService
           .save(noteToRestore)
@@ -265,7 +272,7 @@ export default {
           })
           .catch((error) => {
             showErrorMsg('Failed to restore note')
-          });
+          })
       }
     },
 
@@ -274,13 +281,13 @@ export default {
         .remove(noteId)
         .then(() => {
           const idx = this.notes.findIndex((note) => note.id === noteId)
-          this.notes.splice(idx, 1);
+          this.notes.splice(idx, 1)
           showSuccessMsg('Note removed')
           this.fetchNotes()
         })
         .catch((err) => {
           showErrorMsg('Cannot remove note')
-        });
+        })
     },
 
     onAddNote(newNoteData) {
@@ -301,11 +308,11 @@ export default {
       noteService
         .save(note)
         .then((savedNote) => {
-          showSuccessMsg('Note saved');
+          showSuccessMsg('Note saved')
           if (savedNote.isArchived) {
             this.archivedNotes.push(savedNote)
           } else {
-            this.notes.push(savedNote);
+            this.notes.push(savedNote)
           }
         })
         .catch((err) => {
@@ -320,30 +327,28 @@ export default {
     },
 
     addImageNote(note, newNoteData) {
-
       note.info.title = newNoteData.title
       note.info.url = newNoteData.content
     },
 
     addVideoNote(note, newNoteData) {
-
       note.info.title = newNoteData.title
       const videoId = noteService.getVideoIdFromUrl(newNoteData.content)
       if (videoId === null) {
         showErrorMsg('Video url is not valid')
       } else {
         const embedUrl = `https://www.youtube.com/embed/${videoId}`
-        note.info.url = embedUrl;
+        note.info.url = embedUrl
       }
     },
 
     addTodosNote(note, newNoteData) {
-      note.info.title = newNoteData.title;
+      note.info.title = newNoteData.title
       const items = newNoteData.content.split(',')
-      note.info.todos = items.map(item => ({
+      note.info.todos = items.map((item) => ({
         txt: item.trim(),
         doneAt: null
-      }));
+      }))
     },
 
     togglePin(note) {
@@ -359,15 +364,15 @@ export default {
           })
           .catch((err) => {
             showErrorMsg('Cannot update note')
-          });
+          })
       } else {
         console.log('Note not found in the list')
       }
     },
 
     handleBgColorChange({ note, color }) {
-      console.log('note,color', note, color)
-      note.bgColor = color;
+      console.log('note, color', note, color)
+      note.bgColor = color
       noteService
         .save(note)
         .then(() => {
@@ -375,7 +380,7 @@ export default {
         })
         .catch((error) => {
           showErrorMsg('Failed to apply color')
-        });
+        })
     },
 
     fetchNotes() {
@@ -383,7 +388,7 @@ export default {
         .query()
         .then((notes) => {
           if (this.filterBy || this.searchQuery) {
-            const query = this.filterBy || this.searchQuery;
+            const query = this.filterBy || this.searchQuery
 
             const filteredNotes = notes.filter((note) => {
               return (
@@ -391,31 +396,30 @@ export default {
                 !note.isTrashed &&
                 note.labels &&
                 note.labels.includes(query)
-              );
-            });
-            this.notes = filteredNotes;
-          } else {  // Fetch all notes if there's no filter or search query
+              )
+            })
+            this.notes = filteredNotes
+          } else {
             const filteredNotes = notes.filter((note) => !note.isArchived && !note.isTrashed)
             this.notes = filteredNotes
           }
 
-          this.archivedNotes = notes.filter((note) => note.isArchived);
-          this.trashedNotes = notes.filter((note) => note.isTrashed);
+          this.archivedNotes = notes.filter((note) => note.isArchived)
+          this.trashedNotes = notes.filter((note) => note.isTrashed)
         })
         .catch((error) => console.error('Error fetching notes:', error))
     },
     initializeNotes() {
-      if(!this.$route.query.subject || !this.$route.query.body) return
-      const mailNote = noteService.getEmptynote();
-      mailNote.info.title = this.$route.query.subject || '';
-      mailNote.info.txt = decodeURIComponent(this.$route.query.body) || '';
-      mailNote.type = 'NoteTxt';
+      if (!this.$route.query.subject || !this.$route.query.body) return
+      const mailNote = noteService.getEmptynote()
+      mailNote.info.title = this.$route.query.subject || ''
+      mailNote.info.txt = decodeURIComponent(this.$route.query.body) || ''
+      mailNote.type = 'NoteTxt'
       noteService.save(mailNote).then(() => {
-        this.notes.push(mailNote);
-        this.fetchNotes();
-      });
+        this.notes.push(mailNote)
+        this.fetchNotes()
+      })
     },
-
   },
 
   watch: {
@@ -424,14 +428,14 @@ export default {
       handler(newVal) {
         this.searchQuery = newVal
         this.fetchNotes()
-      }
+      },
     },
     '$route.query.label': {
       immediate: true,
       handler(newVal) {
         this.filterBy = newVal
         this.fetchNotes()
-      }
+      },
     },
   },
   components: {
@@ -442,4 +446,4 @@ export default {
     TrashedNotesList,
     EditLabel,
   },
-};
+}
